@@ -1,0 +1,200 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>My Personal - Histórico</title>
+    <link rel="stylesheet" href="../../assets/css/aluno/historico.css">
+ 
+</head>
+<body>
+
+    <nav class="sidebar">
+        <div class="brand">My Personal</div>
+            <div class="user-profile-sidebar">
+                <img id="side-profile-img" src="https://via.placeholder.com/40" alt="Foto" class="side-avatar">
+                <span id="side-user-name" class="side-name">Usuário</span>
+            </div>
+        <a href="inicial-aluno.html" class="menu-item">Início</a>
+        <a href="treino.html" class="menu-item"> Meu Treino</a>
+        <a href="dieta.html" class="menu-item"> Minha Dieta</a>
+        <a href="historico.html" class="menu-item active">Histórico</a>
+        <a href="agenda.html" class="menu-item">Agenda</a>
+        <a href="mensagens.html" class="menu-item"> Mensagens</a>
+        <a href="configuracoes.html" class="menu-item"> Configurações</a>
+          
+        <div class="sidebar-footer">
+            <button onclick="fazerLogout()" class="btn-logout">Sair</button>
+        </div>
+    </nav>
+
+    <main class="main-content">
+        
+        <h2 class="page-title">Histórico e Estatísticas</h2>
+
+        <div class="tabs">
+            <button class="tab active" data-target="tab-avaliacoes">Avaliações corporais</button>
+            <button class="tab" data-target="tab-treinos">Histórico de treinos</button>
+            <button class="tab" data-target="tab-dieta">Histórico de dieta</button>
+        </div>
+
+        <div id="tab-avaliacoes" class="conteudo-aba" style="display: block;">
+            <div class="stats-grid">
+                <div class="stat-card">
+                    <span class="stat-label">Peso atual</span>
+                    <span class="stat-value">82 kg</span>
+                </div>
+                <div class="stat-card">
+                    <span class="stat-label">% Gordura</span>
+                    <span class="stat-value">18%</span>
+                </div>
+                <div class="stat-card">
+                    <span class="stat-label">IMC</span>
+                    <span class="stat-value">24.1</span>
+                </div>
+                <div class="stat-card">
+                    <span class="stat-label">Treinos no mês</span>
+                    <span class="stat-value">14</span>
+                </div>
+            </div>
+
+            <div class="charts-grid">
+                <div>
+                    <h3 class="section-title" style="margin-top: 0;">Evolução do peso (últimos 6 meses)</h3>
+                    <div class="dashed-box">
+                        [gráfico de linha: peso ao longo do tempo]
+                    </div>
+                </div>
+                <div>
+                    <h3 class="section-title" style="margin-top: 0;">Evolução % gordura</h3>
+                    <div class="dashed-box">
+                        [gráfico de linha: % gordura ao longo do tempo]
+                    </div>
+                </div>
+            </div>
+
+            <h3 class="section-title">Avaliações registradas</h3>
+            <div class="table-container">
+                <table class="data-table">
+                    <thead>
+                        <tr>
+                            <th>Data</th>
+                            <th>Peso</th>
+                            <th>% Gordura</th>
+                            <th>IMC</th>
+                            <th>Obs. do profissional</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr><td>Jan/26</td><td>85 kg</td><td>21%</td><td>25.3</td><td>Início do acompanhamento</td></tr>
+                        <tr><td>Fev/26</td><td>83.5 kg</td><td>20%</td><td>24.9</td><td>Boa aderência</td></tr>
+                        <tr><td>Mar/26</td><td>82 kg</td><td>18%</td><td>24.1</td><td>Meta parcial atingida</td></tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+
+        <div id="tab-treinos" class="conteudo-aba" style="display: none;">
+            <h3 class="section-title" style="margin-top: 0;">Treinos Concluídos Recentemente</h3>
+            <div class="table-container">
+                <table class="data-table">
+                    <thead>
+                        <tr>
+                            <th>Data</th>
+                            <th>Treino</th>
+                            <th>Duração</th>
+                            <th>Carga Total Movida</th>
+                            <th>Status</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr><td>13/04/2026</td><td>Treino A — Peito e Tríceps</td><td>55 min</td><td>3.200 kg</td><td style="color: var(--green-primary); font-weight: bold;">Concluído</td></tr>
+                        <tr><td>11/04/2026</td><td>Treino C — Pernas</td><td>65 min</td><td>5.100 kg</td><td style="color: var(--green-primary); font-weight: bold;">Concluído</td></tr>
+                        <tr><td>10/04/2026</td><td>Treino B — Costas e Bíceps</td><td>50 min</td><td>2.800 kg</td><td style="color: var(--green-primary); font-weight: bold;">Concluído</td></tr>
+                        <tr><td>08/04/2026</td><td>Treino A — Peito e Tríceps</td><td>-</td><td>-</td><td style="color: #ef4444; font-weight: bold;">Faltou</td></tr>
+                    </tbody>
+                </table>
+            </div>
+            
+            <div class="dashed-box" style="height: 150px;">
+                [gráfico de barras: frequência semanal de treinos]
+            </div>
+        </div>
+
+        <div id="tab-dieta" class="conteudo-aba" style="display: none;">
+            <h3 class="section-title" style="margin-top: 0;">Evolução de Planos Alimentares</h3>
+            <div class="table-container">
+                <table class="data-table">
+                    <thead>
+                        <tr>
+                            <th>Data de Início</th>
+                            <th>Foco Principal</th>
+                            <th>Calorias (Média)</th>
+                            <th>Adesão do Aluno</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr><td>01/04/2026</td><td>Hipertrofia Limpa</td><td>2.100 kcal</td><td>Boa (85%)</td></tr>
+                        <tr><td>15/02/2026</td><td>Manutenção</td><td>1.950 kcal</td><td>Excelente (95%)</td></tr>
+                        <tr><td>10/01/2026</td><td>Déficit Leve (Adaptação)</td><td>1.800 kcal</td><td>Razoável (70%)</td></tr>
+                    </tbody>
+                </table>
+            </div>
+            
+            <div class="dashed-box" style="height: 150px;">
+                [gráfico de pizza: divisão média de macronutrientes do último mês]
+            </div>
+        </div>
+
+    </main>
+
+    <script>
+        // Pega todos os botões e todas as caixas de conteúdo
+        const botoesAba = document.querySelectorAll('.tab');
+        const conteudosAba = document.querySelectorAll('.conteudo-aba');
+
+        botoesAba.forEach(botao => {
+            botao.addEventListener('click', () => {
+                // 1. Tira o verde (ativo) de todos os botões
+                botoesAba.forEach(b => b.classList.remove('active'));
+                // 2. Esconde todas as caixas de conteúdo
+                conteudosAba.forEach(c => c.style.display = 'none');
+
+                // 3. Coloca o verde só no botão que foi clicado
+                botao.classList.add('active');
+                // 4. Descobre qual é a caixa certa usando o "data-target"
+                const alvo = botao.getAttribute('data-target');
+                // 5. Mostra a caixa certa
+                document.getElementById(alvo).style.display = 'block';
+            });
+        });
+
+
+    function atualizarPerfilLateral() {
+        const nomeSalvo = localStorage.getItem('userName');
+        const fotoSalva = localStorage.getItem('userPhoto');
+
+        if (nomeSalvo) {
+            document.getElementById('side-user-name').innerText = nomeSalvo;
+        }
+        if (fotoSalva) {
+            document.getElementById('side-profile-img').src = fotoSalva;
+        }
+    }
+
+    // Função para o botão de sair funcionar
+    function fazerLogout() {
+        if (confirm("Deseja realmente sair?")) {
+            // Limpa os dados do usuário do navegador
+            localStorage.clear();
+            // Redireciona para a página de login
+            window.location.href = "../public/index.html"; 
+        }
+    }
+
+    window.addEventListener('load', atualizarPerfilLateral);
+    </script>
+
+
+</body>
+</html>

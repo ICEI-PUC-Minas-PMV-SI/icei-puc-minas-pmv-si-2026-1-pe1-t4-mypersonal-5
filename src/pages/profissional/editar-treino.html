@@ -1,0 +1,339 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>My Personal - Editar Treino</title>
+    <link rel="stylesheet" href="../../assets/css/profissional/profissional.css">
+</head>
+<body>
+
+ 
+<aside class="sidebar">
+        <div class="brand">My Personal</div>
+        <div class="user-profile-sidebar">
+            <img id="side-profile-img" src="https://via.placeholder.com/40" alt="Foto" class="side-avatar">
+            <span id="side-user-name" class="side-name">Usuário</span>
+        </div>
+        
+        <nav>
+            <a href="inicio-personal.html" class="menu-item active">Dashboard</a>
+            <a href="meus-alunos.html" class="menu-item ">Meus Alunos</a>
+            <a href="agenda.html" class="menu-item">Agenda</a>
+            <a href="mensagens.html" class="menu-item">Mensagens</a>
+            <a href="configuracoes.html" class="menu-item">Configurações</a>
+        </nav>
+
+        <div class="sidebar-footer">
+            <button onclick="fazerLogout()" class="btn-logout">Sair</button>
+        </div>
+</aside>
+
+    <main class="main-content">
+        
+        <header class="header-top">
+            <h2>Editar Treino — Eliabe Monteiro</h2>
+        </header>
+
+        <div class="card" style="padding: 30px;">
+            
+            <div class="form-section">
+                <label class="form-label">Grupo de treino</label>
+                <div class="workout-groups">
+                    <button class="group-tab active" data-target="conteudo-treino-a">Treino A</button>
+                    <button class="group-tab" data-target="conteudo-treino-b">Treino B</button>
+                    <button class="group-tab add-group">+ Novo grupo</button>
+                </div>
+            </div>
+
+            <div id="conteudo-treino-a" class="tab-content">
+                <div class="form-row">
+                    <div class="form-group flex-1">
+                        <label class="form-label">Nome do grupo</label>
+                        <input type="text" class="form-control" value="Treino A — Peito e Tríceps">
+                    </div>
+                    <div class="form-group flex-1">
+                        <label class="form-label">Musculatura alvo</label>
+                        <input type="text" class="form-control" value="Peitoral, Tríceps, Ombros">
+                    </div>
+                </div>
+
+                <div class="form-section">
+                    <label class="form-label">Exercícios (Treino A)</label>
+                    <div class="table-container">
+                        <table class="exercise-table">
+                            <thead>
+                                <tr>
+                                    <th style="width: 3%">#</th>
+                                    <th style="width: 25%">Exercício</th>
+                                    <th style="width: 8%">Séries</th>
+                                    <th style="width: 8%">Reps</th>
+                                    <th style="width: 8%">Desc.</th>
+                                    <th style="width: 25%">Observação</th>
+                                    <th style="width: 20%">Link vídeo</th>
+                                    <th style="width: 3%"></th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td class="row-num">1</td>
+                                    <td><input type="text" class="form-control" value="Supino Reto"></td>
+                                    <td><input type="text" class="form-control" value="4"></td>
+                                    <td><input type="text" class="form-control" value="10 a 12"></td>
+                                    <td><input type="text" class="form-control" value="60s"></td>
+                                    <td><input type="text" class="form-control" value="Cadência 2020"></td>
+                                    <td><input type="text" class="form-control" placeholder="https://..."></td>
+                                    <td><button class="btn-remove">✕</button></td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                    <button class="btn-outline btn-add-exercise" style="margin-top: 15px;">+ Adicionar exercício</button>
+                </div>
+            </div>
+
+
+            <div id="conteudo-treino-b" class="tab-content" style="display: none;">
+                <div class="form-row">
+                    <div class="form-group flex-1">
+                        <label class="form-label">Nome do grupo</label>
+                        <input type="text" class="form-control" value="Treino B — Costas e Bíceps">
+                    </div>
+                    <div class="form-group flex-1">
+                        <label class="form-label">Musculatura alvo</label>
+                        <input type="text" class="form-control" value="Dorsais, Bíceps">
+                    </div>
+                </div>
+
+                <div class="form-section">
+                    <label class="form-label">Exercícios (Treino B)</label>
+                    <div class="table-container">
+                        <table class="exercise-table">
+                            <thead>
+                                <tr>
+                                    <th style="width: 3%">#</th>
+                                    <th style="width: 25%">Exercício</th>
+                                    <th style="width: 8%">Séries</th>
+                                    <th style="width: 8%">Reps</th>
+                                    <th style="width: 8%">Desc.</th>
+                                    <th style="width: 25%">Observação</th>
+                                    <th style="width: 20%">Link vídeo</th>
+                                    <th style="width: 3%"></th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td class="row-num">1</td>
+                                    <td><input type="text" class="form-control" value="Puxada Frontal"></td>
+                                    <td><input type="text" class="form-control" value="4"></td>
+                                    <td><input type="text" class="form-control" value="12"></td>
+                                    <td><input type="text" class="form-control" value="45s"></td>
+                                    <td><input type="text" class="form-control" value="Esticar bem as dorsais"></td>
+                                    <td><input type="text" class="form-control" placeholder="https://..."></td>
+                                    <td><button class="btn-remove">✕</button></td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                    <button class="btn-outline btn-add-exercise" style="margin-top: 15px;">+ Adicionar exercício</button>
+                </div>
+            </div>
+
+            <div class="form-section" style="margin-top: 40px; border-top: 1px solid #e5e7eb; padding-top: 20px;">
+                <label class="form-label">Observações gerais do planejamento</label>
+                <p class="form-hint">Instruções gerais, avisos de segurança, progressão esperada</p>
+                <textarea class="form-control" rows="4" placeholder="Digite as instruções aqui..."></textarea>
+            </div>
+
+        </div>
+
+        <div class="action-footer">
+            <button class="btn-outline">Cancelar</button>
+            <div class="action-right">
+                <button class="btn-outline">Salvar rascunho</button>
+                <button class="btn-primary" style="margin-top: 0;">Salvar e notificar aluno</button>
+            </div>
+        </div>
+
+    </main>
+
+   <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            
+            // Função auxiliar para arrumar os números 1, 2, 3... nas tabelas
+            function atualizarNumeros(tbody) {
+                const linhas = tbody.querySelectorAll('tr');
+                linhas.forEach((linha, index) => {
+                    linha.querySelector('.row-num').textContent = index + 1;
+                });
+            }
+
+            // 1. OUVINDO CLIQUES NA PÁGINA INTEIRA (Delegação de Eventos)
+            document.addEventListener('click', function(event) {
+                
+                // ==========================================
+                // AÇÃO: CLICOU EM UMA ABA DE TREINO (A, B, C...)
+                // ==========================================
+                if (event.target.classList.contains('group-tab') && !event.target.classList.contains('add-group')) {
+                    // Desativa todas as abas e esconde conteúdos
+                    document.querySelectorAll('.group-tab:not(.add-group)').forEach(a => a.classList.remove('active'));
+                    document.querySelectorAll('.tab-content').forEach(c => c.style.display = 'none');
+
+                    // Ativa só a aba clicada e mostra o conteúdo dela
+                    event.target.classList.add('active');
+                    const alvo = event.target.getAttribute('data-target');
+                    document.getElementById(alvo).style.display = 'block';
+                }
+
+                // ==========================================
+                // AÇÃO: CLICOU EM "+ NOVO GRUPO"
+                // ==========================================
+                if (event.target.classList.contains('add-group')) {
+                    const btnNovoGrupo = event.target;
+                    
+                    // Conta quantas abas já existem para saber a próxima letra (A, B, C...)
+                    const qtdAbas = document.querySelectorAll('.group-tab:not(.add-group)').length;
+                    const proximaLetra = String.fromCharCode(65 + qtdAbas); // 65 é 'A' no código de caracteres
+                    const novoId = `conteudo-treino-${proximaLetra.toLowerCase()}`;
+
+                    // 1. Cria a nova aba (botão)
+                    const novaAba = document.createElement('button');
+                    novaAba.className = 'group-tab';
+                    novaAba.setAttribute('data-target', novoId);
+                    novaAba.textContent = `Treino ${proximaLetra}`;
+                    
+                    // Insere a nova aba antes do botão "+ Novo grupo"
+                    btnNovoGrupo.parentNode.insertBefore(novaAba, btnNovoGrupo);
+
+                    // 2. Cria o conteúdo do novo treino do zero
+                    const novoConteudo = document.createElement('div');
+                    novoConteudo.id = novoId;
+                    novoConteudo.className = 'tab-content';
+                    novoConteudo.style.display = 'none';
+                    
+                    // Estrutura HTML do novo treino
+                    novoConteudo.innerHTML = `
+                        <div class="form-row">
+                            <div class="form-group flex-1">
+                                <label class="form-label">Nome do grupo</label>
+                                <input type="text" class="form-control" value="Treino ${proximaLetra} — ">
+                            </div>
+                            <div class="form-group flex-1">
+                                <label class="form-label">Musculatura alvo</label>
+                                <input type="text" class="form-control" placeholder="Ex: Membros Inferiores...">
+                            </div>
+                        </div>
+
+                        <div class="form-section">
+                            <label class="form-label">Exercícios (Treino ${proximaLetra})</label>
+                            <div class="table-container">
+                                <table class="exercise-table">
+                                    <thead>
+                                        <tr>
+                                            <th style="width: 3%">#</th>
+                                            <th style="width: 25%">Exercício</th>
+                                            <th style="width: 8%">Séries</th>
+                                            <th style="width: 8%">Reps</th>
+                                            <th style="width: 8%">Desc.</th>
+                                            <th style="width: 25%">Observação</th>
+                                            <th style="width: 20%">Link vídeo</th>
+                                            <th style="width: 3%"></th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr>
+                                            <td class="row-num">1</td>
+                                            <td><input type="text" class="form-control"></td>
+                                            <td><input type="text" class="form-control"></td>
+                                            <td><input type="text" class="form-control"></td>
+                                            <td><input type="text" class="form-control"></td>
+                                            <td><input type="text" class="form-control"></td>
+                                            <td><input type="text" class="form-control" placeholder="https://..."></td>
+                                            <td><button class="btn-remove" title="Remover exercício">✕</button></td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                            <button class="btn-outline btn-add-exercise" style="margin-top: 15px;">+ Adicionar exercício</button>
+                        </div>
+                    `;
+
+                    // Insere o novo conteúdo antes da área de "Observações gerais"
+                    const observacoesGerais = document.querySelector('.form-section[style*="margin-top: 40px"]');
+                    observacoesGerais.parentNode.insertBefore(novoConteudo, observacoesGerais);
+
+                    // Simula um clique na nova aba para ela já abrir automaticamente
+                    novaAba.click();
+                }
+
+                // ==========================================
+                // AÇÃO: CLICOU EM "+ ADICIONAR EXERCÍCIO"
+                // ==========================================
+                if (event.target.classList.contains('btn-add-exercise')) {
+                    // Acha qual é a tabela correta (a tabela do treino que estamos vendo)
+                    const tbody = event.target.closest('.tab-content').querySelector('tbody');
+                    
+                    const novaLinha = document.createElement('tr');
+                    novaLinha.innerHTML = `
+                        <td class="row-num"></td>
+                        <td><input type="text" class="form-control"></td>
+                        <td><input type="text" class="form-control"></td>
+                        <td><input type="text" class="form-control"></td>
+                        <td><input type="text" class="form-control"></td>
+                        <td><input type="text" class="form-control"></td>
+                        <td><input type="text" class="form-control" placeholder="https://..."></td>
+                        <td><button class="btn-remove" title="Remover exercício">✕</button></td>
+                    `;
+                    
+                    tbody.appendChild(novaLinha);
+                    atualizarNumeros(tbody);
+                }
+
+                // ==========================================
+                // AÇÃO: CLICOU EM "✕" PARA REMOVER EXERCÍCIO
+                // ==========================================
+                if (event.target.classList.contains('btn-remove')) {
+                    const tbody = event.target.closest('tbody');
+                    const totalLinhas = tbody.querySelectorAll('tr').length;
+                    
+                    if (totalLinhas > 1) {
+                        event.target.closest('tr').remove();
+                        atualizarNumeros(tbody);
+                    } else {
+                        alert('O treino precisa ter pelo menos um exercício!');
+                    }
+                }
+
+            }); 
+
+        });
+
+
+    // Função para atualizar o perfil
+    function atualizarPerfilLateral() {
+        const nomeSalvo = localStorage.getItem('userName');
+        const fotoSalva = localStorage.getItem('userPhoto');
+
+        if (nomeSalvo) {
+            document.getElementById('side-user-name').innerText = nomeSalvo;
+        }
+        if (fotoSalva) {
+            document.getElementById('side-profile-img').src = fotoSalva;
+        }
+    }
+
+    // NOVA: Função de Logout que você precisa
+    function fazerLogout() {
+        if (confirm("Deseja realmente sair?")) {
+            // Limpa os dados do usuário para segurança
+            localStorage.clear();
+            // Redireciona (mude para o nome da sua tela de login)
+            window.location.href = "../public/index.html"; 
+        }
+    }
+
+    window.addEventListener('load', atualizarPerfilLateral);
+
+    </script>
+</body>
+</html>

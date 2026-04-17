@@ -1,0 +1,190 @@
+/* Importando as cores e variáveis que já usamos */
+:root {
+    --green-primary: #10b981;
+    --green-dark: #065f46;
+    --green-light: #d1fae5;
+    --text-dark: #1f2937;
+    --text-muted: #6b7280;
+    --bg-main: #f3f4f6;
+    --card-bg: #ffffff;
+    --border-color: #e5e7eb;
+}
+
+body {
+    font-family: 'Inter', sans-serif;
+    background-color: var(--bg-main);
+    display: flex;
+    margin: 0;
+}
+
+/* Sidebar (Reutilizando seu padrão) */
+.sidebar {
+    width: 260px;
+    height: 100vh;
+    background-color: var(--card-bg);
+    border-right: 1px solid var(--border-color);
+    padding: 30px 20px;
+    position: fixed;
+}
+
+.brand {
+    font-size: 1.5rem;
+    font-weight: 800;
+    color: var(--green-primary);
+    margin-bottom: 40px;
+}
+
+.user-profile-sidebar {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    margin-bottom: 30px;
+    padding-bottom: 20px;
+    border-bottom: 1px solid var(--border-color);
+}
+
+.side-avatar {
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    object-fit: cover;
+    background-color: var(--green-light);
+}
+
+.side-name {
+    font-weight: 600;
+    font-size: 0.9rem;
+    color: var(--text-dark);
+}
+
+.menu-item {
+    display: block;
+    padding: 12px 15px;
+    color: var(--text-muted);
+    text-decoration: none;
+    font-weight: 600;
+    border-radius: 10px;
+    margin-bottom: 5px;
+    transition: 0.2s;
+}
+
+.menu-item:hover, .menu-item.active {
+    background-color: var(--green-light);
+    color: var(--green-dark);
+}
+
+/* Conteúdo Principal */
+.main-content {
+    margin-left: 260px;
+    padding: 40px;
+    flex: 1;
+}
+
+.page-title {
+    font-size: 1.8rem;
+    font-weight: 700;
+    margin-bottom: 30px;
+}
+
+/* Container de Configurações */
+.config-container {
+    background: var(--card-bg);
+    padding: 40px;
+    border-radius: 16px; /* Bordas bem arredondadas como você gosta */
+    box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
+    max-width: 600px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 40px;
+}
+
+/* Foto de Perfil */
+.profile-section {
+    text-align: center;
+}
+
+.profile-image-container {
+    position: relative;
+    width: 150px;
+    height: 150px;
+    margin-bottom: 15px;
+}
+
+.profile-image-container img {
+    width: 100%;
+    height: 100%;
+    border-radius: 50%;
+    object-fit: cover;
+    border: 4px solid var(--green-light);
+}
+
+.upload-label {
+    position: absolute;
+    bottom: 0;
+    right: 0;
+    background: var(--green-primary);
+    color: white;
+    padding: 8px 12px;
+    border-radius: 20px;
+    font-size: 0.75rem;
+    font-weight: 700;
+    cursor: pointer;
+    box-shadow: 0 2px 4px rgba(0,0,0,0.2);
+}
+
+/* Formulário */
+.form-section {
+    width: 100%;
+}
+
+.input-group {
+    margin-bottom: 20px;
+}
+
+.input-group label {
+    display: block;
+    font-weight: 600;
+    font-size: 0.9rem;
+    margin-bottom: 8px;
+    color: var(--text-dark);
+}
+
+.input-group input {
+    width: 100%;
+    padding: 12px 15px;
+    border: 1px solid var(--border-color);
+    border-radius: 10px;
+    font-size: 1rem;
+    outline: none;
+    transition: 0.2s;
+    box-sizing: border-box;
+}
+
+.input-group input:focus {
+    border-color: var(--green-primary);
+    box-shadow: 0 0 0 3px var(--green-light);
+}
+
+/* Botão */
+.btn-primary {
+    width: 100%;
+    background-color: var(--green-primary);
+    color: white;
+    border: none;
+    padding: 14px;
+    border-radius: 10px;
+    font-weight: 700;
+    font-size: 1rem;
+    cursor: pointer;
+    transition: 0.2s;
+}
+
+.btn-primary:hover {
+    background-color: var(--green-dark);
+}
+
+.text-muted {
+    font-size: 0.85rem;
+    color: var(--text-muted);
+}

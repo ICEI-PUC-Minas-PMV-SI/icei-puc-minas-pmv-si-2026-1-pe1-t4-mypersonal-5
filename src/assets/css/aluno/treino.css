@@ -1,0 +1,337 @@
+/* --- 1. VARIÁVEIS E BASE (Copiado para funcionar sozinho) --- */
+:root {
+    --bg-body: #ffffff;
+    --bg-sidebar: #f7fbf9;
+    --green-primary: #10b981;
+    --green-dark: #047857;
+    --green-light: #d1fae5;
+    --text-dark: #1f2937;
+    --text-muted: #6b7280;
+    --card-bg: #ffffff;
+    --border-color: #e5e7eb;
+}
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
+}
+
+body {
+    background-color: var(--bg-body);
+    color: var(--text-dark);
+    display: flex !important;
+    height: 100vh !important;
+    margin: 0;
+    overflow: hidden; 
+}
+
+a {
+    text-decoration: none;
+    color: inherit;
+}
+
+/* --- 2. MENU LATERAL (Copiado para funcionar sozinho) --- */
+.sidebar {
+    width: 250px;
+    background-color: var(--bg-sidebar);
+    border-right: 1px solid var(--border-color);
+    padding: 20px;
+    display: flex;
+    flex-direction: column;
+    height: 100vh !important;
+    flex-shrink: 0;
+}
+
+.brand {
+    font-size: 1.25rem;
+    font-weight: bold;
+    margin-bottom: 30px;
+    color: var(--text-dark);
+}
+
+.menu-item {
+    padding: 12px 15px;
+    margin-bottom: 5px;
+    border-radius: 8px;
+    cursor: pointer;
+    color: var(--text-muted);
+    font-weight: 500;
+    transition: all 0.2s ease;
+    display: block;
+}
+
+.menu-item:hover {
+    background-color: #f8f8f8;
+}
+
+.menu-item.active {
+    background-color: var(--green-light);
+    color: var(--green-dark);
+}
+
+.main-content {
+    flex: 1;
+    padding: 30px 40px;
+    height: 100vh !important;
+    overflow-y: auto;
+}
+
+/* --- 3. BOTÕES GERAIS --- */
+.btn-primary {
+    background-color: var(--green-primary);
+    color: white;
+    border: none;
+    padding: 10px 20px;
+    border-radius: 8px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: background-color 0.2s;
+    width: max-content !important;
+    white-space: nowrap;
+    flex-shrink: 0;
+}
+
+.btn-primary:hover {
+    background-color: var(--green-dark);
+}
+
+.btn-icon {
+    background-color: #f9fafb;
+    border: 1px solid var(--border-color);
+    color: var(--text-dark);
+    padding: 8px 15px;
+    border-radius: 6px;
+    cursor: pointer;
+    font-weight: 600;
+    font-size: 0.85rem;
+    transition: all 0.2s;
+}
+
+.btn-icon:hover {
+    background-color: var(--border-color);
+}
+
+/* --- 4. EXCLUSIVO DA TELA DE TREINO --- */
+.workout-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 30px;
+    border-bottom: 1px solid var(--border-color);
+    padding-bottom: 20px;
+}
+
+.page-title {
+    font-size: 1.8rem;
+    color: var(--text-dark);
+    margin-bottom: 5px;
+}
+
+.workout-subtitle {
+    color: var(--text-muted);
+    font-size: 0.95rem;
+}
+
+.exercise-list {
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+}
+
+.exercise-card {
+    background-color: var(--card-bg);
+    border: 1px solid var(--border-color);
+    border-left: 5px solid var(--green-primary);
+    border-radius: 10px;
+    padding: 20px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    box-shadow: 0 2px 4px rgba(0,0,0,0.02);
+    transition: transform 0.2s, box-shadow 0.2s;
+}
+
+.exercise-card:hover {
+    transform: translateX(5px);
+    box-shadow: 0 4px 6px rgba(0,0,0,0.05);
+}
+
+.exercise-info h3 {
+    font-size: 1.1rem;
+    color: var(--text-dark);
+    margin-bottom: 8px;
+}
+
+.exercise-info p {
+    font-size: 0.9rem;
+    color: var(--text-muted);
+}
+
+
+/* --- 5. JANELA FLUTUANTE DE VÍDEO (MODAL) --- */
+
+.modal {
+    display: none; /* Fica escondido por padrão */
+    position: fixed;
+    z-index: 1000; /* Fica por cima de tudo no site */
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100vh;
+    background-color: rgba(0, 0, 0, 0.75); /* Fundo preto transparente */
+    justify-content: center;
+    align-items: center;
+}
+
+.modal-content {
+    background-color: var(--card-bg);
+    padding: 20px;
+    border-radius: 12px;
+    width: 90%;
+    max-width: 600px; /* Tamanho máximo do vídeo */
+    position: relative;
+    box-shadow: 0 10px 25px rgba(0,0,0,0.5);
+    animation: aparecer 0.3s ease-out;
+}
+
+/* Animação suave para a janela aparecer */
+@keyframes aparecer {
+    from { opacity: 0; transform: translateY(-20px); }
+    to { opacity: 1; transform: translateY(0); }
+}
+
+.close-btn {
+    position: absolute;
+    top: -10px;
+    right: -10px;
+    background-color: var(--green-primary);
+    color: white;
+    width: 30px;
+    height: 30px;
+    border-radius: 50%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-size: 1.2rem;
+    font-weight: bold;
+    cursor: pointer;
+    box-shadow: 0 2px 5px rgba(0,0,0,0.2);
+    z-index: 10;
+    transition: background-color 0.2s;
+}
+
+.close-btn:hover {
+    background-color: var(--green-dark);
+}
+
+/* Caixa que mantém o vídeo com formato correto (16:9) */
+.video-container {
+    position: relative;
+    padding-bottom: 56.25%; /* Proporção de vídeo do Youtube */
+    height: 0;
+    overflow: hidden;
+    border-radius: 8px;
+    background-color: #000;
+}
+
+.video-container iframe {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+}
+
+
+/* --- 6. ABAS DE TREINO --- */
+.tabs {
+    display: flex;
+    border-bottom: 2px solid var(--border-color);
+    margin-bottom: 30px;
+    gap: 25px;
+    overflow-x: auto;
+}
+
+.tab {
+    background: none;
+    border: none;
+    padding: 10px 5px;
+    font-size: 0.95rem;
+    font-weight: 600;
+    color: var(--text-muted);
+    cursor: pointer;
+    position: relative;
+    transition: color 0.2s;
+    white-space: nowrap;
+}
+
+.tab:hover {
+    color: var(--text-dark);
+}
+
+.tab.active {
+    color: var(--green-dark);
+}
+
+.tab.active::after {
+    content: '';
+    position: absolute;
+    bottom: -2px;
+    left: 0;
+    width: 100%;
+    height: 2px;
+    background-color: var(--green-primary);
+}
+
+
+
+/* Estilo do Perfil no Menu Lateral */
+.user-profile-sidebar {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    padding: 15px 0;
+    margin-bottom: 20px;
+    border-bottom: 1px solid var(--border-color);
+}
+
+.side-avatar {
+    width: 40px;
+    height: 40px;
+    border-radius: 50%; 
+    object-fit: cover;
+    border: 1px solid var(--green-primary);
+}
+
+.side-name {
+    font-size: 0.9rem;
+    font-weight: 600;
+    color: var(--text-dark);
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+
+.sidebar-footer {
+    margin-top: auto; /* Empurra o botão para o fim da barra */
+}
+
+.btn-logout {
+    width: 100%;
+    padding: 10px;
+    background-color: #d1f7e4; 
+    color: #2d5a43;
+    border: none;
+    border-radius: 8px;
+    font-weight: bold;
+    cursor: pointer;
+    transition: all 0.3s ease;
+}
+
+.btn-logout:hover {
+    background-color: #ffcccc; 
+    color: #a30000;
+}

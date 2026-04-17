@@ -1,0 +1,203 @@
+/* --- BASE E CORES --- */
+:root {
+    --bg-body: #ffffff;
+    --bg-sidebar: #f7fbf9;
+    --green-primary: #10b981;
+    --green-dark: #047857;
+    --green-light: #d1fae5;
+    --text-dark: #1f2937;
+    --text-muted: #6b7280;
+    --card-bg: #ffffff;
+    --border-color: #e5e7eb;
+}
+
+* { 
+    margin: 0;
+     padding: 0; 
+     box-sizing: border-box;
+      font-family: 'Segoe UI', sans-serif; 
+}
+
+body { 
+    background-color: var(--bg-body);
+    display: flex;
+    height: 100vh;
+    overflow: hidden; 
+}
+
+
+.sidebar {
+    width: 250px; 
+    background-color:
+    var(--bg-sidebar); 
+    border-right: 1px solid var(--border-color);
+     padding: 20px; flex-shrink: 0;
+     display: flex;
+    flex-direction: column;
+    height: 100vh;
+     
+}
+
+
+.brand { 
+    font-size: 1.25rem;
+    font-weight: bold; 
+    margin-bottom: 30px;
+     color: var(--text-dark);   
+}
+
+.menu-item {
+     padding: 12px 15px;
+    margin-bottom: 5px;
+    border-radius: 8px;
+    color: var(--text-muted); 
+    text-decoration: none;
+    display: block;
+    font-weight: 500;
+ }
+
+ .menu-item:hover {
+    background-color: #e5e7eb;
+}
+
+.menu-item.active {
+     background-color: var(--green-light);
+     color: var(--green-dark);
+}
+
+
+/* --- CONTEÚDO CONFIGURAÇÕES --- */
+.main-content { 
+    flex: 1; 
+    padding: 40px;
+    overflow-y: auto;
+}
+.page-title {
+     margin-bottom: 30px; 
+}
+
+.config-container {
+    background: var(--card-bg);
+    border: 1px solid var(--border-color);
+    padding: 30px;
+    border-radius: 12px;
+    display: flex;
+    gap: 50px;
+    max-width: 800px;
+}
+
+.profile-section {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 15px;
+}
+
+.profile-image-container {
+    position: relative;
+    width: 150px;
+    height: 150px;
+}
+
+.profile-image-container img {
+    width: 100%;
+    height: 100%;
+    border-radius: 50%; /* Aqui usamos redondo para a foto, fica mais moderno */
+    object-fit: cover;
+    border: 3px solid var(--green-primary);
+}
+
+.upload-label {
+    position: absolute;
+    bottom: 0;
+    background: var(--green-primary);
+    color: white;
+    font-size: 0.75rem;
+    padding: 5px 10px;
+    border-radius: 20px;
+    cursor: pointer;
+    left: 50%;
+    transform: translateX(-50%);
+}
+
+.form-section { flex: 1; }
+
+.input-group {
+     margin-bottom: 20px; 
+}
+.input-group label { 
+    display: block;
+    font-weight: 600; margin-bottom: 8px;
+    font-size: 0.9rem; 
+}
+.input-group input {
+    width: 100%;
+    padding: 12px;
+    border: 1px solid var(--border-color);
+    border-radius: 8px; /* Mantendo o padrão quadrado leve que você gosta */
+    outline: none;
+}
+
+.btn-primary {
+    background: var(--green-primary);
+    color: white;
+    border: none;
+    padding: 12px 25px;
+    border-radius: 8px;
+    font-weight: bold;
+    cursor: pointer;
+    transition: 0.2s;
+}
+
+.btn-primary:hover {
+    background: var(--green-dark);
+ }
+
+ 
+/* Estilo do Perfil no Menu Lateral */
+.user-profile-sidebar {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    padding: 15px 0;
+    margin-bottom: 20px;
+    border-bottom: 1px solid var(--border-color);
+}
+
+.side-avatar {
+    width: 40px;
+    height: 40px;
+    border-radius: 50%; 
+    object-fit: cover;
+    border: 1px solid var(--green-primary);
+}
+
+.side-name {
+    font-size: 0.9rem;
+    font-weight: 600;
+    color: var(--text-dark);
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+
+.sidebar-footer {
+    margin-top:auto; /* Empurra o botão para o fim da barra */
+}
+.btn-logout {
+    width: 100%;
+    padding: 10px;
+    background-color: #d1f7e4; 
+    color: #2d5a43;
+    border: none;
+    border-radius: 8px;
+    font-weight: bold;
+    cursor: pointer;
+    transition: all 0.3s ease;
+}
+
+.btn-logout:hover {
+    background-color: #ffcccc; 
+    color: #a30000;
+}

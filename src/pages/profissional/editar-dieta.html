@@ -1,0 +1,439 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>My Personal - Editar Dieta</title>
+    <link rel="stylesheet" href="../../assets/css/profissional/profissional.css">
+</head>
+<body>
+
+<aside class="sidebar">
+        <div class="brand">My Personal</div>
+        <div class="user-profile-sidebar">
+            <img id="side-profile-img" src="https://via.placeholder.com/40" alt="Foto" class="side-avatar">
+            <span id="side-user-name" class="side-name">Usuário</span>
+        </div>
+        
+        <nav>
+            <a href="inicio-personal.html" class="menu-item active">Dashboard</a>
+            <a href="meus-alunos.html" class="menu-item ">Meus Alunos</a>
+            <a href="agenda.html" class="menu-item">Agenda</a>
+            <a href="mensagens.html" class="menu-item">Mensagens</a>
+            <a href="configuracoes.html" class="menu-item">Configurações</a>
+        </nav>
+
+        <div class="sidebar-footer">
+            <button onclick="fazerLogout()" class="btn-logout">Sair</button>
+        </div>
+</aside>
+    <main class="main-content">
+        
+        <header class="header-top" style="display: flex; align-items: center; gap: 15px;">
+            <a href="perfil-aluno.html" style="color: var(--text-muted); font-weight: 500;">← Perfil do Aluno</a>
+            <h2 style="border-left: 2px solid var(--border-color); padding-left: 15px;">Editar Dieta — Eliabe Monteiro</h2>
+        </header>
+
+        <div class="card" style="padding: 30px;">
+            
+            <div class="form-section">
+                <label class="form-label">Dia da semana</label>
+                <div class="workout-groups">
+                    <button class="group-tab active" data-target="dieta-seg">Seg</button>
+                    <button class="group-tab" data-target="dieta-ter">Ter</button>
+                    <button class="group-tab" data-target="dieta-qua">Qua</button>
+                    <button class="group-tab" data-target="dieta-qui">Qui</button>
+                    <button class="group-tab" data-target="dieta-sex">Sex</button>
+                    <button class="group-tab" data-target="dieta-sab">Sáb</button>
+                    <button class="group-tab" data-target="dieta-dom">Dom</button>
+                </div>
+            </div>
+
+            <div id="dieta-seg" class="tab-content" style="display: block;">
+                <div class="meals-grid">
+                    
+                    <div class="meal-card">
+                        <div class="meal-header">
+                            <input type="text" class="form-control" value="Café da manhã — 07h" style="font-weight: bold; width: 60%; background: transparent; border-color: transparent; padding: 5px;">
+                        </div>
+                        <div class="meal-body">
+                            <table class="exercise-table">
+                                <thead>
+                                    <tr>
+                                        <th style="width: 50%">Alimento</th>
+                                        <th style="width: 25%">Qtd</th>
+                                        <th style="width: 20%">Cal (kcal)</th>
+                                        <th style="width: 5%"></th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr>
+                                        <td><input type="text" class="form-control meal-input" value="Ovos mexidos"></td>
+                                        <td><input type="text" class="form-control meal-input" value="4 unid"></td>
+                                        <td><input type="number" class="form-control meal-input input-cal" value="280"></td>
+                                        <td><button type="button" class="btn-remove">✕</button></td>
+                                    </tr>
+                                    <tr>
+                                        <td><input type="text" class="form-control meal-input" value="Pão integral"></td>
+                                        <td><input type="text" class="form-control meal-input" value="2 fatias"></td>
+                                        <td><input type="number" class="form-control meal-input input-cal" value="120"></td>
+                                        <td><button type="button" class="btn-remove">✕</button></td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                            <div class="meal-footer">
+                                <button type="button" class="btn-outline btn-add-food">+ Adicionar alimento</button>
+                                <div class="total-kcal">Total: <span class="meal-total">400</span> kcal</div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="meal-card">
+                        <div class="meal-header">
+                            <input type="text" class="form-control" value="Almoço — 12h" style="font-weight: bold; width: 60%; background: transparent; border-color: transparent; padding: 5px;">
+                        </div>
+                        <div class="meal-body">
+                            <table class="exercise-table">
+                                <thead>
+                                    <tr>
+                                        <th>Alimento</th>
+                                        <th>Qtd</th>
+                                        <th>Cal (kcal)</th>
+                                        <th></th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr>
+                                        <td><input type="text" class="form-control meal-input" value="Frango grelhado"></td>
+                                        <td><input type="text" class="form-control meal-input" value="150g"></td>
+                                        <td><input type="number" class="form-control meal-input input-cal" value="240"></td>
+                                        <td><button type="button" class="btn-remove">✕</button></td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                            <div class="meal-footer">
+                                <button type="button" class="btn-outline btn-add-food">+ Adicionar alimento</button>
+                                <div class="total-kcal">Total: <span class="meal-total">240</span> kcal</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="form-section" style="margin-top: 40px;">
+                    <h3 class="section-title">Totais de Segunda-feira</h3>
+                    <div class="daily-totals">
+                        <div class="total-box"><span>Calorias</span><strong><span class="daily-total-cal">640</span> kcal</strong></div>
+                        <div class="total-box"><span>Proteína (Meta)</span><input type="text" class="form-control" value="180g" style="font-weight:bold; font-size:1.2rem; background:transparent; border:none; padding:0;"></div>
+                        <div class="total-box"><span>Carbo (Meta)</span><input type="text" class="form-control" value="220g" style="font-weight:bold; font-size:1.2rem; background:transparent; border:none; padding:0;"></div>
+                        <div class="total-box"><span>Gordura (Meta)</span><input type="text" class="form-control" value="65g" style="font-weight:bold; font-size:1.2rem; background:transparent; border:none; padding:0;"></div>
+                    </div>
+                </div>
+            </div>
+
+
+            <div id="dieta-ter" class="tab-content" style="display: none;">
+                <div class="meals-grid">
+                    <div class="meal-card">
+                        <div class="meal-header">
+                            <input type="text" class="form-control" value="Café da manhã — 08h" style="font-weight: bold; width: 60%; background: transparent; border-color: transparent; padding: 5px;">
+                        </div>
+                        <div class="meal-body">
+                            <table class="exercise-table">
+                                <thead>
+                                    <tr>
+                                        <th style="width: 50%">Alimento</th>
+                                        <th style="width: 25%">Qtd</th>
+                                        <th style="width: 20%">Cal (kcal)</th>
+                                        <th style="width: 5%"></th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr>
+                                        <td><input type="text" class="form-control meal-input" value="Aveia em flocos"></td>
+                                        <td><input type="text" class="form-control meal-input" value="50g"></td>
+                                        <td><input type="number" class="form-control meal-input input-cal" value="190"></td>
+                                        <td><button type="button" class="btn-remove">✕</button></td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                            <div class="meal-footer">
+                                <button type="button" class="btn-outline btn-add-food">+ Adicionar alimento</button>
+                                <div class="total-kcal">Total: <span class="meal-total">190</span> kcal</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="form-section" style="margin-top: 40px;">
+                    <h3 class="section-title">Totais de Terça-feira</h3>
+                    <div class="daily-totals">
+                        <div class="total-box"><span>Calorias</span><strong><span class="daily-total-cal">190</span> kcal</strong></div>
+                        <div class="total-box"><span>Proteína (Meta)</span><input type="text" class="form-control" value="0g" style="font-weight:bold; font-size:1.2rem; background:transparent; border:none; padding:0;"></div>
+                        <div class="total-box"><span>Carbo (Meta)</span><input type="text" class="form-control" value="0g" style="font-weight:bold; font-size:1.2rem; background:transparent; border:none; padding:0;"></div>
+                        <div class="total-box"><span>Gordura (Meta)</span><input type="text" class="form-control" value="0g" style="font-weight:bold; font-size:1.2rem; background:transparent; border:none; padding:0;"></div>
+                    </div>
+                </div>
+            </div>
+
+            <div id="dias-restantes-container"></div>
+
+            <div class="form-section" style="margin-top: 40px; border-top: 1px solid var(--border-color); padding-top: 20px;">
+                <label class="form-label">Observações gerais da dieta</label>
+                <p class="form-hint">Orientações de hidratação, substituições e restrições</p>
+                <textarea class="form-control" rows="3" placeholder="Digite as orientações aqui..."></textarea>
+            </div>
+
+        </div>
+
+        <div class="action-footer">
+            <a href="perfil-aluno.html" class="btn-outline" style="display: inline-block;">Cancelar</a>
+            <div class="action-right">
+                <button type="button" class="btn-outline">Salvar dieta</button>
+                <button type="button" class="btn-primary" style="margin-top: 0;">Salvar e notificar aluno</button>
+            </div>
+        </div>
+
+    </main>
+
+    <div id="modal-sucesso-dieta" class="modal-overlay">
+        <div class="modal-box">
+            <div class="modal-icon">✓</div>
+            <h3>Dieta salva!</h3>
+            <p>O plano alimentar foi atualizado com sucesso.</p>
+            <div class="modal-actions">
+                <a href="perfil-aluno.html" class="btn-primary" style="text-align: center;">Voltar ao perfil</a>
+                <button type="button" id="btn-fechar-modal" class="btn-outline" style="text-align: center; padding: 10px 20px; width: 100%;">Continuar editando</button>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            
+            // 1. GERAÇÃO AUTOMÁTICA DOS DIAS (Qua, Qui, Sex, Sáb, Dom)
+            const diasRestantes = [
+                { id: 'dieta-qua', nome: 'Quarta-feira' },
+                { id: 'dieta-qui', nome: 'Quinta-feira' },
+                { id: 'dieta-sex', nome: 'Sexta-feira' },
+                { id: 'dieta-sab', nome: 'Sábado' },
+                { id: 'dieta-dom', nome: 'Domingo' }
+            ];
+            
+            const container = document.getElementById('dias-restantes-container');
+            
+            let templateHTML = '';
+            diasRestantes.forEach(dia => {
+                templateHTML += `
+                <div id="${dia.id}" class="tab-content" style="display: none;">
+                    <div class="meals-grid">
+                        <div class="meal-card">
+                            <div class="meal-header">
+                                <input type="text" class="form-control" value="Refeição 1" style="font-weight: bold; width: 60%; background: transparent; border-color: transparent; padding: 5px;">
+                            </div>
+                            <div class="meal-body">
+                                <table class="exercise-table">
+                                    <thead>
+                                        <tr>
+                                            <th style="width: 50%">Alimento</th><th style="width: 25%">Qtd</th><th style="width: 20%">Cal (kcal)</th><th style="width: 5%"></th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr>
+                                            <td><input type="text" class="form-control meal-input" placeholder="Alimento"></td>
+                                            <td><input type="text" class="form-control meal-input" placeholder="Qtd"></td>
+                                            <td><input type="number" class="form-control meal-input input-cal" placeholder="0"></td>
+                                            <td><button type="button" class="btn-remove">✕</button></td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                                <div class="meal-footer">
+                                    <button type="button" class="btn-outline btn-add-food">+ Adicionar alimento</button>
+                                    <div class="total-kcal">Total: <span class="meal-total">0</span> kcal</div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <button type="button" class="btn-outline btn-add-refeicao" style="margin-top: 15px;">+ Nova Refeição neste dia</button>
+                    
+                    <div class="form-section" style="margin-top: 40px;">
+                        <h3 class="section-title">Totais de ${dia.nome}</h3>
+                        <div class="daily-totals">
+                            <div class="total-box"><span>Calorias</span><strong><span class="daily-total-cal">0</span> kcal</strong></div>
+                            <div class="total-box"><span>Proteína (Meta)</span><input type="text" class="form-control" value="0g" style="font-weight:bold; font-size:1.2rem; background:transparent; border:none; padding:0;"></div>
+                            <div class="total-box"><span>Carbo (Meta)</span><input type="text" class="form-control" value="0g" style="font-weight:bold; font-size:1.2rem; background:transparent; border:none; padding:0;"></div>
+                            <div class="total-box"><span>Gordura (Meta)</span><input type="text" class="form-control" value="0g" style="font-weight:bold; font-size:1.2rem; background:transparent; border:none; padding:0;"></div>
+                        </div>
+                    </div>
+                </div>`;
+            });
+            container.innerHTML = templateHTML;
+
+
+            // 2. SISTEMA DE CÁLCULO DE CALORIAS AUTOMÁTICO
+            function calcularCalorias() {
+                // Percorre todos os dias (todas as abas)
+                document.querySelectorAll('.tab-content').forEach(dia => {
+                    let totalDoDia = 0;
+
+                    // Percorre todas as refeições dentro desse dia
+                    dia.querySelectorAll('.meal-card').forEach(refeicao => {
+                        let totalRefeicao = 0;
+
+                        // Soma os inputs de caloria dessa refeição
+                        refeicao.querySelectorAll('.input-cal').forEach(input => {
+                            let valor = parseFloat(input.value) || 0; // Se estiver vazio, vale 0
+                            totalRefeicao += valor;
+                        });
+
+                        // Atualiza o visor da refeição
+                        refeicao.querySelector('.meal-total').textContent = totalRefeicao;
+                        totalDoDia += totalRefeicao;
+                    });
+
+                    // Atualiza o visor do dia inteiro
+                    const visorDia = dia.querySelector('.daily-total-cal');
+                    if(visorDia) visorDia.textContent = totalDoDia;
+                });
+            }
+
+            // Ouve qualquer digitação na tela. Se for no campo de caloria, recalcula.
+            document.addEventListener('input', function(event) {
+                if (event.target.classList.contains('input-cal')) {
+                    calcularCalorias();
+                }
+            });
+
+
+            // 3. INTERAÇÕES DE CLIQUE (Abas, Adicionar, Remover)
+            document.addEventListener('click', function(event) {
+                
+                // Trocar Aba
+                if (event.target.classList.contains('group-tab')) {
+                    event.preventDefault();
+                    const abaClicada = event.target;
+                    const alvo = abaClicada.getAttribute('data-target');
+                    const elementoAlvo = document.getElementById(alvo);
+                    
+                    if (elementoAlvo) {
+                        document.querySelectorAll('.group-tab').forEach(a => a.classList.remove('active'));
+                        document.querySelectorAll('.tab-content').forEach(c => c.style.display = 'none');
+                        abaClicada.classList.add('active');
+                        elementoAlvo.style.display = 'block';
+                    }
+                }
+
+                // Adicionar Alimento
+                if (event.target.classList.contains('btn-add-food')) {
+                    event.preventDefault();
+                    const tbody = event.target.closest('.meal-body').querySelector('tbody');
+                    const novaLinha = document.createElement('tr');
+                    novaLinha.innerHTML = `
+                        <td><input type="text" class="form-control meal-input" placeholder="Alimento"></td>
+                        <td><input type="text" class="form-control meal-input" placeholder="Qtd"></td>
+                        <td><input type="number" class="form-control meal-input input-cal" placeholder="0"></td>
+                        <td><button type="button" class="btn-remove" title="Remover">✕</button></td>
+                    `;
+                    tbody.appendChild(novaLinha);
+                }
+
+                // Remover Alimento
+                if (event.target.classList.contains('btn-remove')) {
+                    event.preventDefault();
+                    const tbody = event.target.closest('tbody');
+                    if (tbody.querySelectorAll('tr').length > 1) {
+                        event.target.closest('tr').remove();
+                        calcularCalorias(); // Recalcula após apagar a linha
+                    } else {
+                        alert('Não dá pra deixar a refeição vazia!');
+                    }
+                }
+
+                // Extra: Criar Nova Refeição Inteira no Dia
+                if (event.target.classList.contains('btn-add-refeicao')) {
+                    event.preventDefault();
+                    const grid = event.target.previousElementSibling; // Pega a div meals-grid
+                    const qtdRefeicoes = grid.querySelectorAll('.meal-card').length + 1;
+                    
+                    const novaRefeicao = document.createElement('div');
+                    novaRefeicao.className = 'meal-card';
+                    novaRefeicao.innerHTML = `
+                        <div class="meal-header">
+                            <input type="text" class="form-control" value="Refeição ${qtdRefeicoes}" style="font-weight: bold; width: 60%; background: transparent; border-color: transparent; padding: 5px;">
+                        </div>
+                        <div class="meal-body">
+                            <table class="exercise-table">
+                                <thead><tr><th style="width: 50%">Alimento</th><th style="width: 25%">Qtd</th><th style="width: 20%">Cal (kcal)</th><th style="width: 5%"></th></tr></thead>
+                                <tbody>
+                                    <tr>
+                                        <td><input type="text" class="form-control meal-input" placeholder="Alimento"></td>
+                                        <td><input type="text" class="form-control meal-input" placeholder="Qtd"></td>
+                                        <td><input type="number" class="form-control meal-input input-cal" placeholder="0"></td>
+                                        <td><button type="button" class="btn-remove">✕</button></td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                            <div class="meal-footer">
+                                <button type="button" class="btn-outline btn-add-food">+ Adicionar alimento</button>
+                                <div class="total-kcal">Total: <span class="meal-total">0</span> kcal</div>
+                            </div>
+                        </div>
+                    `;
+                    grid.appendChild(novaRefeicao);
+                }
+
+                // 4. MODAL DE SUCESSO AO SALVAR A DIETA
+            const modalDieta = document.getElementById('modal-sucesso-dieta');
+            const btnFecharModal = document.getElementById('btn-fechar-modal');
+            
+            // Pega os botões "Salvar dieta" e "Salvar e notificar aluno"
+            const botoesSalvar = document.querySelectorAll('.action-footer button');
+
+            botoesSalvar.forEach(btn => {
+                btn.addEventListener('click', function(event) {
+                    event.preventDefault(); // Evita recarregar a página
+                    modalDieta.style.display = 'flex'; // Mostra o modal escurecendo o fundo
+                });
+            });
+
+            // Fecha o modal se o usuário quiser continuar editando
+            if (btnFecharModal) {
+                btnFecharModal.addEventListener('click', function() {
+                    modalDieta.style.display = 'none';
+                });
+            }
+                
+            }); // Fim do listener de click
+
+            // Faz o cálculo inicial assim que a página carrega
+            calcularCalorias();
+
+        });
+
+    // Função para atualizar o perfil
+    function atualizarPerfilLateral() {
+        const nomeSalvo = localStorage.getItem('userName');
+        const fotoSalva = localStorage.getItem('userPhoto');
+
+        if (nomeSalvo) {
+            document.getElementById('side-user-name').innerText = nomeSalvo;
+        }
+        if (fotoSalva) {
+            document.getElementById('side-profile-img').src = fotoSalva;
+        }
+    }
+
+    // NOVA: Função de Logout que você precisa
+    function fazerLogout() {
+        if (confirm("Deseja realmente sair?")) {
+            // Limpa os dados do usuário para segurança
+            localStorage.clear();
+            // Redireciona (mude para o nome da sua tela de login)
+            window.location.href = "../public/index.html"; 
+        }
+    }
+
+    window.addEventListener('load', atualizarPerfilLateral);
+
+    </script>
+</body>
+</html>

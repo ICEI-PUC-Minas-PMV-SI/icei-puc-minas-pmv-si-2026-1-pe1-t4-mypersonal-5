@@ -1,0 +1,161 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>My Personal - Dashboard</title>
+    <link rel="stylesheet" href="../../assets/css/profissional/profissional.css">
+</head>
+<body>
+
+<aside class="sidebar">
+        <div class="brand">My Personal</div>
+        <div class="user-profile-sidebar">
+            <img id="side-profile-img" src="https://via.placeholder.com/40" alt="Foto" class="side-avatar">
+            <span id="side-user-name" class="side-name">Usuário</span>
+        </div>
+        
+        <nav>
+            <a href="inicio-personal.html" class="menu-item active">Dashboard</a>
+            <a href="meus-alunos.html" class="menu-item ">Meus Alunos</a>
+            <a href="agenda.html" class="menu-item">Agenda</a>
+            <a href="mensagens.html" class="menu-item">Mensagens</a>
+            <a href="configuracoes.html" class="menu-item">Configurações</a>
+        </nav>
+
+        <div class="sidebar-footer">
+            <button onclick="fazerLogout()" class="btn-logout">Sair</button>
+        </div>
+</aside>
+
+    <main class="main-content">
+        
+        <header class="header-top">
+            <h2>Dashboard do Profissional</h2>
+        </header>
+
+        <h3 class="section-title">ResUMO do dia</h3>
+        <div class="quick-access-grid">
+            <div class="card">
+                <p>Alunos ativos</p>
+                <h3>12</h3>
+            </div>
+            <div class="card">
+                <p>Treinos hoje</p>
+                <h3>5</h3>
+            </div>
+            <div class="card">
+                <p>Próx. treino</p>
+                <h3>14:00</h3>
+            </div>
+            <div class="card">
+                <p>Consultas hoje</p>
+                <h3>3</h3>
+            </div>
+            <div class="card">
+                <p>Próx. consulta</p>
+                <h3>16:00</h3>
+            </div>
+            <div class="card">
+                <p>Mensagens</p>
+                <h3>3</h3>
+            </div>
+        </div>
+
+        <div class="middle-grid">
+            
+            <div class="panel-section">
+                <h3 class="section-title">Consultas/Treinos do dia</h3>
+                <div class="card table-card">
+                    <table class="custom-table">
+                        <thead>
+                            <tr>
+                                <th>Aluno</th>
+                                <th>Compromisso</th>
+                                <th>Status</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td>Carlos Silva</td>
+                                <td>Treino de Força</td>
+                                <td><span class="badge-status">Confirmado</span></td>
+                            </tr>
+                            <tr>
+                                <td>Juliana Costa</td>
+                                <td>Avaliação Física</td>
+                                <td><span class="badge-status pending">Pendente</span></td>
+                            </tr>
+                            <tr>
+                                <td>Marcos Lima</td>
+                                <td>Treino Funcional</td>
+                                <td><span class="badge-status">Confirmado</span></td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+
+            <div class="panel-section">
+                <h3 class="section-title">Alunos recentes</h3>
+                <div class="card students-card">
+                    <div class="recent-student">
+                        <div class="student-info">
+                            <div class="mini-avatar"></div>
+                            <span>Eliabe M.</span>
+                        </div>
+                        <button class="btn-outline">Ver</button>
+                    </div>
+                    <div class="recent-student">
+                        <div class="student-info">
+                            <div class="mini-avatar"></div>
+                            <span>Lucas R.</span>
+                        </div>
+                        <button class="btn-outline">Ver</button>
+                    </div>
+                    <div class="recent-student">
+                        <div class="student-info">
+                            <div class="mini-avatar"></div>
+                            <span>Ana P.</span>
+                        </div>
+                        <button class="btn-outline">Ver</button>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+
+    </main>
+
+
+    <script>
+        // Função para atualizar o perfil
+        function atualizarPerfilLateral() {
+            const nomeSalvo = localStorage.getItem('userName');
+            const fotoSalva = localStorage.getItem('userPhoto');
+
+            if (nomeSalvo) {
+                document.getElementById('side-user-name').innerText = nomeSalvo;
+            }
+            if (fotoSalva) {
+                document.getElementById('side-profile-img').src = fotoSalva;
+            }
+        }
+
+
+        function fazerLogout() {
+            if (confirm("Deseja realmente sair?")) {
+                // Limpa os dados do usuário para segurança
+                localStorage.clear();
+                // Redireciona (mude para o nome da sua tela de login)
+                window.location.href = "../public/index.html"; 
+            }
+        }
+
+        window.addEventListener('load', atualizarPerfilLateral);
+    </script>
+
+  
+
+</body>
+</html>

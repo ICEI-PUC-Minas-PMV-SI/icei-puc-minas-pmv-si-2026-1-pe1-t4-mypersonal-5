@@ -1,0 +1,127 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>My Personal - Meus Alunos</title>
+    <link rel="stylesheet" href="../../assets/css/profissional/profissional.css">
+</head>
+<body>
+
+<aside class="sidebar">
+        <div class="brand">My Personal</div>
+        <div class="user-profile-sidebar">
+            <img id="side-profile-img" src="https://via.placeholder.com/40" alt="Foto" class="side-avatar">
+            <span id="side-user-name" class="side-name">Usuário</span>
+        </div>
+        
+        <nav>
+            <a href="inicio-personal.html" class="menu-item ">Dashboard</a>
+            <a href="meus-alunos.html" class="menu-item active">Meus Alunos</a>
+            <a href="agenda.html" class="menu-item">Agenda</a>
+            <a href="mensagens.html" class="menu-item">Mensagens</a>
+            <a href="configuracoes.html" class="menu-item">Configurações</a>
+        </nav>
+
+        <div class="sidebar-footer">
+            <button onclick="fazerLogout()" class="btn-logout">Sair</button>
+        </div>
+</aside>
+
+    <main class="main-content">
+        
+        <header class="header-top">
+            <h2>Meus Alunos</h2>
+        </header>
+
+       <div class="action-bar">
+    <input type="text" class="search-input" placeholder="Buscar aluno...">
+    <a href="cadastrar-aluno.html" style="display: inline-block;">
+        <button class="btn-outline" style="border-color: var(--border-color); color: var(--text-dark);">+ Cadastrar aluno</button>
+    </a>
+</div>
+
+        <div class="card table-card">
+            <table class="custom-table">
+                <thead>
+                    <tr>
+                        <th>Nome</th>
+                        <th>Último treino</th>
+                        <th>Próx. consulta</th>
+                        <th>Status</th>
+                        <th>Ações</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>Eliabe Monteiro</td>
+                        <td>Seg, 07/04</td>
+                        <td>10/04 — 09h</td>
+                        <td><span class="badge-status">Ativo</span></td>
+                        <td><a href="perfil-aluno.html" class="btn-outline" style="display: inline-block; text-align: center;">Ver perfil</a></td>
+                    </tr>
+                    <tr>
+                        <td>Lucas Rodrigues</td>
+                        <td>Qua, 02/04</td>
+                        <td>15/04 — 14h</td>
+                        <td><span class="badge-status">Ativo</span></td>
+                        <td><a href="perfil-aluno.html" class="btn-outline" style="display: inline-block; text-align: center;">Ver perfil</a></td>
+                    </tr>
+                    <tr>
+                        <td>Ana Paula</td>
+                        <td>Sex, 28/03</td>
+                        <td>12/04 — 10h</td>
+                        <td><span class="badge-status inactive">Inativo</span></td>
+                        <td><a href="perfil-aluno.html" class="btn-outline" style="display: inline-block; text-align: center;">Ver perfil</a></td>
+                    </tr>
+                    <tr>
+                        <td>Fernanda Santos</td>
+                        <td>Ter, 08/04</td>
+                        <td>17/04 — 11h</td>
+                        <td><span class="badge-status">Ativo</span></td>
+                        <td><a href="perfil-aluno.html" class="btn-outline" style="display: inline-block; text-align: center;">Ver perfil</a></td>
+                    </tr>
+                    <tr>
+                        <td>Carlos Melo</td>
+                        <td>—</td>
+                        <td>22/04 — 08h</td>
+                        <td><span class="badge-status new">Novo</span></td>
+                        <td><a href="perfil-aluno.html" class="btn-outline" style="display: inline-block; text-align: center;">Ver perfil</a></td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+
+    </main>
+
+
+  <script>
+    // Função para atualizar o perfil
+    function atualizarPerfilLateral() {
+        const nomeSalvo = localStorage.getItem('userName');
+        const fotoSalva = localStorage.getItem('userPhoto');
+
+        if (nomeSalvo) {
+            document.getElementById('side-user-name').innerText = nomeSalvo;
+        }
+        if (fotoSalva) {
+            document.getElementById('side-profile-img').src = fotoSalva;
+        }
+    }
+
+    // NOVA: Função de Logout que você precisa
+    function fazerLogout() {
+        if (confirm("Deseja realmente sair?")) {
+            // Limpa os dados do usuário para segurança
+            localStorage.clear();
+            // Redireciona (mude para o nome da sua tela de login)
+            window.location.href = "../public/index.html"; 
+        }
+    }
+
+    window.addEventListener('load', atualizarPerfilLateral);
+</script>
+
+
+</body>
+</html>

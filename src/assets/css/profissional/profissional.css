@@ -1,0 +1,1450 @@
+/* Variáveis de Cores */
+:root {
+    --bg-body: #f9fafb; 
+    --bg-sidebar: #ffffff;
+    --green-primary: #10b981;
+    --green-dark: #047857;
+    --green-light: #d1fae5;
+    --text-dark: #111827;
+    --text-muted: #6b7280; 
+    --card-bg: #ffffff;
+    --border-color: #e5e7eb;
+}
+
+/* Reset Básico */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
+}
+
+a {
+    text-decoration: none;
+    color: inherit; 
+}
+
+body {
+    background-color: var(--bg-body);
+    color: var(--text-dark);
+    display: flex;
+    height: 100vh;
+    overflow: hidden;
+}
+
+/* --- MENU LATERAL --- */
+.sidebar {
+    width: 250px;
+    background-color: var(--bg-sidebar);
+    border-right: 1px solid var(--border-color);
+    padding: 20px;
+    display: flex;
+    flex-direction: column;
+}
+
+.brand {
+    font-size: 1.25rem;
+    font-weight: bold;
+    margin-bottom: 30px;
+    color: var(--text-dark);
+}
+
+.user-profile-sidebar {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    padding-bottom: 20px;
+    margin-bottom: 20px;
+    border-bottom: 1px solid var(--border-color);
+}
+
+.side-avatar {
+    width: 40px;
+    height: 40px;
+    border-radius: 50%; 
+    background-color: #e5e7eb;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-weight: bold;
+    color: var(--text-dark);
+}
+
+.side-name {
+    font-size: 0.9rem;
+    font-weight: 600;
+}
+
+.menu-item {
+    display: block;
+    padding: 12px 15px;
+    margin-bottom: 5px;
+    border-radius: 8px;
+    cursor: pointer;
+    color: var(--text-muted);
+    font-weight: 500;
+    transition: all 0.2s ease;
+}
+
+.menu-item:hover {
+    background-color: #f3f4f6;
+}
+
+.menu-item.active {
+    background-color: var(--green-light);
+    color: var(--green-dark);
+}
+
+/* --- ÁREA PRINCIPAL --- */
+.main-content {
+    flex: 1;
+    padding: 30px 40px;
+    overflow-y: auto;
+}
+
+.header-top {
+    margin-bottom: 25px;
+    padding-bottom: 15px;
+    border-bottom: 1px solid var(--border-color);
+}
+
+.header-top h2 {
+    font-size: 1.25rem;
+    font-weight: 600;
+}
+
+.section-title {
+    font-size: 0.85rem;
+    font-weight: 700;
+    color: var(--text-muted);
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+    margin-bottom: 15px;
+}
+
+/* --- CARDS DE ACESSO RÁPIDO --- */
+.quick-access-grid {
+    display: grid;
+    grid-template-columns: repeat(6, 1fr);
+    gap: 15px;
+    margin-bottom: 35px;
+}
+
+.card {
+    background-color: var(--card-bg);
+    padding: 20px;
+    border-radius: 12px;
+    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+    border: 1px solid var(--border-color);
+}
+
+.quick-access-grid .card p {
+    font-size: 0.8rem;
+    color: var(--text-muted);
+    margin-bottom: 8px;
+}
+
+.quick-access-grid .card h3 {
+    font-size: 1.8rem;
+    color: var(--text-dark);
+}
+
+/* --- LAYOUT DO MEIO (Tabela + Alunos) --- */
+.middle-grid {
+    display: grid;
+    grid-template-columns: 2fr 1fr;
+    gap: 20px;
+}
+
+.panel-section {
+    display: flex;
+    flex-direction: column;
+}
+
+/* Tabela Estilizada */
+.table-card {
+    padding: 0; 
+    overflow: hidden;
+}
+
+.custom-table {
+    width: 100%;
+    border-collapse: collapse;
+}
+
+.custom-table th, .custom-table td {
+    padding: 15px 20px;
+    text-align: left;
+    border-bottom: 1px solid var(--border-color);
+    font-size: 0.9rem;
+}
+
+.custom-table th {
+    background-color: #f9fafb;
+    font-weight: 600;
+    color: var(--text-muted);
+}
+
+.custom-table tr:last-child td {
+    border-bottom: none;
+}
+
+.badge-status {
+    color: var(--green-dark);
+    background-color: var(--green-light);
+    padding: 4px 10px;
+    border-radius: 20px;
+    font-size: 0.75rem;
+    font-weight: 600;
+}
+
+.badge-status.pending {
+    background-color: #fef3c7;
+    color: #d97706;
+}
+
+/* Alunos Recentes */
+.students-card {
+    display: flex;
+    flex-direction: column;
+    padding: 10px 20px;
+}
+
+.recent-student {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 12px 0;
+    border-bottom: 1px solid var(--border-color);
+}
+
+.recent-student:last-child {
+    border-bottom: none;
+}
+
+.student-info {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+}
+
+.mini-avatar {
+    width: 32px;
+    height: 32px;
+    border-radius: 50%;
+    background-color: #e5e7eb;
+}
+
+.student-info span {
+    font-weight: 500;
+    font-size: 0.9rem;
+}
+
+.btn-outline {
+    background: transparent;
+    border: 1px solid var(--border-color);
+    padding: 6px 12px;
+    border-radius: 6px;
+    font-size: 0.75rem;
+    cursor: pointer;
+    font-weight: 600;
+    color: var(--text-muted);
+    transition: all 0.2s;
+}
+
+.btn-outline:hover {
+    border-color: var(--green-primary);
+    color: var(--green-primary);
+}
+
+
+
+/* Estilo do Perfil no Menu Lateral */
+.user-profile-sidebar {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    padding: 15px 0;
+    margin-bottom: 20px;
+    border-bottom: 1px solid var(--border-color);
+}
+
+.side-avatar {
+    width: 40px;
+    height: 40px;
+    border-radius: 50%; 
+    object-fit: cover;
+    border: 1px solid var(--green-primary);
+}
+
+.side-name {
+    font-size: 0.9rem;
+    font-weight: 600;
+    color: var(--text-dark);
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+
+
+
+/* =========================================
+   TELA: MEUS ALUNOS
+   ========================================= */
+
+/* Barra de Ações (Pesquisa e Botão) */
+.action-bar {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 25px;
+}
+
+/* Campo de Busca */
+.search-input {
+    padding: 12px 15px;
+    border: 1px solid var(--border-color);
+    border-radius: 8px;
+    width: 100%;
+    max-width: 400px;
+    font-size: 0.95rem;
+    color: var(--text-dark);
+    outline: none;
+    background-color: var(--card-bg);
+    transition: all 0.2s;
+    box-shadow: 0 1px 2px rgba(0,0,0,0.02);
+}
+
+.search-input:focus {
+    border-color: var(--green-primary);
+    box-shadow: 0 0 0 3px var(--green-light);
+}
+
+.search-input::placeholder {
+    color: #9ca3af;
+}
+
+/* Ajustes nos Botões da Tabela */
+.custom-table td .btn-outline {
+    padding: 6px 16px;
+}
+
+/* Novos Status (Inativo e Novo) */
+.badge-status.inactive {
+    background-color: #f3f4f6; /* Cinza claro */
+    color: #4b5563; /* Texto cinza escuro */
+}
+
+.badge-status.new {
+    background-color: #dbeafe; /* Azul claro */
+    color: #1e40af; /* Texto azul escuro */
+}
+
+
+/* =========================================
+   TELA: PERFIL DO ALUNO
+   ========================================= */
+
+/* Cabeçalho do Perfil (Avatar e Nome) */
+.profile-header {
+    display: flex;
+    align-items: center;
+    gap: 20px;
+    margin-bottom: 30px;
+}
+
+.profile-avatar-large {
+    width: 80px;
+    height: 80px;
+    border-radius: 50%;
+    background-color: #e5e7eb;
+    color: var(--text-dark);
+    font-size: 1.5rem;
+    font-weight: bold;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.profile-info h3 {
+    font-size: 1.5rem;
+    color: var(--text-dark);
+    margin-bottom: 5px;
+}
+
+.profile-info p {
+    color: var(--text-muted);
+    font-size: 0.9rem;
+}
+
+/* Abas de Navegação (Tabs) */
+.profile-tabs {
+    display: flex;
+    gap: 5px;
+    border-bottom: 2px solid var(--border-color);
+    margin-bottom: 30px;
+    overflow-x: auto; /* Permite rolar em telas menores */
+}
+
+.profile-tabs .tab {
+    padding: 12px 24px;
+    font-weight: 600;
+    font-size: 0.95rem;
+    color: var(--text-muted);
+    border-bottom: 3px solid transparent;
+    margin-bottom: -2px; /* Sobrepõe a borda inferior do container */
+    transition: all 0.2s;
+}
+
+.profile-tabs .tab:hover {
+    color: var(--green-primary);
+}
+
+.profile-tabs .tab.active {
+    color: var(--green-primary);
+    border-bottom-color: var(--green-primary);
+}
+
+/* Grid Principal do Perfil */
+.profile-grid {
+    display: grid;
+    grid-template-columns: 1.5fr 1fr; /* Esquerda um pouco maior que a direita */
+    gap: 30px;
+}
+
+.profile-main {
+    display: flex;
+    flex-direction: column;
+}
+
+.profile-side {
+    display: flex;
+    flex-direction: column;
+}
+
+/* Lista de Avaliação (Direita) */
+.evaluation-list {
+    list-style: none;
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+
+.evaluation-list li {
+    font-size: 0.95rem;
+    color: var(--text-dark);
+    display: flex;
+    justify-content: space-between;
+    border-bottom: 1px solid #f3f4f6;
+    padding-bottom: 5px;
+}
+
+.evaluation-list li:last-child {
+    border-bottom: none;
+    padding-bottom: 0;
+}
+
+.evaluation-list li strong {
+    color: var(--text-muted);
+}
+
+/* Caixa de Texto (Textarea) */
+.custom-textarea {
+    width: 100%;
+    min-height: 120px;
+    border: none;
+    resize: vertical;
+    outline: none;
+    font-size: 0.95rem;
+    color: var(--text-dark);
+    background: transparent;
+    font-family: inherit;
+}
+
+.custom-textarea::placeholder {
+    color: #9ca3af;
+}
+
+
+
+/* =========================================
+   TELA: EDITAR TREINO (Formulários)
+   ========================================= */
+
+.form-section {
+    margin-bottom: 30px;
+}
+
+.form-row {
+    display: flex;
+    gap: 20px;
+    margin-bottom: 30px;
+}
+
+.flex-1 {
+    flex: 1;
+}
+
+.form-label {
+    display: block;
+    font-size: 0.9rem;
+    font-weight: 600;
+    color: var(--text-dark);
+    margin-bottom: 8px;
+}
+
+.form-hint {
+    font-size: 0.8rem;
+    color: var(--text-muted);
+    margin-bottom: 10px;
+}
+
+/* Campos de Input e Textarea */
+.form-control {
+    width: 100%;
+    padding: 10px 12px;
+    border: 1px solid var(--border-color);
+    border-radius: 8px;
+    font-size: 0.9rem;
+    color: var(--text-dark);
+    background-color: #f9fafb; /* Fundo levemente cinza */
+    transition: all 0.2s;
+    outline: none;
+    font-family: inherit;
+}
+
+.form-control:focus {
+    background-color: #ffffff;
+    border-color: var(--green-primary);
+    box-shadow: 0 0 0 3px var(--green-light);
+}
+
+/* Abas de Grupos de Treino */
+.workout-groups {
+    display: flex;
+    gap: 10px;
+    flex-wrap: wrap;
+}
+
+.group-tab {
+    padding: 8px 20px;
+    background-color: transparent;
+    border: 1px solid var(--border-color);
+    border-radius: 8px;
+    color: var(--text-muted);
+    font-weight: 600;
+    font-size: 0.9rem;
+    cursor: pointer;
+    transition: all 0.2s;
+}
+
+.group-tab:hover {
+    border-color: var(--text-muted);
+}
+
+.group-tab.active {
+    background-color: var(--green-light);
+    border-color: var(--green-primary);
+    color: var(--green-dark);
+}
+
+.group-tab.add-group {
+    border-style: dashed;
+    background-color: transparent;
+}
+
+.group-tab.add-group:hover {
+    border-color: var(--green-primary);
+    color: var(--green-primary);
+}
+
+/* Tabela de Exercícios (Formulário) */
+.exercise-table {
+    width: 100%;
+    border-collapse: collapse;
+}
+
+.exercise-table th {
+    text-align: left;
+    padding: 10px 5px;
+    font-size: 0.8rem;
+    color: var(--text-muted);
+    font-weight: 600;
+}
+
+.exercise-table td {
+    padding: 5px;
+}
+
+.row-num {
+    text-align: center;
+    color: var(--text-muted);
+    font-weight: 600;
+    font-size: 0.9rem;
+}
+
+.btn-remove {
+    background: transparent;
+    border: none;
+    color: #9ca3af;
+    font-size: 1.2rem;
+    cursor: pointer;
+    padding: 5px;
+    transition: color 0.2s;
+}
+
+.btn-remove:hover {
+    color: #ef4444; /* Vermelho ao passar o mouse */
+}
+
+/* Rodapé de Ações */
+.action-footer {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding-top: 20px;
+    margin-top: 20px;
+    border-top: 1px solid var(--border-color);
+}
+
+.action-right {
+    display: flex;
+    gap: 15px;
+}
+
+
+
+
+/* =========================================
+   MODAL DE SUCESSO
+   ========================================= */
+
+/* Fundo escuro que cobre a tela toda */
+.modal-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100vw;
+    height: 100vh;
+    background-color: rgba(0, 0, 0, 0.5); /* Preto com 50% de transparência */
+    display: none; /* Começa escondido */
+    align-items: center;
+    justify-content: center;
+    z-index: 1000; /* Fica por cima de tudo */
+    backdrop-filter: blur(2px); /* Dá um leve desfoque no fundo */
+}
+
+/* A caixa branca do modal */
+.modal-box {
+    background-color: var(--card-bg);
+    padding: 40px;
+    border-radius: 12px;
+    text-align: center;
+    box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.1);
+    max-width: 450px;
+    width: 90%;
+    animation: modalFadeIn 0.3s ease-out forwards; /* Animação de entrada */
+}
+
+/* Animação suave para o modal aparecer subindo */
+@keyframes modalFadeIn {
+    from { opacity: 0; transform: translateY(20px); }
+    to { opacity: 1; transform: translateY(0); }
+}
+
+/* Ícone de Check */
+.modal-icon {
+    width: 60px;
+    height: 60px;
+    background-color: #e5e7eb; /* Fundo cinza clarinho como na sua imagem */
+    color: var(--text-dark);
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 1.8rem;
+    font-weight: bold;
+    margin: 0 auto 20px auto;
+}
+
+.modal-box h3 {
+    font-size: 1.4rem;
+    color: var(--text-dark);
+    margin-bottom: 10px;
+}
+
+.modal-box p {
+    color: var(--text-muted);
+    margin-bottom: 30px;
+    font-size: 0.95rem;
+}
+
+/* Botões lado a lado */
+.modal-actions {
+    display: flex;
+    gap: 15px;
+    justify-content: center;
+}
+
+.modal-actions a {
+    flex: 1;
+    text-decoration: none;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 12px 0;
+}
+
+
+/* =========================================
+   CORREÇÃO: BOTÕES E CAIXA DE TEXTO NO PERFIL
+   ========================================= */
+
+/* Botão com borda verde (Editar Treino) */
+.btn-outline {
+    background: transparent;
+    border: 1px solid var(--green-primary);
+    color: var(--green-primary);
+    padding: 10px 20px;
+    border-radius: 8px;
+    cursor: pointer;
+    font-weight: 600;
+    transition: all 0.2s;
+    text-align: center;
+    text-decoration: none; /* Tira o sublinhado se for um link */
+    display: inline-block;
+}
+
+.btn-outline:hover {
+    background: var(--green-primary);
+    color: #ffffff;
+}
+
+/* Caixa de texto de observações */
+.note-area {
+    width: 100%;
+    min-height: 120px;
+    border: 1px solid var(--border-color);
+    border-radius: 8px;
+    padding: 15px;
+    resize: vertical; /* Permite redimensionar só para baixo */
+    outline: none;
+    font-family: inherit;
+    font-size: 0.9rem;
+    color: var(--text-dark);
+    background-color: #f9fafb;
+    transition: all 0.2s;
+}
+
+.note-area:focus {
+    border-color: var(--green-primary);
+    background-color: #ffffff;
+    box-shadow: 0 0 0 3px var(--green-light);
+}
+
+/* Garantindo que o botão Salvar Nota (btn-primary) ocupe 100% da largura */
+.profile-side .btn-primary {
+    width: 100%;
+    margin-top: 15px;
+    padding: 12px;
+}
+
+
+
+/* =========================================
+   TELA: EDITAR DIETA
+   ========================================= */
+
+/* Grid de Refeições (2 colunas) */
+.meals-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 25px;
+    margin-top: 20px;
+}
+
+/* Card de Refeição Individual */
+.meal-card {
+    border: 1px solid var(--border-color);
+    border-radius: 8px;
+    background-color: var(--card-bg);
+    overflow: hidden;
+}
+
+.meal-header {
+    background-color: #f9fafb;
+    border-bottom: 1px solid var(--border-color);
+    padding: 10px 15px;
+}
+
+.meal-body {
+    padding: 15px;
+}
+
+.meal-input {
+    padding: 6px 10px;
+    font-size: 0.85rem;
+}
+
+.meal-footer {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-top: 15px;
+    padding-top: 10px;
+    border-top: 1px dashed var(--border-color);
+}
+
+.total-kcal {
+    font-weight: 600;
+    color: var(--text-dark);
+    background-color: #f3f4f6;
+    padding: 6px 12px;
+    border-radius: 6px;
+    font-size: 0.85rem;
+}
+
+/* Caixas de Totais do Dia (Macros) */
+.daily-totals {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 15px;
+}
+
+.total-box {
+    background-color: #f9fafb;
+    border: 1px solid var(--border-color);
+    padding: 15px;
+    border-radius: 8px;
+    display: flex;
+    flex-direction: column;
+    gap: 5px;
+}
+
+.total-box span {
+    font-size: 0.8rem;
+    color: var(--text-muted);
+    text-transform: uppercase;
+    font-weight: 600;
+}
+
+.total-box strong {
+    font-size: 1.4rem;
+    color: var(--text-dark);
+}
+
+
+/* Alinha o número com o texto 'kcal' */
+.total-box:first-child strong {
+    display: flex;
+    align-items: baseline;
+    gap: 6px;
+    font-size: 1.2rem; 
+}
+
+/* O número em si bem grande e destacado */
+.daily-total-cal {
+    font-size: 1.3rem !important; 
+    font-weight: 700 !important; /* Fonte bem grossa */ 
+    line-height: 1;
+}
+
+/* =========================================
+   TELA: AGENDA
+   ========================================= */
+/* --- AGENDA / CALENDÁRIO --- */
+.calendar-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 25px;
+    margin-top: 10px;
+}
+
+.calendar-nav {
+    display: flex;
+    align-items: center;
+    gap: 15px;
+}
+
+.calendar-nav h2 {
+    font-size: 1.5rem;
+    color: var(--text-dark);
+    margin-right: 15px;
+    min-width: 180px;
+}
+
+.btn-icon {
+    background-color: var(--card-bg);
+    border: 1px solid var(--border-color);
+    color: var(--text-muted);
+    padding: 8px 12px;
+    border-radius: 6px;
+    cursor: pointer;
+    font-weight: bold;
+    transition: all 0.2s;
+}
+
+.btn-icon:hover {
+    background-color: var(--border-color);
+    color: var(--text-dark);
+}
+
+.calendar-wrapper {
+    background-color: var(--border-color);
+    border: 1px solid var(--border-color);
+    border-radius: 12px;
+    overflow: hidden;
+}
+
+.calendar-grid {
+    display: grid;
+    grid-template-columns: repeat(7, 1fr);
+    gap: 1px;
+}
+
+.weekday {
+    background-color: #f9fafb;
+    padding: 12px;
+    text-align: center;
+    font-weight: 600;
+    font-size: 0.85rem;
+    color: var(--text-muted);
+}
+
+.day {
+    background-color: var(--card-bg);
+    min-height: 120px;
+    padding: 10px;
+    transition: background-color 0.2s;
+}
+
+.day:hover:not(.empty) {
+    background-color: #f9fafb;
+}
+
+.day.empty {
+    background-color: #f9fafb;
+    opacity: 0.5;
+}
+
+.date {
+    display: block;
+    font-size: 0.9rem;
+    color: var(--text-muted);
+    margin-bottom: 8px;
+    font-weight: 500;
+}
+
+.event {
+    background-color: var(--green-light);
+    color: var(--green-dark);
+    font-size: 0.75rem;
+    font-weight: 600;
+    padding: 6px 8px;
+    border-radius: 6px;
+    margin-bottom: 5px;
+    cursor: pointer;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    transition: transform 0.1s;
+}
+
+.event:hover {
+    transform: scale(1.02);
+    box-shadow: 0 2px 4px rgba(0,0,0,0.05);
+}
+
+/* --- CORREÇÕES DE LAYOUT --- */
+
+/* Trava a tela para o menu lateral funcionar direito */
+body {
+    display: flex !important;
+    height: 100vh !important;
+    margin: 0;
+    overflow: hidden; 
+}
+
+/* Força o menu a descer até o final da tela */
+.sidebar {
+    height: 100vh !important;
+    flex-shrink: 0;
+}
+
+/* Garante que só o lado direito tenha barra de rolagem */
+.main-content {
+    flex: 1;
+    height: 100vh !important;
+    overflow-y: auto;
+}
+
+/* Conserta o cabeçalho para os itens ficarem nas pontas */
+.calendar-header {
+    display: flex !important;
+    justify-content: space-between !important;
+    align-items: center !important;
+}
+
+/* Impede o botão verde de esticar pela tela toda */
+.btn-primary {
+    width: max-content !important;
+    white-space: nowrap;
+    flex-shrink: 0;
+}
+
+
+
+
+/* Responsividade */
+@media (max-width: 768px) {
+    .container {
+        flex-direction: column;
+    }
+    .left-panel {
+        border-right: none;
+        border-bottom: 1px solid #e5e5e5;
+        padding: 40px 20px;
+    }
+}
+
+
+/* Estilo do Perfil no Menu Lateral */
+.user-profile-sidebar {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    padding: 15px 0;
+    margin-bottom: 20px;
+    border-bottom: 1px solid var(--border-color);
+}
+
+.side-avatar {
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    object-fit: cover;
+    border: 1px solid var(--green-primary);
+}
+
+.side-name {
+    font-size: 0.9rem;
+    font-weight: 600;
+    color: var(--text-dark);
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+
+
+/* =========================================
+   TELA: MENSAGENS
+   ========================================= */
+
+.main-content {
+    display: flex;
+    flex-direction: column;
+}
+
+.page-title {
+    font-size: 1.8rem;
+    color: var(--text-dark);
+    margin-bottom: 25px;
+}
+
+   /* --- 3. CONTAINER DO CHAT --- */
+.chat-container {
+    display: flex;
+    background-color: var(--card-bg);
+    border: 1px solid var(--border-color);
+    border-radius: 12px;
+    flex: 1; /* Faz o chat preencher o resto da tela */
+    overflow: hidden;
+}
+
+/* --- LADO ESQUERDO: LISTA DE CONTATOS --- */
+.chat-sidebar {
+    width: 300px;
+    border-right: 1px solid var(--border-color);
+    display: flex;
+    flex-direction: column;
+    background-color: #f9fafb;
+}
+
+.search-box {
+    padding: 20px;
+    border-bottom: 1px solid var(--border-color);
+}
+
+.search-box input {
+    width: 100%;
+    padding: 10px 15px;
+    border: 1px solid var(--border-color);
+    border-radius: 8px;
+    outline: none;
+    color: var(--text-dark);
+}
+
+.search-box input:focus {
+    border-color: var(--green-primary);
+}
+
+.contacts-list {
+    flex: 1;
+    overflow-y: auto;
+}
+
+.contact-card {
+    display: flex;
+    align-items: center;
+    padding: 15px 20px;
+    border-bottom: 1px solid var(--border-color);
+    cursor: pointer;
+    transition: background-color 0.2s;
+}
+
+.contact-card:hover {
+    background-color: #f1f5f9;
+}
+
+.contact-card.active {
+    background-color: #e2e8f0;
+}
+
+.avatar {
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    background-color: var(--text-muted);
+    color: white;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-weight: bold;
+    margin-right: 15px;
+    flex-shrink: 0;
+}
+
+.contact-info {
+    flex: 1;
+    overflow: hidden;
+}
+
+.contact-header {
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 3px;
+}
+
+.contact-header h4 {
+    font-size: 0.9rem;
+    color: var(--text-dark);
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+.time {
+    font-size: 0.75rem;
+    color: var(--text-muted);
+}
+
+.contact-info p {
+    font-size: 0.8rem;
+    color: var(--text-muted);
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+/* --- LADO DIREITO: ÁREA DE MENSAGENS --- */
+.chat-area {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    background-color: var(--card-bg);
+}
+
+.chat-header {
+    padding: 20px;
+    border-bottom: 1px solid var(--border-color);
+    display: flex;
+    align-items: center;
+}
+
+.chat-header h3 {
+    font-size: 1.1rem;
+    color: var(--text-dark);
+    margin-bottom: 2px;
+}
+
+.status {
+    font-size: 0.8rem;
+    color: var(--green-primary);
+    font-weight: 600;
+}
+
+.messages-list {
+    flex: 1;
+    padding: 20px;
+    overflow-y: auto;
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+    background-color: #f8fafc;
+}
+
+.message {
+    display: flex;
+    flex-direction: column;
+    max-width: 70%;
+}
+
+.sender-name {
+    font-size: 0.75rem;
+    color: var(--text-muted);
+    margin-bottom: 4px;
+}
+
+.bubble {
+    padding: 12px 18px;
+    border-radius: 12px;
+    font-size: 0.95rem;
+    line-height: 1.4;
+}
+
+/* Estilo para as mensagens recebidas (lado esquerdo) */
+.message.received {
+    align-self: flex-start;
+}
+
+.message.received .bubble {
+    background-color: #e2e8f0;
+    color: var(--text-dark);
+    border-top-left-radius: 0;
+}
+
+/* Estilo para as mensagens enviadas (lado direito, em verde) */
+.message.sent {
+    align-self: flex-end;
+}
+
+.message.sent .sender-name {
+    align-self: flex-end;
+}
+
+.message.sent .bubble {
+    background-color: var(--green-light);
+    color: var(--green-dark);
+    border-top-right-radius: 0;
+}
+
+/* --- RODAPÉ: CAMPO DE DIGITAÇÃO --- */
+.chat-input {
+    padding: 15px 20px;
+    border-top: 1px solid var(--border-color);
+    display: flex;
+    gap: 10px;
+    background-color: var(--card-bg);
+}
+
+.chat-input input {
+    flex: 1;
+    padding: 12px 15px;
+    border: 1px solid var(--border-color);
+    border-radius: 8px;
+    outline: none;
+    font-size: 0.95rem;
+}
+
+.chat-input input:focus {
+    border-color: var(--green-primary);
+}
+
+.btn-primary {
+    background-color: var(--green-primary);
+    color: white;
+    border: none;
+    padding: 10px 20px;
+    border-radius: 8px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: background-color 0.2s;
+}
+
+.btn-primary:hover {
+    background-color: var(--green-dark);
+}
+
+.user-profile-sidebar {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    padding: 15px 0;
+    margin-bottom: 20px;
+    border-bottom: 1px solid var(--border-color);
+}
+
+.side-avatar {
+    width: 40px;
+    height: 40px;
+    border-radius: 50%; 
+    object-fit: cover;
+    border: 1px solid var(--green-primary);
+}
+
+.side-name {
+    font-size: 0.9rem;
+    font-weight: 600;
+    color: var(--text-dark);
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+
+
+
+/* =========================================
+   TELA: configuracoes
+   ========================================= */
+
+* --- CONTEÚDO CONFIGURAÇÕES --- */
+.main-content { 
+    flex: 1; 
+    padding: 40px;
+    overflow-y: auto;
+}
+.page-title {
+     margin-bottom: 30px; 
+}
+
+.config-container {
+    background: var(--card-bg);
+    border: 1px solid var(--border-color);
+    padding: 30px;
+    border-radius: 12px;
+    display: flex;
+    gap: 50px;
+    max-width: 800px;
+}
+
+.profile-section {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 15px;
+}
+
+.profile-image-container {
+    position: relative;
+    width: 150px;
+    height: 150px;
+}
+
+.profile-image-container img {
+    width: 100%;
+    height: 100%;
+    border-radius: 50%; /* Aqui usamos redondo para a foto, fica mais moderno */
+    object-fit: cover;
+    border: 3px solid var(--green-primary);
+}
+
+.upload-label {
+    position: absolute;
+    bottom: 0;
+    background: var(--green-primary);
+    color: white;
+    font-size: 0.75rem;
+    padding: 5px 10px;
+    border-radius: 20px;
+    cursor: pointer;
+    left: 50%;
+    transform: translateX(-50%);
+}
+
+.form-section { flex: 1; }
+
+.input-group {
+     margin-bottom: 20px; 
+}
+.input-group label { 
+    display: block;
+    font-weight: 600; margin-bottom: 8px;
+    font-size: 0.9rem; 
+}
+.input-group input {
+    width: 100%;
+    padding: 12px;
+    border: 1px solid var(--border-color);
+    border-radius: 8px; /* Mantendo o padrão quadrado leve que você gosta */
+    outline: none;
+}
+
+.btn-primary {
+    background: var(--green-primary);
+    color: white;
+    border: none;
+    padding: 12px 25px;
+    border-radius: 8px;
+    font-weight: bold;
+    cursor: pointer;
+    transition: 0.2s;
+}
+
+.btn-primary:hover {
+    background: var(--green-dark);
+ }
+
+ 
+/* Estilo do Perfil no Menu Lateral */
+.user-profile-sidebar {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    padding: 15px 0;
+    margin-bottom: 20px;
+    border-bottom: 1px solid var(--border-color);
+}
+
+.side-avatar {
+    width: 40px;
+    height: 40px;
+    border-radius: 50%; 
+    object-fit: cover;
+    border: 1px solid var(--green-primary);
+}
+
+.side-name {
+    font-size: 0.9rem;
+    font-weight: 600;
+    color: var(--text-dark);
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+/* Estilização da Sidebar para suportar o rodapé */
+
+.sidebar-footer {
+    margin-top: auto; /* Empurra o botão para o fim da barra */
+}
+
+.btn-logout {
+    width: 100%;
+    padding: 10px;
+    background-color: #d1f7e4; 
+    color: #2d5a43;
+    border: none;
+    border-radius: 8px;
+    font-weight: bold;
+    cursor: pointer;
+    transition: all 0.3s ease;
+}
+
+.btn-logout:hover {
+    background-color: #ffcccc; 
+    color: #a30000;
+}

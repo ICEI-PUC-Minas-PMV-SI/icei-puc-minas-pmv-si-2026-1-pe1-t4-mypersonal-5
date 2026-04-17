@@ -1,0 +1,329 @@
+/* Variáveis de Cores */
+:root {
+    --bg-body: #ffffff;
+    --bg-sidebar: #ffffff;
+    --green-primary: #10b981;
+    --green-dark: #047857;
+    --green-light: #d1fae5;
+    --text-dark: #000000;
+    --text-muted: #000000;
+    --card-bg: #ffffff;
+    --border-color: #e5e7eb;
+}
+
+/* Reset Básico */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
+}
+
+a {
+    text-decoration: none;
+    color: inherit; 
+}
+
+body {
+    background-color: var(--bg-body);
+    color: var(--text-dark);
+    display: flex;
+    height: 100vh;
+    overflow: hidden;
+}
+
+/* --- MENU LATERAL --- */
+.sidebar {
+    width: 250px;
+    background-color: var(--bg-sidebar);
+    border-right: 1px solid var(--border-color);
+    padding: 20px;
+    display: flex;
+    flex-direction: column;
+}
+
+.brand {
+    font-size: 1.25rem;
+    font-weight: bold;
+    margin-bottom: 30px;
+    color: var(--text-dark);
+}
+
+.menu-item {
+    padding: 12px 15px;
+    margin-bottom: 5px;
+    border-radius: 8px;
+    cursor: pointer;
+    color: var(--text-muted);
+    font-weight: 500;
+    transition: all 0.2s ease;
+}
+
+.menu-item:hover {
+    background-color: #e5e7eb;
+}
+
+.menu-item.active {
+    background-color: var(--green-light);
+    color: var(--green-dark);
+}
+
+/* --- ÁREA PRINCIPAL --- */
+.main-content {
+    flex: 1;
+    padding: 30px 40px;
+    overflow-y: auto;
+}
+
+.section-title {
+    font-size: 0.85rem;
+    font-weight: 700;
+    color: var(--text-muted);
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+    margin-bottom: 15px;
+    margin-top: 30px;
+}
+
+/* Cards de Acesso Rápido */
+.quick-access {
+    display: flex;
+    gap: 15px;
+    margin-bottom: 30px;
+    flex-wrap: wrap;
+}
+
+.card {
+    background-color: var(--card-bg);
+    padding: 20px;
+    border-radius: 12px;
+    box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.05);
+    flex: 1;
+    min-width: 150px;
+    cursor: pointer;
+    transition: transform 0.2s, box-shadow 0.2s;
+    border: 1px solid transparent;
+}
+
+.card:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1);
+    border-color: var(--green-light);
+}
+
+.card h3 {
+    font-size: 1rem;
+    margin-bottom: 5px;
+}
+
+.card p {
+    font-size: 0.8rem;
+    color: var(--text-muted);
+}
+
+/* Layout em Grade */
+.grid-layout {
+    display: grid;
+    grid-template-columns: 2fr 1fr;
+    gap: 20px;
+}
+
+.dashed-box {
+    border: 2px dashed #cbd5e1;
+    border-radius: 12px;
+    height: 250px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: var(--text-muted);
+    font-style: italic;
+}
+
+.evolution-chart {
+    height: 150px;
+}
+
+.btn-primary {
+    margin-top: 15px;
+    background-color: var(--green-primary);
+    color: white;
+    border: none;
+    padding: 10px 20px;
+    border-radius: 8px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: background-color 0.2s;
+}
+
+.btn-primary:hover {
+    background-color: var(--green-dark);
+}
+
+/* Estilo dos Compromissos */
+.appointment {
+    background-color: var(--card-bg);
+    padding: 15px;
+    border-radius: 8px;
+    margin-bottom: 10px;
+    border-left: 4px solid var(--green-primary);
+    box-shadow: 0 1px 3px rgba(0,0,0,0.05);
+}
+
+.appointment span {
+    display: block;
+    font-size: 0.75rem;
+    color: var(--green-primary);
+    font-weight: bold;
+    margin-bottom: 4px;
+}
+
+.appointment p {
+    font-size: 0.9rem;
+    font-weight: 500;
+}
+
+/* --- ESTILOS DA AGENDA / CALENDÁRIO --- */
+
+.calendar-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 25px;
+    margin-top: 10px;
+}
+
+.calendar-nav {
+    display: flex;
+    align-items: center;
+    gap: 15px;
+}
+
+.calendar-nav h2 {
+    font-size: 1.5rem;
+    color: var(--text-dark);
+    margin-right: 15px;
+}
+
+.btn-icon {
+    background-color: var(--card-bg);
+    border: 1px solid var(--border-color);
+    color: var(--text-muted);
+    padding: 8px 12px;
+    border-radius: 6px;
+    cursor: pointer;
+    font-weight: bold;
+    transition: all 0.2s;
+}
+
+.btn-icon:hover {
+    background-color: var(--border-color);
+    color: var(--text-dark);
+}
+
+.calendar-wrapper {
+    background-color: var(--border-color);
+    border: 1px solid var(--border-color);
+    border-radius: 12px;
+    overflow: hidden; /* Mantém as bordas arredondadas nos cantos da grade */
+}
+
+.calendar-grid {
+    display: grid;
+    grid-template-columns: repeat(7, 1fr);
+    gap: 1px; /* Cria o efeito de linhas entre as células usando a cor de fundo do wrapper */
+}
+
+.weekday {
+    background-color: #f9fafb;
+    padding: 12px;
+    text-align: center;
+    font-weight: 600;
+    font-size: 0.85rem;
+    color: var(--text-muted);
+}
+
+.day {
+    background-color: var(--card-bg);
+    min-height: 120px;
+    padding: 10px;
+    transition: background-color 0.2s;
+}
+
+.day:hover:not(.empty) {
+    background-color: #f9fafb;
+}
+
+.day.empty {
+    background-color: #f9fafb;
+    opacity: 0.5;
+}
+
+.date {
+    display: block;
+    font-size: 0.9rem;
+    color: var(--text-muted);
+    margin-bottom: 8px;
+    font-weight: 500;
+}
+
+
+@media (max-width: 768px) {
+    .container {
+        flex-direction: column;
+    }
+    .left-panel {
+        border-right: none;
+        border-bottom: 1px solid #e5e5e5;
+        padding: 40px 20px;
+    }
+}
+
+
+
+/* Estilo do Perfil no Menu Lateral */
+.user-profile-sidebar {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    padding: 15px 0;
+    margin-bottom: 20px;
+    border-bottom: 1px solid var(--border-color);
+}
+
+.side-avatar {
+    width: 40px;
+    height: 40px;
+    border-radius: 50%; 
+    object-fit: cover;
+    border: 1px solid var(--green-primary);
+}
+
+.side-name {
+    font-size: 0.9rem;
+    font-weight: 600;
+    color: var(--text-dark);
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+.sidebar-footer {
+    margin-top: auto; /* Empurra o botão para o fim da barra */
+}
+
+.btn-logout {
+    width: 100%;
+    padding: 10px;
+    background-color: #d1f7e4; 
+    color: #2d5a43;
+    border: none;
+    border-radius: 8px;
+    font-weight: bold;
+    cursor: pointer;
+    transition: all 0.3s ease;
+}
+
+.btn-logout:hover {
+    background-color: #ffcccc; 
+    color: #a30000;
+}

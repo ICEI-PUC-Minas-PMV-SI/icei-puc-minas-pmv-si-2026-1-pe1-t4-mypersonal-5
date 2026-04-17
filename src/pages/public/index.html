@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>MyPersonal - Login</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="../../assets/css/public/style.css">
+</head>
+<body>
+
+    <div class="container">
+        <div class="left-panel">
+            <div class="brand-container">
+                <div class="logo">MP</div>
+                <h1>MyPersonal</h1>
+                <p class="subtitle">Plataforma de acompanhamento entre<br>profissionais e alunos</p>
+                
+                <ul class="features-list">
+                    <li>
+                        <svg class="check-icon" viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"></polyline></svg>
+                        Treinos e dietas centralizados
+                    </li>
+                    <li>
+                        <svg class="check-icon" viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"></polyline></svg>
+                        Agenda e evolução física
+                    </li>
+                    <li>
+                        <svg class="check-icon" viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"></polyline></svg>
+                        Histórico e comunicação
+                    </li>
+                </ul>
+            </div>
+        </div>
+
+        <div class="right-panel">
+            <div class="login-box">
+                <h2>Entrar na conta</h2>
+                <p class="login-subtitle">Acesse sua conta para continuar</p>
+
+                <form id="loginForm">
+                    <div class="input-group">
+                        <label for="email">E-mail</label>
+                        <input type="email" id="email" placeholder="seu@email.com" required>
+                    </div>
+
+                    <div class="input-group">
+                        <label for="password">Senha</label>
+                        <input type="password" id="password" placeholder="••••••••" required>
+                    </div>
+
+                   <button type="submit" class="btn-primary">Entrar</button>
+                </form>
+
+                <div class="divider">ou</div>
+
+                <a href="selecao-perfil.html"><button class="btn-secondary">Criar conta</button></a>
+                
+                <div class="divider"></div>
+
+                <a href="recuperar-senha.html" class="forgot-password">Esqueci minha senha</a>
+            </div>
+        </div>
+    </div>
+
+<script>
+    document.getElementById('loginForm').addEventListener('submit', function(event) {
+        event.preventDefault();
+
+        const email = document.getElementById('email').value.toLowerCase();
+        
+        // Para entrar na pasta PROFISSIONAL, precisamos primeiro sair da pasta HTML
+        if (email.includes('@pro.com') || email.includes('admin')) {
+            window.location.href = "../profissional/inicio-personal.html"; 
+        } else {
+            // O arquivo inicial-aluno.html está na mesma pasta (HTML) que este index.html
+            window.location.href = "../aluno/inicial-aluno.html";
+        }
+    });
+</script>
+
+</body>
+</html>

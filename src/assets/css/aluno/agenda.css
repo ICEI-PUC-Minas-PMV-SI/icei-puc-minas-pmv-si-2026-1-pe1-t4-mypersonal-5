@@ -1,0 +1,299 @@
+
+
+/* --- VARIÁVEIS DE CORES --- */
+:root {
+    --bg-body: #ffffff;
+    --bg-sidebar: #f7fbf9;
+    --green-primary: #10b981;
+    --green-dark: #047857;
+    --green-light: #d1fae5;
+    --text-dark: #1f2937;
+    --text-muted: #6b7280;
+    --card-bg: #ffffff;
+    --border-color: #e5e7eb;
+}
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
+}
+
+
+a {
+    text-decoration: none;
+    color: inherit; 
+}
+
+body {
+    background-color: var(--bg-body);
+    color: var(--text-dark);
+    display: flex;
+    height: 100vh;
+    overflow: hidden;
+}
+
+/* --- MENU LATERAL --- */
+.sidebar {
+    width: 250px;
+    background-color: var(--bg-sidebar);
+    border-right: 1px solid var(--border-color);
+    padding: 20px;
+    display: flex;
+    flex-direction: column;
+}
+
+.brand {
+    font-size: 1.25rem;
+    font-weight: bold;
+    margin-bottom: 30px;
+    color: var(--text-dark);
+}
+
+.menu-item {
+    padding: 12px 15px;
+    margin-bottom: 5px;
+    border-radius: 8px;
+    cursor: pointer;
+    color: var(--text-muted);
+    font-weight: 500;
+    transition: all 0.2s ease;
+}
+
+.menu-item:hover {
+    background-color: #e5e7eb;
+}
+
+.menu-item.active {
+    background-color: var(--green-light);
+    color: var(--green-dark);
+}
+
+/* --- ÁREA PRINCIPAL --- */
+.main-content {
+    flex: 1;
+    padding: 30px 40px;
+    overflow-y: auto;
+}
+
+.btn-primary {
+    background-color: var(--green-primary);
+    color: white;
+    border: none;
+    padding: 10px 20px;
+    border-radius: 8px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: background-color 0.2s;
+}
+
+.btn-primary:hover {
+    background-color: var(--green-dark);
+}
+
+/* --- AGENDA / CALENDÁRIO --- */
+.calendar-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 25px;
+    margin-top: 10px;
+}
+
+.calendar-nav {
+    display: flex;
+    align-items: center;
+    gap: 15px;
+}
+
+.calendar-nav h2 {
+    font-size: 1.5rem;
+    color: var(--text-dark);
+    margin-right: 15px;
+    min-width: 180px;
+}
+
+.btn-icon {
+    background-color: var(--card-bg);
+    border: 1px solid var(--border-color);
+    color: var(--text-muted);
+    padding: 8px 12px;
+    border-radius: 6px;
+    cursor: pointer;
+    font-weight: bold;
+    transition: all 0.2s;
+}
+
+.btn-icon:hover {
+    background-color: var(--border-color);
+    color: var(--text-dark);
+}
+
+.calendar-wrapper {
+    background-color: var(--border-color);
+    border: 1px solid var(--border-color);
+    border-radius: 12px;
+    overflow: hidden;
+}
+
+.calendar-grid {
+    display: grid;
+    grid-template-columns: repeat(7, 1fr);
+    gap: 1px;
+}
+
+.weekday {
+    background-color: #f9fafb;
+    padding: 12px;
+    text-align: center;
+    font-weight: 600;
+    font-size: 0.85rem;
+    color: var(--text-muted);
+}
+
+.day {
+    background-color: var(--card-bg);
+    min-height: 120px;
+    padding: 10px;
+    transition: background-color 0.2s;
+}
+
+.day:hover:not(.empty) {
+    background-color: #f9fafb;
+}
+
+.day.empty {
+    background-color: #f9fafb;
+    opacity: 0.5;
+}
+
+.date {
+    display: block;
+    font-size: 0.9rem;
+    color: var(--text-muted);
+    margin-bottom: 8px;
+    font-weight: 500;
+}
+
+.event {
+    background-color: var(--green-light);
+    color: var(--green-dark);
+    font-size: 0.75rem;
+    font-weight: 600;
+    padding: 6px 8px;
+    border-radius: 6px;
+    margin-bottom: 5px;
+    cursor: pointer;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    transition: transform 0.1s;
+}
+
+.event:hover {
+    transform: scale(1.02);
+    box-shadow: 0 2px 4px rgba(0,0,0,0.05);
+}
+
+/* --- CORREÇÕES DE LAYOUT --- */
+
+/* Trava a tela para o menu lateral funcionar direito */
+body {
+    display: flex !important;
+    height: 100vh !important;
+    margin: 0;
+    overflow: hidden; 
+}
+
+/* Força o menu a descer até o final da tela */
+.sidebar {
+    height: 100vh !important;
+    flex-shrink: 0;
+}
+
+/* Garante que só o lado direito tenha barra de rolagem */
+.main-content {
+    flex: 1;
+    height: 100vh !important;
+    overflow-y: auto;
+}
+
+/* Conserta o cabeçalho para os itens ficarem nas pontas */
+.calendar-header {
+    display: flex !important;
+    justify-content: space-between !important;
+    align-items: center !important;
+}
+
+/* Impede o botão verde de esticar pela tela toda */
+.btn-primary {
+    width: max-content !important;
+    white-space: nowrap;
+    flex-shrink: 0;
+}
+
+
+
+
+/* Responsividade */
+@media (max-width: 768px) {
+    .container {
+        flex-direction: column;
+    }
+    .left-panel {
+        border-right: none;
+        border-bottom: 1px solid #e5e5e5;
+        padding: 40px 20px;
+    }
+}
+
+
+/* Estilo do Perfil no Menu Lateral */
+.user-profile-sidebar {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    padding: 15px 0;
+    margin-bottom: 20px;
+    border-bottom: 1px solid var(--border-color);
+}
+
+.side-avatar {
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    object-fit: cover;
+    border: 1px solid var(--green-primary);
+}
+
+.side-name {
+    font-size: 0.9rem;
+    font-weight: 600;
+    color: var(--text-dark);
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+
+.sidebar-footer {
+    margin-top: auto; /* Empurra o botão para o fim da barra */
+}
+
+.btn-logout {
+    width: 100%;
+    padding: 10px;
+    background-color: #d1f7e4; 
+    color: #2d5a43;
+    border: none;
+    border-radius: 8px;
+    font-weight: bold;
+    cursor: pointer;
+    transition: all 0.3s ease;
+}
+
+.btn-logout:hover {
+    background-color: #ffcccc; 
+    color: #a30000;
+}

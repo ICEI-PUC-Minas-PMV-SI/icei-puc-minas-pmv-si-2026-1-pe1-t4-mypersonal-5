@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>My Personal - Agenda</title>
+    <link rel="stylesheet" href="../../assets/css/profissional/profissional.css">
+    
+</head>
+<body>
+
+<aside class="sidebar">
+        <div class="brand">My Personal</div>
+        <div class="user-profile-sidebar">
+            <img id="side-profile-img" src="https://via.placeholder.com/40" alt="Foto" class="side-avatar">
+            <span id="side-user-name" class="side-name">Usuário</span>
+        </div>
+        
+        <nav>
+            <a href="inicio-personal.html" class="menu-item ">Dashboard</a>
+            <a href="meus-alunos.html" class="menu-item ">Meus Alunos</a>
+            <a href="agenda.html" class="menu-item active">Agenda</a>
+            <a href="mensagens.html" class="menu-item">Mensagens</a>
+            <a href="configuracoes.html" class="menu-item">Configurações</a>
+        </nav>
+
+        <div class="sidebar-footer">
+            <button onclick="fazerLogout()" class="btn-logout">Sair</button>
+        </div>
+</aside>
+
+    <main class="main-content">
+        
+        <div class="calendar-header">
+            <div class="calendar-nav">
+                <h2 id="month-year-display">Mês e Ano</h2>
+                <button id="prev-month" class="btn-icon">&lt;</button>
+                <button id="next-month" class="btn-icon">&gt;</button>
+            </div>
+            <button id="new-event-btn" class="btn-primary">+ Novo compromisso</button>
+        </div>
+
+        <div class="calendar-wrapper">
+            <div class="calendar-grid" id="calendar-grid">
+                </div>
+        </div>
+
+    </main>
+
+    <script src="../../assets/js/script.js"></script>
+
+    <script>
+    // Função para atualizar o perfil em todas as páginas
+    function atualizarPerfilLateral() {
+        const nomeSalvo = localStorage.getItem('userName');
+        const fotoSalva = localStorage.getItem('userPhoto');
+
+        if (nomeSalvo) {
+            document.getElementById('side-user-name').innerText = nomeSalvo;
+        }
+        if (fotoSalva) {
+            document.getElementById('side-profile-img').src = fotoSalva;
+        }
+    }
+
+    // Executa assim que a página carrega
+    window.addEventListener('load', atualizarPerfilLateral);
+
+
+    function fazerLogout() {
+        if (confirm("Deseja realmente sair?")) {
+             // Limpa os dados do usuário para segurança
+            localStorage.clear();
+            // Redireciona (mude para o nome da sua tela de login)
+             window.location.href = "../public/index.html"; 
+            }
+        }
+
+        window.addEventListener('load', atualizarPerfilLateral);           
+    </script>
+</body>
+</html>

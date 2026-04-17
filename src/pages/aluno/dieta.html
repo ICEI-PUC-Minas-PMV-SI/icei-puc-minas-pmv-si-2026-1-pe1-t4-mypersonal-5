@@ -1,0 +1,258 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>My Personal - Minha Dieta</title>
+    <link rel="stylesheet" href="../../assets/css/aluno/dieta.css">
+ 
+
+</head>
+<body>
+
+    <nav class="sidebar">
+        <div class="brand">My Personal</div>
+            <div class="user-profile-sidebar">
+                <img id="side-profile-img" src="https://via.placeholder.com/40" alt="Foto" class="side-avatar">
+                <span id="side-user-name" class="side-name">Usuário</span>
+            </div>
+        <a href="inicial-aluno.html" class="menu-item"> Início</a>
+        <a href="treino.html" class="menu-item"> Meu Treino</a>
+        <a href="dieta.html" class="menu-item active">Minha Dieta</a>
+        <a href="historico.html" class="menu-item"> Histórico</a>
+        <a href="agenda.html" class="menu-item"> Agenda</a>
+        <a href="mensagens.html" class="menu-item"> Mensagens</a>
+        <a href="configuracoes.html" class="menu-item"> Configurações</a>
+
+        <div class="sidebar-footer">
+            <button onclick="fazerLogout()" class="btn-logout">Sair</button>
+        </div>
+    </nav>
+
+    <main class="main-content">
+        
+        <h2 class="page-title">Minha Dieta</h2>
+
+        <div class="tabs" id="day-tabs">
+            <button class="tab active" data-day="segunda">Segunda</button>
+            <button class="tab" data-day="terca">Terça</button>
+            <button class="tab" data-day="quarta">Quarta</button>
+            <button class="tab" data-day="quinta">Quinta</button>
+            <button class="tab" data-day="sexta">Sexta</button>
+            <button class="tab" data-day="sabado">Sáb</button>
+            <button class="tab" data-day="domingo">Dom</button>
+        </div>
+
+        <div class="meals-grid">
+            <div class="meal-card">
+                <div class="meal-header">
+                    <h3>Café da manhã</h3>
+                    <span>07:00</span>
+                </div>
+                <div class="food-list dashed-box" id="meal-breakfast">
+                    </div>
+            </div>
+
+            <div class="meal-card">
+                <div class="meal-header">
+                    <h3>Almoço</h3>
+                    <span>12:00</span>
+                </div>
+                <div class="food-list dashed-box" id="meal-lunch">
+                    </div>
+            </div>
+
+            <div class="meal-card">
+                <div class="meal-header">
+                    <h3>Lanche da tarde</h3>
+                    <span>16:00</span>
+                </div>
+                <div class="food-list dashed-box" id="meal-snack">
+                    </div>
+            </div>
+
+            <div class="meal-card">
+                <div class="meal-header">
+                    <h3>Jantar</h3>
+                    <span>20:00</span>
+                </div>
+                <div class="food-list dashed-box" id="meal-dinner">
+                    </div>
+            </div>
+        </div>
+
+        <h3 class="section-title">Totais do dia</h3>
+        <div class="macros-grid">
+            <div class="macro-card">
+                <span class="macro-label">Calorias</span>
+                <span class="macro-value" id="macro-cals">— kcal</span>
+            </div>
+            <div class="macro-card">
+                <span class="macro-label">Proteína</span>
+                <span class="macro-value" id="macro-prot">— g</span>
+            </div>
+            <div class="macro-card">
+                <span class="macro-label">Carboidrato</span>
+                <span class="macro-value" id="macro-carb">— g</span>
+            </div>
+            <div class="macro-card">
+                <span class="macro-label">Gordura</span>
+                <span class="macro-value" id="macro-fat">— g</span>
+            </div>
+        </div>
+
+        <div class="bottom-layout">
+            <div>
+                <h3 class="section-title">Observações do profissional</h3>
+                <div class="info-box dashed-box" style="height: 150px;">
+                    Focar em hidratação. Beber no mínimo 3L de água por dia.
+                </div>
+            </div>
+            
+            <div>
+                <h3 class="section-title">Histórico</h3>
+                <div class="info-box dashed-box" style="height: 150px;">
+                    <p>01/04/2026 - Dieta atual<br>15/02/2026 - Ajuste carbos<br>10/01/2026 - Dieta inicial</p>
+                </div>
+            </div>
+        </div>
+
+    </main>
+
+    <script>
+        // Banco de dados simulado para a dieta
+        const dietData = {
+            segunda: {
+                breakfast: "2 Ovos mexidos<br>1 fatia de Pão Integral<br>Café preto",
+                lunch: "150g Frango grelhado<br>100g Arroz branco<br>Salada à vontade",
+                snack: "1 Iogurte natural<br>30g Aveia<br>1 Banana",
+                dinner: "150g Patinho moído<br>100g Purê de batata",
+                macros: { cals: "1950", prot: "160", carb: "180", fat: "55" }
+            },
+            terca: {
+                breakfast: "Panqueca de aveia (1 ovo + 30g aveia)<br>Café preto",
+                lunch: "150g Tilápia<br>120g Macarrão integral<br>Brócolis",
+                snack: "Whey Protein (30g)<br>1 Maçã",
+                dinner: "Omelete de 3 ovos<br>Salada mista",
+                macros: { cals: "1820", prot: "175", carb: "140", fat: "60" }
+            },
+            quarta: {
+                breakfast: "Vitamina (Whey, Banana, Leite desn.)",
+                lunch: "150g Peito de frango<br>100g Mandioca cozida",
+                snack: "2 Fatias de pão de forma<br>30g Queijo branco",
+                dinner: "150g Salmão grelhado<br>Salada de folhas",
+                macros: { cals: "2100", prot: "150", carb: "190", fat: "70" }
+            },
+            quinta: {
+                breakfast: "2 Ovos cozidos<br>1 fatia de Mamão",
+                lunch: "150g Carne de porco magra<br>100g Arroz integral",
+                snack: "Iogurte Proteico",
+                dinner: "150g Frango desfiado<br>Wrap integral",
+                macros: { cals: "1880", prot: "165", carb: "160", fat: "50" }
+            },
+            sexta: {
+                breakfast: "Mingau de aveia (40g aveia, leite)",
+                lunch: "150g Patinho grelhado<br>100g Batata doce",
+                snack: "30g Castanhas variadas",
+                dinner: "Pizza Fit (Massa de couve-flor, frango)",
+                macros: { cals: "2050", prot: "145", carb: "200", fat: "65" }
+            },
+            sabado: {
+                breakfast: "Pão na chapa (integral)<br>Ovos mexidos",
+                lunch: "Livre (Atenção às quantidades)",
+                snack: "Fruta à escolha",
+                dinner: "Sushi (Comb. leve)",
+                macros: { cals: "---", prot: "---", carb: "---", fat: "---" }
+            },
+            domingo: {
+                breakfast: "Tapioca com queijo branco",
+                lunch: "Churrasco (Carnes magras, salada)",
+                snack: "Sobremesa fit (Gelatina)",
+                dinner: "Sopa de legumes com frango",
+                macros: { cals: "---", prot: "---", carb: "---", fat: "---" }
+            }
+        };
+
+        // Selecionando os elementos na tela
+        const tabs = document.querySelectorAll('.tab');
+        const boxBreakfast = document.getElementById('meal-breakfast');
+        const boxLunch = document.getElementById('meal-lunch');
+        const boxSnack = document.getElementById('meal-snack');
+        const boxDinner = document.getElementById('meal-dinner');
+        
+        const cals = document.getElementById('macro-cals');
+        const prot = document.getElementById('macro-prot');
+        const carb = document.getElementById('macro-carb');
+        const fat = document.getElementById('macro-fat');
+
+        // Função que troca os dados da tela
+        function updateDiet(day) {
+            const data = dietData[day];
+            
+            // Tira a borda tracejada e o texto itálico para parecer um cardápio real
+            const styleUpdate = "border: none; background-color: transparent; font-style: normal; text-align: left; align-items: start;";
+            
+            boxBreakfast.style.cssText = styleUpdate;
+            boxBreakfast.innerHTML = data.breakfast;
+
+            boxLunch.style.cssText = styleUpdate;
+            boxLunch.innerHTML = data.lunch;
+
+            boxSnack.style.cssText = styleUpdate;
+            boxSnack.innerHTML = data.snack;
+
+            boxDinner.style.cssText = styleUpdate;
+            boxDinner.innerHTML = data.dinner;
+
+            cals.innerText = data.macros.cals + " kcal";
+            prot.innerText = data.macros.prot + " g";
+            carb.innerText = data.macros.carb + " g";
+            fat.innerText = data.macros.fat + " g";
+        }
+
+        // Função que cuida do clique nos botões
+        tabs.forEach(tab => {
+            tab.addEventListener('click', () => {
+                // Remove a classe 'active' de todos os botões
+                tabs.forEach(t => t.classList.remove('active'));
+                // Adiciona a classe 'active' só no botão clicado
+                tab.classList.add('active');
+                
+                // Pega o nome do dia escondido no botão e atualiza a dieta
+                const selectedDay = tab.getAttribute('data-day');
+                updateDiet(selectedDay);
+            });
+        });
+
+        // Carrega a dieta de Segunda-feira assim que a página abrir
+        updateDiet('segunda');
+
+    function atualizarPerfilLateral() {
+        const nomeSalvo = localStorage.getItem('userName');
+        const fotoSalva = localStorage.getItem('userPhoto');
+
+        if (nomeSalvo) {
+            document.getElementById('side-user-name').innerText = nomeSalvo;
+        }
+        if (fotoSalva) {
+            document.getElementById('side-profile-img').src = fotoSalva;
+        }
+    }
+
+    // Função para o botão de sair funcionar
+    function fazerLogout() {
+        if (confirm("Deseja realmente sair?")) {
+            // Limpa os dados do usuário do navegador
+            localStorage.clear();
+            // Redireciona para a página de login
+            window.location.href = "../public/index.html"; 
+        }
+    }
+
+    window.addEventListener('load', atualizarPerfilLateral);
+
+    </script>
+
+
+</body>
+</html>

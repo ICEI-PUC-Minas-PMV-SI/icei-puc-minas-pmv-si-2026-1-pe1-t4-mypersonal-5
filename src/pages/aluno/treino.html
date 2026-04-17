@@ -1,0 +1,188 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>My Personal - Meu Treino</title>
+    <link rel="stylesheet" href="../../assets/css/aluno/treino.css">
+
+</head>
+<body>
+
+    <nav class="sidebar">
+        <div class="brand">My Personal</div>
+            <div class="user-profile-sidebar">
+                <img id="side-profile-img" src="https://via.placeholder.com/40" alt="Foto" class="side-avatar">
+                <span id="side-user-name" class="side-name">Usuário</span>
+            </div>
+        <a href="inicial-aluno.html" class="menu-item">Início</a>
+        <a href="treino.html" class="menu-item active"> Meu Treino</a>
+        <a href="dieta.html" class="menu-item"> Minha Dieta</a>
+        <a href="historico.html" class="menu-item"> Histórico</a>
+        <a href="agenda.html" class="menu-item"> Agenda</a>
+        <a href="mensagens.html" class="menu-item"> Mensagens</a>
+        <a href="configuracoes.html" class="menu-item"> Configurações</a>
+        
+        <div class="sidebar-footer">
+            <button onclick="fazerLogout()" class="btn-logout">Sair</button>
+        </div>
+    </nav>
+
+    <main class="main-content">
+        
+        <div class="tabs" id="workout-tabs">
+            <button class="tab active" data-workout="a">Treino A (Peito/Tríceps)</button>
+            <button class="tab" data-workout="b">Treino B (Costas/Bíceps)</button>
+            <button class="tab" data-workout="c">Treino C (Pernas/Ombro)</button>
+        </div>
+
+        <div class="workout-header">
+            <div>
+                <h2 class="page-title" id="workout-title">Treino A — Peito e Tríceps</h2>
+                <p class="workout-subtitle" id="workout-subtitle">Foco em hipertrofia • Duração estimada: 50 min</p>
+            </div>
+            <button class="btn-primary">Finalizar Treino</button>
+        </div>
+
+        <div class="exercise-list" id="exercise-container">
+            </div>
+
+    </main>
+
+    <div id="videoModal" class="modal">
+        <div class="modal-content">
+            <span class="close-btn" onclick="fecharVideo()">&times;</span>
+            <div class="video-container">
+                <iframe id="videoFrame" src="" frameborder="0" allow="autoplay; encrypted-media" allowfullscreen></iframe>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // 1. DADOS DOS TREINOS
+        const workoutData = {
+            a: {
+                title: "Treino A — Peito e Tríceps",
+                subtitle: "Foco em hipertrofia • Duração estimada: 50 min",
+                exercises: [
+                    { name: "1. Supino Reto com Barra", details: "4 séries de 10 a 12 repetições • Descanso: 60s", video: "https://www.youtube.com/embed/sqOw2Y6uDWQ" },
+                    { name: "2. Supino Inclinado com Halteres", details: "3 séries de 12 repetições • Descanso: 45s", video: "https://www.youtube.com/embed/F4Q1g2z8MWM?si=abIbwKgqOqLD8wWn" },
+                    { name: "3. Crossover em Polia Alta", details: "4 séries de 15 repetições • Descanso: 45s", video: "https://www.youtube.com/embed/pdMWt71MPlw?si=V6aWLgnqc-swuT9_" },
+                    { name: "4. Tríceps Pulley (Corda)", details: "4 séries de 12 repetições • Descanso: 45s", video: "https://www.youtube.com/embed/KhK5HWJfsrQ?si=5dHGJln9UDTAT-4r" }
+                ]
+            },
+            b: {
+                title: "Treino B — Costas e Bíceps",
+                subtitle: "Foco em força • Duração estimada: 55 min",
+                exercises: [
+                    { name: "1. Puxada Frontal", details: "4 séries de 10 a 12 repetições • Descanso: 60s", video: "https://www.youtube.com/embed/3-ywQ4QXzT8?si=Flp6eLciOFCaqzJC" },
+                    { name: "2. Remada Curvada com Barra", details: "4 séries de 8 a 10 repetições • Descanso: 90s", video: "https://www.youtube.com/embed/VJHBEy2duVc?si=a9k2zRYSLbKUf7yT" },
+                    { name: "3. Rosca Direta na Barra W", details: "3 séries de 12 repetições • Descanso: 45s", video: "https://www.youtube.com/embed/ffx-ZvQ_rHI?si=icM4K8EKr5iVMPxV" }
+                ]
+            },
+            c: {
+                title: "Treino C — Pernas e Ombros",
+                subtitle: "Foco em resistência • Duração estimada: 65 min",
+                exercises: [
+                    { name: "1. Agachamento Livre", details: "4 séries de 10 repetições • Descanso: 90s", video: "https://www.youtube.com/embed/CaTbpJH49i4?si=WOIDic64FSAlG9kw" },
+                    { name: "2. Leg Press 45º", details: "4 séries de 12 a 15 repetições • Descanso: 60s", video: "https://www.youtube.com/embed/waAxlYvtCcI?si=_cZYBu9S-xpUu88u" },
+                    { name: "3. Desenvolvimento com Halteres", details: "3 séries de 12 repetições • Descanso: 60s", video: "https://www.youtube.com/embed/eufDL9MmF8A?si=0V8Plh1lhrguWD9S" },
+                    { name: "4. Elevação Lateral", details: "4 séries de 15 repetições • Descanso: 45s", video: "https://www.youtube.com/embed/W5hRdgwEoEA?si=a18GmxB0LteyZd-z" }
+                ]
+            }
+        };
+
+        // 2. LÓGICA DE TROCA DE ABAS
+        const tabs = document.querySelectorAll('.tab');
+        const container = document.getElementById('exercise-container');
+        const titleDOM = document.getElementById('workout-title');
+        const subtitleDOM = document.getElementById('workout-subtitle');
+
+        function loadWorkout(workoutId) {
+            const data = workoutData[workoutId];
+            
+            // Atualiza Títulos
+            titleDOM.innerText = data.title;
+            subtitleDOM.innerText = data.subtitle;
+
+            // Limpa a tela
+            container.innerHTML = '';
+
+            // Cria os exercícios na tela
+            data.exercises.forEach(ex => {
+                const card = document.createElement('div');
+                card.className = 'exercise-card';
+                card.innerHTML = `
+                    <div class="exercise-info">
+                        <h3>${ex.name}</h3>
+                        <p>${ex.details}</p>
+                    </div>
+                    <div class="exercise-action">
+                        <button class="btn-icon" onclick="abrirVideo('${ex.video}')">▶ Ver vídeo</button>
+                    </div>
+                `;
+                container.appendChild(card);
+            });
+        }
+
+        // Configura o clique nas abas
+        tabs.forEach(tab => {
+            tab.addEventListener('click', () => {
+                tabs.forEach(t => t.classList.remove('active'));
+                tab.classList.add('active');
+                loadWorkout(tab.getAttribute('data-workout'));
+            });
+        });
+
+        // 3. LÓGICA DO VÍDEO
+        const modal = document.getElementById('videoModal');
+        const iframe = document.getElementById('videoFrame');
+
+        function abrirVideo(url) {
+            iframe.src = url;
+            modal.style.display = 'flex';
+        }
+
+        function fecharVideo() {
+            modal.style.display = 'none';
+            iframe.src = '';
+        }
+
+        window.onclick = function(event) {
+            if (event.target == modal) fecharVideo();
+        }
+
+        // Carrega o Treino A automaticamente quando a página abre
+        loadWorkout('a');
+
+
+        function atualizarPerfilLateral() {
+            const nomeSalvo = localStorage.getItem('userName');
+            const fotoSalva = localStorage.getItem('userPhoto');
+
+            if (nomeSalvo) {
+                document.getElementById('side-user-name').innerText = nomeSalvo;
+            }
+            if (fotoSalva) {
+                document.getElementById('side-profile-img').src = fotoSalva;
+            }
+        }
+
+        // Função para o botão de sair funcionar
+        function fazerLogout() {
+            if (confirm("Deseja realmente sair?")) {
+                // Limpa os dados do usuário do navegador
+                localStorage.clear();
+                // Redireciona para a página de login
+                window.location.href = "../public/index.html"; 
+            }
+        }
+
+        window.addEventListener('load', atualizarPerfilLateral);
+
+
+    </script>
+
+
+</body>
+</html>

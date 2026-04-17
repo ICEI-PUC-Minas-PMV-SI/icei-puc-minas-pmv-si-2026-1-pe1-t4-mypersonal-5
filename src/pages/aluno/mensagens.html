@@ -1,0 +1,113 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>My Personal - Mensagens</title>
+    <link rel="stylesheet" href="../../assets/css/aluno/mensagens.css">
+
+</head>
+<body>
+
+    <nav class="sidebar">
+        <div class="brand">My Personal</div>
+            <div class="user-profile-sidebar">
+                <img id="side-profile-img" src="https://via.placeholder.com/40" alt="Foto" class="side-avatar">
+                <span id="side-user-name" class="side-name">Usuário</span>
+            </div>
+        <a href="inicial-aluno.html" class="menu-item">Início</a>
+        <a href="treino.html" class="menu-item">Meu Treino</a>
+        <a href="dieta.html" class="menu-item">Minha Dieta</a>
+        <a href="historico.html" class="menu-item"> Histórico</a>
+        <a href="agenda.html" class="menu-item">Agenda</a>
+        <a href="mensagens.html" class="menu-item active"> Mensagens</a>
+        <a href="configuracoes.html" class="menu-item"> Configurações</a>
+
+         <div class="sidebar-footer">
+            <button onclick="fazerLogout()" class="btn-logout">Sair</button>
+        </div>
+    </nav>
+
+    <main class="main-content">
+        
+        <h2 class="page-title">Mensagens</h2>
+
+        <div class="chat-container">
+            
+            <aside class="chat-sidebar">
+                <div class="search-box">
+                    <input type="text" id="search-contact" placeholder="Buscar conversa...">
+                </div>
+                
+                <div class="contacts-list" id="contacts-list">
+                    <div class="contact-card active" data-contact="pierre">
+                        <div class="avatar">P</div>
+                        <div class="contact-info">
+                            <div class="contact-header">
+                                <h4>Pierre (Personal)</h4>
+                            </div>
+                            <p id="last-msg-pierre">Treino atualizado!</p>
+                        </div>
+                    </div>
+
+                    <div class="contact-card" data-contact="rafaela">
+                        <div class="avatar" style="background-color: #e2e8f0; color: #64748b;">R</div>
+                        <div class="contact-info">
+                            <div class="contact-header">
+                                <h4>Rafaela (Nutrição)</h4>
+                            </div>
+                            <p id="last-msg-rafaela">Dieta revisada</p>
+                        </div>
+                    </div>
+                </div>
+            </aside>
+
+            <section class="chat-area">
+                
+                <header class="chat-header">
+                    <h3 id="chat-with">Pierre (Personal Trainer)</h3>
+                </header>
+
+                <div class="messages-list" id="messages-display">
+                    </div>
+
+                <footer class="chat-input">
+                    <input type="text" id="input-message" placeholder="Digite uma mensagem...">
+                    <button class="btn-primary" id="btn-send">Enviar</button>
+                </footer>
+
+            </section>
+        </div>
+
+    </main>
+
+    <script src="../../assets/js/mensagens.js"></script>
+
+<script>
+    function atualizarPerfilLateral() {
+        const nomeSalvo = localStorage.getItem('userName');
+        const fotoSalva = localStorage.getItem('userPhoto');
+
+        if (nomeSalvo) {
+            document.getElementById('side-user-name').innerText = nomeSalvo;
+        }
+        if (fotoSalva) {
+            document.getElementById('side-profile-img').src = fotoSalva;
+        }
+    }
+
+    // Função para o botão de sair funcionar
+    function fazerLogout() {
+        if (confirm("Deseja realmente sair?")) {
+            // Limpa os dados do usuário do navegador
+            localStorage.clear();
+            // Redireciona para a página de login
+            window.location.href = "../public/index.html"; 
+        }
+    }
+
+    window.addEventListener('load', atualizarPerfilLateral);
+    </script>
+
+</body>
+</html>

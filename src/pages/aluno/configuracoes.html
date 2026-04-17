@@ -1,0 +1,127 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>My Personal - Configurações</title>
+    <link rel="stylesheet" href="../../assets/css/aluno/configuracoes.css">
+
+</head>
+<body>
+
+    <nav class="sidebar">
+        <div class="brand">My Personal</div>
+            <div class="user-profile-sidebar">
+                <img id="side-profile-img" src="https://via.placeholder.com/40" alt="Foto" class="side-avatar">
+                <span id="side-user-name" class="side-name">Usuário</span>
+            </div>
+
+        <a href="inicial-aluno.html" class="menu-item"> Início</a>
+        <a href="treino.html" class="menu-item"> Meu Treino</a>
+        <a href="dieta.html" class="menu-item"> Minha Dieta</a>
+        <a href="historico.html" class="menu-item"> Histórico</a>
+        <a href="agenda.html" class="menu-item">Agenda</a>
+        <a href="mensagens.html" class="menu-item">Mensagens</a>
+        <a href="configuracoes.html" class="menu-item active"> Configurações</a>
+        
+        <div class="sidebar-footer">
+            <button onclick="fazerLogout()" class="btn-logout">Sair</button>
+        </div> 
+
+    </nav>
+
+
+
+    <main class="main-content">
+        <h2 class="page-title">Configurações do Perfil</h2>
+
+        <div class="config-container">
+            <div class="profile-section">
+                <div class="profile-image-container">
+                    <img id="preview-img" src="https://via.placeholder.com/150" alt="Foto de Perfil">
+                    <label for="upload-photo" class="upload-label">Trocar Foto</label>
+                    <input type="file" id="upload-photo" accept="image/*" style="display: none;">
+                </div>
+                <p class="text-muted">Clique acima para carregar uma nova imagem.</p>
+            </div>
+
+            <div class="form-section">
+                <div class="input-group">
+                    <label>Seu Nome</label>
+                    <input type="text" id="user-name-input" placeholder="Digite seu nome completo">
+                </div>
+
+                <div class="input-group">
+                    <label>E-mail</label>
+                    <input type="email" placeholder="seuemail@exemplo.com">
+                </div>
+
+                <button class="btn-primary" onclick="salvarPerfil()">Salvar Alterações</button>
+                <p id="save-msg" style="color: var(--green-primary); margin-top: 10px; display: none;">✅ Salvo com sucesso!</p>
+            </div>
+        </div>
+    </main>
+
+    <script>
+        // Carrega os dados salvos ao abrir a página
+        window.onload = function() {
+            const savedName = localStorage.getItem('userName');
+            const savedPhoto = localStorage.getItem('userPhoto');
+
+            if (savedName) document.getElementById('user-name-input').value = savedName;
+            if (savedPhoto) document.getElementById('preview-img').src = savedPhoto;
+        };
+
+        // Lógica para trocar a foto (Preview)
+        document.getElementById('upload-photo').addEventListener('change', function(e) {
+            const reader = new FileReader();
+            reader.onload = function() {
+                const base64Image = reader.result;
+                document.getElementById('preview-img').src = base64Image;
+                localStorage.setItem('userPhoto', base64Image); // Salva a imagem
+            }
+            reader.readAsDataURL(e.target.files[0]);
+        });
+
+        // Lógica para salvar o nome
+        function salvarPerfil() {
+            const name = document.getElementById('user-name-input').value;
+            localStorage.setItem('userName', name);
+            
+            // Mostra mensagem de sucesso
+            const msg = document.getElementById('save-msg');
+            msg.style.display = 'block';
+            setTimeout(() => { msg.style.display = 'none'; }, 2000);
+        }
+
+
+    function atualizarPerfilLateral() {
+        const nomeSalvo = localStorage.getItem('userName');
+        const fotoSalva = localStorage.getItem('userPhoto');
+
+        if (nomeSalvo) {
+            document.getElementById('side-user-name').innerText = nomeSalvo;
+        }
+        if (fotoSalva) {
+            document.getElementById('side-profile-img').src = fotoSalva;
+        }
+    }
+
+    // Função para o botão de sair funcionar
+    function fazerLogout() {
+        if (confirm("Deseja realmente sair?")) {
+            // Limpa os dados do usuário do navegador
+            localStorage.clear();
+            // Redireciona para a página de login
+            window.location.href = "../public/index.html"; 
+        }
+    }
+
+    window.addEventListener('load', atualizarPerfilLateral);
+
+    </script>
+
+  
+
+</body>
+</html>
