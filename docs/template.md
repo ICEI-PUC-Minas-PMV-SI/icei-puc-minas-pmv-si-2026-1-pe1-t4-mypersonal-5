@@ -9,12 +9,11 @@ A linguagem visual do projeto combina tons neutros com verde como cor de destaqu
 
 ## Cores
 
-A paleta de cores do projeto foi construída com foco em sobriedade, legibilidade e associação com o universo fitness e da saúde. O verde foi adotado como cor principal por transmitir equilíbrio, acompanhamento e evolução, enquanto os tons neutros ajudam a manter a interface limpa e profissional.
+A paleta de cores do projeto foi padronizada com foco em sobriedade, legibilidade e associação com o universo fitness e da saúde. O sistema utiliza três tons principais de verde para ações, estados de destaque e áreas de apoio visual, enquanto os tons neutros ajudam a manter a interface limpa e profissional.
 
 | Cor | Código | Uso principal |
 | --- | --- | --- |
-| Verde principal público | `#20A079` | Logo, botões principais, links e destaques das telas de login e seleção de perfil |
-| Verde principal interno | `#10B981` | Estados ativos, indicadores, botões e elementos de destaque nas áreas autenticadas |
+| Verde principal | `#10B981` | Botões principais, links, estados ativos e elementos de destaque |
 | Verde escuro | `#047857` | Hover, contraste de destaque e textos em estado ativo |
 | Verde claro | `#D1FAE5` | Fundo de itens ativos, badges e áreas de feedback positivo |
 | Branco | `#FFFFFF` | Fundo de cards, painéis e páginas |
@@ -27,7 +26,7 @@ A paleta de cores do projeto foi construída com foco em sobriedade, legibilidad
 | Vermelho suave | `#FFCCCC` | Hover de ações de saída ou estado de atenção |
 | Vermelho escuro | `#A30000` | Texto de ação crítica ou alerta |
 
-De forma geral, o sistema trabalha com contraste moderado, fundo claro e destaque visual concentrado nos estados de ação, confirmação e navegação ativa.
+De forma geral, o sistema trabalha com contraste moderado, fundo claro e destaque visual concentrado nos estados de ação, confirmação e navegação ativa, evitando variações excessivas da cor principal.
 
 ## Tipografia
 
