@@ -41,7 +41,7 @@ body {
 }
 
 .logo {
-    background-color: #20a079;
+    background-color: #10b981;
     color: white;
     font-size: 28px;
     font-weight: 700;
@@ -74,7 +74,7 @@ body {
 }
 
 .features-list li {
-    color: #20a079;
+    color: #10b981;
     font-size: 14px;
     font-weight: 500;
     margin-bottom: 16px;
@@ -86,7 +86,7 @@ body {
 .check-icon {
     width: 16px;
     height: 16px;
-    stroke: #20a079;
+    stroke: #10b981;
     stroke-width: 2.5;
     fill: none;
 }
@@ -143,13 +143,13 @@ body {
 }
 
 .input-group input:focus {
-    border-color: #20a079;
+    border-color: #10b981;
 }
 
 .forgot-password {
     display: block;
     text-align: left;
-    color: #20a079;
+    color: #10b981;
     font-size: 13px;
     text-decoration: none;
     margin-bottom: 24px;
@@ -163,7 +163,7 @@ body {
 .btn-primary {
     width: 100%;
     padding: 14px;
-    background-color: #20a079;
+    background-color: #10b981;
     color: #ffffff;
     border: 1px solid #a19a9a ;
     border-radius: 8px;
@@ -174,7 +174,7 @@ body {
 }
 
 .btn-primary:hover {
-    background-color: #1a8a68;
+    background-color: #047857;
 }
 
 .divider {
@@ -229,5 +229,4 @@ body {
         padding: 40px 20px;
     }
 }
-
 
