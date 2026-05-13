@@ -6,6 +6,27 @@ A linguagem visual do projeto combina tons neutros com verde como cor de destaqu
 
 ## Design
 
+O design do MyPersonal é dividido em dois grandes contextos visuais que mantêm a mesma identidade, mas atendem a necessidades diferentes:
+
+### 1. Contexto de Acesso (Público)
+Focado em recepção e segurança. Utiliza um layout de painéis fixos para destacar a marca e centralizar as ações de login e cadastro.
+
+Página Principal: index.html
+
+![Print da tela de Login](img/index.png)
+
+### 2. Contexto de Gestão (Área Logada)
+Para as áreas internas, adotamos um layout de **Dashboard** com navegação lateral fixa (*sidebar*). Esse padrão garante consistência visual e previsibilidade de navegação entre os diferentes perfis de usuário, permitindo que as ferramentas de gestão ocupem a área central da tela.
+
+* **Dashboard do Profissional:** Prioriza o monitoramento rápido através de cards de métricas e tabelas de status para compromissos e alunos recentes.
+![Dashboard Profissional](img/inicio-personal.png)
+
+* **Dashboard do Aluno:** Adapta a estrutura para focar no consumo de informações diárias, como treinos e dietas, utilizando botões de ação proeminentes para registro de atividades.
+![Dashboard Aluno](img/inicial-aluno.png)
+
+* **Gestão de Cronogramas:** Interfaces específicas, como a Agenda, utilizam uma estrutura de grade (*grid*) para organizar dados temporais de forma legível, mantendo o padrão cromático para identificar diferentes tipos de eventos.
+![Agenda MyPersonal](img/agenda.png)
+
 
 ## Cores
 
@@ -27,6 +48,9 @@ A paleta de cores do projeto foi padronizada com foco em sobriedade, legibilidad
 | Vermelho escuro | `#A30000` | Texto de ação crítica ou alerta |
 
 De forma geral, o sistema trabalha com contraste moderado, fundo claro e destaque visual concentrado nos estados de ação, confirmação e navegação ativa, evitando variações excessivas da cor principal.
+
+Para garantir a harmonia visual e o contraste entre os elementos, a paleta foi validada utilizando a ferramenta Adobe Color, conforme demonstrado abaixo:
+![Paleta de Cores MyPersonal - Adobe Color](img/AdobeColor-MyPersonal-Theme.jpeg)
 
 ## Tipografia
 
@@ -84,10 +108,3 @@ Os estilos CSS do projeto foram organizados de modo a padronizar a aparência do
 
 Além disso, o uso de variáveis CSS, como `--green-primary`, `--green-dark`, `--green-light`, `--text-dark` e `--border-color`, facilita a manutenção da identidade visual e a reutilização de estilos em diferentes páginas do sistema. Outras seções podem ser adicionadas futuramente para detalhar padrões de componentes, navegação e responsividade.
 
-> **Links Úteis**:
->
-> - [Como criar um guia de estilo de design da Web](https://edrodrigues.com.br/blog/como-criar-um-guia-de-estilo-de-design-da-web/#)
-> - [CSS Website Layout (W3Schools)](https://www.w3schools.com/css/css_website_layout.asp)
-> - [Website Page Layouts](http://www.cellbiol.com/bioinformatics_web_development/chapter-3-your-first-web-page-learning-html-and-css/website-page-layouts/)
-> - [Perfect Liquid Layout](https://matthewjamestaylor.com/perfect-liquid-layouts)
-> - [How and Why Icons Improve Your Web Design](https://usabilla.com/blog/how-and-why-icons-improve-you-web-design/)
