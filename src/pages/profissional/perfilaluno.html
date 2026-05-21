@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Perfil do Aluno</title>
+    <link rel="stylesheet" href="../../../assets/css/global.css">
+    <link rel="stylesheet" href="../../../assets/css/pages/perfil.css">
+</head>
+<body>
+
+    <div class="container-aplicativo">
+        
+        <aside class="menu-lateral">
+            <div class="logotipo-sistema">My Personal</div>
+            <nav>
+                <ul class="lista-navegacao">
+                    <li class="item-navegacao"><a href="dashboard.html">Dashboard</a></li>
+                    <li class="item-navegacao item-ativo"><a href="aluno.html">Meus Alunos</a></li>
+                    <li class="item-navegacao"><a href="agenda.html">Agenda</a></li>
+                    <li class="item-navegacao"><a href="mensagens.html">Mensagens</a></li>
+                    <li class="item-navegacao"><a href="configuracoes.html">Configurações</a></li>
+                </ul>
+            </nav>
+            <div class="botao-sair-menu"><a href="logout.html">Sair</a></div>
+        </aside>
+
+        <main class="painel-principal">
+            <header class="barra-superior">
+                <h1 class="titulo-pagina">Perfil do Aluno — Eliabe Monteiro</h1>
+                <div class="avatar-usuario-logado">P</div>
+            </header>
+
+            <div class="conteudo-perfil">
+                <div class="bloco-cabecalho-aluno">
+                    <div class="foto-perfil-grande">EM</div>
+                    <div class="informacoes-aluno">
+                        <div class="nome-aluno">Eliabe Monteiro</div>
+                        <div class="metadados-aluno">Aluno desde Jan/2025  ·  Personal: Pierre</div>
+                    </div>
+                    <div class="limpar-flutuacao"></div>
+                </div>
+
+                <div class="abas-navegacao">
+                    <a href="#treino" class="botao-aba aba-ativa">Treino</a><a href="#dieta" class="botao-aba">Dieta</a><a href="#estatisticas" class="botao-aba">Estatísticas</a>
+                </div>
+
+                <div class="grade-conteudo">
+                    <div class="coluna-esquerda">
+                        <section class="secao-conteudo">
+                            <h2 class="titulo-secao">Treino atual</h2>
+                            <div class="caixa-conteudo caixa-treino-atual">
+                                <div class="texto-interno-placeholder">[tabela: exercício / séries / reps / observação / vídeo]</div>
+                            </div>
+                            <a href="editar-treino.html" class="botao-principal-arredondado" style="text-decoration: none; text-align: center;">Editar treino</a>
+                        </section>
+                    </div>
+
+                    <div class="coluna-direita">
+                        <section class="secao-conteudo">
+                            <h2 class="titulo-secao">Última avaliação</h2>
+                            <div class="caixa-conteudo caixa-ultima-avaliacao">
+                                [medidas corporais: peso / %gordura / etc]
+                            </div>
+                        </section>
+
+                        <section class="secao-conteudo">
+                            <h2 class="titulo-secao">Observações do profissional</h2>
+                            <div class="caixa-conteudo caixa-observacoes">
+                                [textarea: observações livres]
+                            </div>
+                            <button type="button" class="botao-principal-arredondado">Salvar</button>
+                        </section>
+                    </div>
+                </div>
+            </div>
+        </main>
+
+    </div>
+
+</body>
+</html>

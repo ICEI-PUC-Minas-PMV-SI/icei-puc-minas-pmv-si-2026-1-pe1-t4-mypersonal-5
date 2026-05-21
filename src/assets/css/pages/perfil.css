@@ -1,0 +1,147 @@
+
+
+.conteudo-perfil {
+    padding: 40px;
+    flex-grow: 1;
+    overflow-y: auto;
+}
+
+.bloco-cabecalho-aluno {
+    margin-bottom: 32px;
+}
+
+.foto-perfil-grande {
+    float: left;
+    width: 64px;
+    height: 64px;
+    background-color: var(--verde-claro);
+    color: var(--verde-escuro);
+    border-radius: 50%;
+    text-align: center;
+    line-height: 64px;
+    font-size: 20px;
+    font-weight: 700;
+    margin-right: 20px;
+}
+
+.informacoes-aluno {
+    float: left;
+    padding-top: 8px;
+}
+
+.nome-aluno {
+    font-size: 24px;
+    font-weight: 700;
+    color: var(--texto-escuro);
+    letter-spacing: -0.5px;
+    margin-bottom: 4px;
+}
+
+.metadados-aluno {
+    font-size: 14px;
+    color: var(--texto-secundario);
+}
+
+.limpar-flutuacao {
+    clear: both;
+}
+
+.abas-navegacao {
+    margin-bottom: 32px;
+    border-bottom: 2px solid var(--cinza-borda);
+}
+
+.botao-aba {
+    display: inline-block;
+    padding: 12px 24px;
+    font-size: 14px;
+    font-weight: 600;
+    color: var(--texto-secundario);
+    text-decoration: none;
+    margin-bottom: -2px;
+    transition: var(--transicao-suave);
+    border-bottom: 2px solid transparent;
+}
+
+.botao-aba:hover {
+    color: var(--texto-escuro);
+}
+
+.botao-aba.aba-ativa {
+    color: var(--verde-principal);
+    border-bottom: 2px solid var(--verde-principal);
+}
+
+.grade-conteudo {
+    display: table;
+    width: 100%;
+    table-layout: fixed;
+}
+
+.coluna-esquerda {
+    display: table-cell;
+    width: 65%;
+    padding-right: 32px;
+    vertical-align: top;
+}
+
+.coluna-direita {
+    display: table-cell;
+    width: 35%;
+    vertical-align: top;
+}
+
+.secao-conteudo {
+    margin-bottom: 24px;
+}
+
+.titulo-secao {
+    font-size: 13px;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+    color: var(--texto-secundario);
+    margin-bottom: 12px;
+}
+
+.caixa-conteudo {
+    width: 100%;
+    background-color: var(--cinza-muito-claro);
+    border: 1px solid var(--cinza-borda);
+    border-radius: var(--raio-card); 
+    padding: 24px;
+    color: var(--texto-secundario);
+    font-size: 14px;
+    line-height: 1.5;
+}
+
+.caixa-treino-atual { height: 340px; position: relative; }
+.caixa-ultima-avaliacao { height: 150px; }
+.caixa-observacoes { height: 100px; }
+
+.texto-interno-placeholder {
+    position: absolute;
+    bottom: 24px;
+    left: 24px;
+    font-style: italic;
+    opacity: 0.7;
+}
+
+.botao-principal-arredondado {
+    display: inline-block;
+    background-color: var(--verde-principal);
+    border: none;
+    color: var(--branco);
+    padding: 12px 32px;
+    font-size: 14px;
+    font-weight: 600;
+    cursor: pointer;
+    margin-top: 16px;
+    border-radius: var(--raio-botao);
+    box-shadow: 0 2px 4px rgba(16, 185, 129, 0.1);
+    transition: var(--transicao-suave);
+}
+
+.botao-principal-arredondado:hover {
+    background-color: var(--verde-escuro);
+}
