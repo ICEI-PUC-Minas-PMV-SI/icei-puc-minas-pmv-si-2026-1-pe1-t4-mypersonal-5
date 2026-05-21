@@ -1,0 +1,82 @@
+/* RESPONSIVIDADE */
+@media (max-width: 768px) {
+
+    * {
+        max-width: 100%;
+    }
+
+    body {
+        display: block;
+    }
+
+    aside {
+        background: var(--branco);
+        border-right: 1px solid var(--cinza-borda);
+        display: none;
+        flex-direction: column;
+        gap: 20px;
+        height: 100vh;
+        justify-content: flex-start;
+        left: 0;
+        overflow-x: hidden;
+        overflow-y: auto;
+        padding: 16px;
+        position: fixed;
+        top: 0;
+        width: 250px;
+        z-index: 99999;
+    }
+
+    aside.aberto {
+        display: flex;
+    }
+
+    .barra-superior-navegacao {
+        align-items: center;
+        background: var(--branco);
+        border-bottom: 1px solid var(--cinza-borda);
+        display: flex;
+        height: 60px;
+        left: 0;
+        margin: 0;
+        padding: 0 15px 0 70px;
+        position: fixed;
+        right: 0;
+        top: 0;
+        width: 100%;
+        z-index: 99998;
+    }
+
+    .btn-hamburguer {
+        align-items: center;
+        background: var(--branco);
+        border: 1px solid var(--cinza-borda);
+        border-radius: 8px;
+        display: flex;
+        justify-content: center;
+        padding: 8px;
+    }
+
+    .estatisticas-grid {
+        gap: 10px;
+        grid-template-columns: repeat(2, 1fr);
+        width: 100%;
+    }
+
+    .evolucao-container {
+        flex-direction: column;
+    }
+
+    .layout-colunas {
+        flex-direction: column;
+        overflow-x: hidden;
+        width: 100%;
+    }
+
+    .perfil-aluno {
+        box-sizing: border-box;
+        overflow-x: hidden;
+        padding: 85px 12px 24px 12px;
+        width: 100%;
+    }
+}

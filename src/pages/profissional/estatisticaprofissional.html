@@ -1,0 +1,181 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="../../assets/css/base.css">
+    <link rel="stylesheet" href="../../assets/css/pages/estatisticas.css">
+    <link rel="stylesheet" href="../../assets/css/pages/acoes-profissional.css">
+    <link rel="stylesheet" href="../../assets/css/responsive.css">
+    <title>Perfil Aluno | My Personal</title>
+</head>
+<body>
+    <button class="btn-hamburguer" onclick="clicouMenu()">
+        <span></span>
+        <span></span>
+        <span></span>
+    </button>
+    <aside>
+        <div class="logo">
+            <h1>My Personal</h1>
+        </div>
+
+        <div class="perfil-usuario">
+            <div class="foto-usuario">
+                <img src="https://placehold.net/avatar.svg" alt="Foto do Usuário">
+            </div>
+            <span>Pierre</span>
+        </div>
+
+        <nav class="menu-lateral">
+            <ul>
+                <li><a href="inicio-personal.html">Início</a></li>
+                <li class="ativo"><a href="meus-alunos.html">Meus Alunos</a></li>
+                <li><a href="agenda.html">Agenda</a></li>
+                <li><a href="configuracoes.html">Configurações</a></li>
+            </ul>
+        </nav>
+
+        <div class="aside-footer">
+            <a href="index.html">Sair</a>
+        </div>
+    </aside>
+
+    <section class="perfil-aluno">
+        <div class="barra-superior-navegacao">
+            <div class="caminho">
+                <a href="meus-alunos.html">← Meus Alunos</a>
+                <span class="separador">|</span>
+                <span class="titulo-pagina">Perfil do Aluno — Eliabe Monteiro</span>
+            </div>
+        </div>
+
+        <header class="perfil-header">
+            <div class="avatar">EM</div>
+            <div class="info">
+                <h2>Eliabe Monteiro</h2>
+                <p>Aluno desde: Jan/2025</p>
+            </div>
+        </header>
+
+        <div class="abas-navegacao">
+            <ul>
+                <li><a href="dieta-profissional.html">Dieta</a></li>
+                <li class="ativa"><a href="estatisticas-profissional.html">Estatísticas</a></li>
+            </ul>
+        </div>
+
+        <div class="layout-colunas">
+            <section class="coluna-principal">
+                <h3 class="titulo-secao">Última Avaliação Corporal</h3>
+                
+                <div class="estatisticas-grid">
+                    <div class="card">
+                        <span class="label">Peso atual</span>
+                        <strong>82 kg</strong>
+                    </div>
+                    <div class="card">
+                        <span class="label">% Gordura</span>
+                        <strong>18%</strong>
+                    </div>
+                    <div class="card">
+                        <span class="label">Massa Magra</span>
+                        <strong>67 kg</strong>
+                    </div>
+                    <div class="card">
+                        <span class="label">IMC</span>
+                        <strong>25.3</strong>
+                    </div>
+                </div>
+
+                <p class="data-ultima-avaliacao">Última avaliação: 10/05/2026</p>
+
+                <div class="evolucao-container">
+                    <div class="grafico-box">
+                        <h4>Evolução do peso</h4>
+                        <div class="placeholder-grafico">[gráfico de linha: peso ao longo do tempo]</div>
+                    </div>
+                    <div class="grafico-box">
+                        <h4>Evolução % gordura</h4>
+                        <div class="placeholder-grafico">[gráfico de linha: % gordura ao longo do tempo]</div>
+                    </div>
+                </div>
+
+                <div class="historico-container">
+                    <h4>Histórico de avaliações</h4>
+                    <table class="tabela-avaliacoes">
+                        <thead>
+                            <tr>
+                                <th>Data</th>
+                                <th>Peso</th>
+                                <th>% Gordura</th>
+                                <th>IMC</th>
+                                <th>Observação</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td>Jan/2026</td>
+                                <td>85 kg</td>
+                                <td>21%</td>
+                                <td>25.3</td>
+                                <td>Início do acompanhamento</td>
+                            </tr>
+                            <tr>
+                                <td>Fev/2026</td>
+                                <td>83 kg</td>
+                                <td>20%</td>
+                                <td>24.9</td>
+                                <td>Boa aderência</td>
+                            </tr>
+                            <tr>
+                                <td>Mar/2026</td>
+                                <td>82 kg</td>
+                                <td>18%</td>
+                                <td>24.1</td>
+                                <td>Meta parcial atingida</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </section>
+
+            <section class="coluna-lateral-acoes">
+                <h3 class="titulo-secao">Ações</h3>
+
+                <a href="novaavaliacaoprofissional.html" class="card-link-acao">
+                    <div class="card-acao">
+                        <div class="icone-circulo">+</div>
+                        <div class="texto-acao">
+                            <strong>Nova Avaliação Corporal</strong>
+                            <span>Registrar nova medição</span>
+                        </div>
+                    </div>
+                </a>
+
+                <a href="historicoprofissional.html" class="card-link-acao">
+                    <div class="card-acao">
+                        <div class="icone-circulo">≡</div>
+                        <div class="texto-acao">
+                            <strong>Visualizar Histórico</strong>
+                            <span>Treinos, dietas e avaliações</span>
+                        </div>
+                    </div>
+                </a>
+
+                <div class="secao-observacoes">
+                    <h3 class="titulo-secao">Observações do profissional</h3>
+                    <textarea placeholder="Digite aqui as observações sobre a evolução do aluno..."></textarea>
+                    <button class="btn-salvar-obs">Salvar</button>
+                </div>
+            </section>
+        </div>
+    </section>
+    <script>
+        function clicouMenu() {
+        let menu = document.querySelector('aside')
+        menu.classList.toggle('aberto')
+        }
+    </script>
+</body>
+</html>

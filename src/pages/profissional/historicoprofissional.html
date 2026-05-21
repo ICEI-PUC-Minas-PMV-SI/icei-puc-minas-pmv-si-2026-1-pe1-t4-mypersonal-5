@@ -1,0 +1,170 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="../../assets/css/base.css">
+    <link rel="stylesheet" href="../../assets/css/pages/historico.css">
+    <link rel="stylesheet" href="../../assets/css/responsive.css">
+    <title>Histórico | My Personal</title>
+</head>
+<body>
+    <button class="btn-hamburguer" onclick="clicouMenu()">
+        <span></span>
+        <span></span>
+        <span></span>
+    </button>
+    <aside>
+        <div class="logo">
+            <h1>My Personal</h1>
+        </div>
+
+        <div class="perfil-usuario">
+            <div class="foto-usuario">
+                <img src="https://placehold.net/avatar.svg" alt="Foto do Usuário">
+            </div>
+            <span>Pierre</span>
+        </div>
+
+        <nav class="menu-lateral">
+            <ul>
+                <li><a href="inicio-personal.html">Início</a></li>
+                <li class="ativo"><a href="meus-alunos.html">Meus Alunos</a></li>
+                <li><a href="agenda.html">Agenda</a></li>
+                <li><a href="configuracoes.html">Configurações</a></li>
+            </ul>
+        </nav>
+
+        <div class="aside-footer">
+            <a href="index.html">Sair</a>
+        </div>
+    </aside>
+
+    <section class="perfil-aluno">
+        <div class="barra-superior-navegacao">
+            <div class="caminho">
+                <a href="estatisticaprofissional.html">← Perfil do Aluno</a>
+                <span class="separador">|</span>
+                <span class="titulo-pagina">Histórico — Eliabe Monteiro</span>
+            </div>
+        </div>
+
+        <header class="perfil-header">
+            <div class="avatar">EM</div>
+            <div class="info">
+                <h2>Eliabe Monteiro</h2>
+                <p>Aluno desde: Jan/2025</p>
+            </div>
+        </header>
+
+        <div class="container-filtros">
+            <section class="bloco-formulario secao-filtros">
+                <h3 class="titulo-secao">Filtros</h3>
+
+                <div class="grid-filtros-historico">
+                    <div class="filtros-linha-labels">
+                        <span class="filtro-label">Tipo de registro</span>
+                        <span class="filtro-label-periodo">Período</span>
+                    </div>
+
+                    <div class="filtros-linha-controles">
+                        <div class="opcoes-filtro">
+                            <button class="filtro-btn ativo">Todos</button>
+                            <button class="filtro-btn">Avaliação Corporal</button>
+                            <button class="filtro-btn">Estatísticas</button>
+                        </div>
+
+                        <div class="filtro-divisor"></div>
+
+                        <div class="opcoes-filtro">
+                            <button class="filtro-btn">Último mês</button>
+                            <button class="filtro-btn ativo">Últimos 3 meses</button>
+                            <button class="filtro-btn">Últimos 6 meses</button>
+                            <button class="filtro-btn">Personalizado</button>
+                        </div>
+
+                        <div class="periodo-separador"></div>
+
+                        <div class="input-grupo-datas">
+                            <div class="campo-formulario">
+                                <label>Data início</label>
+                                <input type="date">
+                            </div>
+                            <div class="campo-formulario">
+                                <label>Data fim</label>
+                                <input type="date">
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+        </div>
+
+        <h3 class="titulo-secao-historico">Resumo do período selecionado</h3>
+        <div class="estatisticas-grid">
+            <div class="card">
+                <span class="label">Avaliações realizadas</span>
+                <strong>3</strong>
+            </div>
+            <div class="card">
+                <span class="label">Variação de peso</span>
+                <strong class="negativo">-3 kg</strong>
+            </div>
+            <div class="card">
+                <span class="label">Variação % gordura</span>
+                <strong class="negativo">-3%</strong>
+            </div>
+            <div class="card">
+                <span class="label">Treinos no período</span>
+                <strong>24</strong>
+            </div>
+        </div>
+
+        <h3 class="titulo-secao-historico">Evolução no período</h3>
+        <div class="container-grafico">
+            <div class="placeholder-grafico">
+                <span>[Gráfico de linha: evolução de peso e % gordura]</span>
+            </div>
+        </div>
+
+        <h3 class="titulo-secao-historico">Registros encontrados</h3>
+        <div class="tabela-container">
+            <table class="tabela-historico">
+                <thead>
+                    <tr>
+                        <th>Data</th>
+                        <th>Tipo</th>
+                        <th>Peso</th>
+                        <th>% Gordura</th>
+                        <th>IMC</th>
+                        <th>Massa Magra</th>
+                        <th>Ações</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>15/03/2026</td>
+                        <td>Avaliação Corporal</td>
+                        <td>82 kg</td>
+                        <td>18%</td>
+                        <td>24.1</td>
+                        <td>67 kg</td>
+                        <td><button class="btn-ver-mais">Ver Mais</button></td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+
+        <div class="btns-footer">
+            <a href="estatisticaprofissional.html" class="btn-cancelar">Voltar ao perfil</a>
+            <button class="btn-salvar">Exportar relatório</button>
+        </div>
+    </section>
+    <script>
+        function clicouMenu() {
+        let menu = document.querySelector('aside')
+        menu.classList.toggle('aberto')
+        }
+    </script>
+</body>
+</html>

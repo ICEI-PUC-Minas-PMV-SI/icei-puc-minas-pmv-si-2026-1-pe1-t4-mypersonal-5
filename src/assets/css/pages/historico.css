@@ -1,0 +1,218 @@
+.container-grafico {
+    background: var(--branco);
+    border: 1px solid var(--cinza-borda);
+    border-radius: 8px;
+    padding: 12px;
+}
+
+.container-grafico .placeholder-grafico {
+    height: 220px;
+}
+
+.estatisticas-grid {
+    display: grid;
+    gap: 20px;
+    grid-template-columns: repeat(4, 1fr);
+    margin-bottom: 28px;
+}
+
+.tabela-container {
+    background: var(--branco);
+    border: 1px solid var(--cinza-borda);
+    border-radius: 10px;
+    overflow: hidden;
+}
+
+.tabela-historico {
+    border-collapse: collapse;
+    width: 100%;
+}
+
+.tabela-historico thead {
+    background: #F9FAFB;
+}
+
+.tabela-historico th {
+    color: var(--texto-secundario);
+    font-size: 0.75rem;
+    font-weight: 600;
+    padding: 12px;
+    text-align: left;
+}
+
+.tabela-historico td {
+    border-top: 1px solid var(--cinza-borda);
+    font-size: 0.82rem;
+    padding: 12px;
+}
+
+.tabela-historico tr:hover {
+    background: #FAFAFA;
+}
+
+/* botões */
+.btn-ver-mais {
+    background: var(--cinza-fundo);
+    border: 1px solid var(--cinza-borda);
+    border-radius: 6px;
+    cursor: pointer;
+    font-size: 0.75rem;
+    padding: 6px 10px;
+}
+
+.btn-ver-mais:hover {
+    background: #F3F4F6;
+}
+
+.btns-footer {
+    align-items: center;
+    border-top: 1px solid var(--cinza-borda);
+    display: flex;
+    justify-content: space-between;
+    margin-top: 8px;
+    padding-top: 16px;
+}
+
+/* filtros */
+
+.container-filtros .secao-filtros {
+    padding: 12px 16px;
+}
+
+.container-filtros .titulo-secao {
+    color: var(--texto-secundario);
+    font-size: 0.8rem;
+    font-weight: 600;
+    letter-spacing: 0.05em;
+    margin-bottom: 6px;
+    text-transform: uppercase;
+}
+
+.container-filtros::before {
+    background-color: var(--cinza-borda);
+    content: "";
+    display: block;
+    height: 1px;
+    margin-bottom: 8px;
+    width: 100%;
+}
+
+.grid-filtros-historico {
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+    width: 100%;
+}
+
+/* linha dos labels */
+.filtros-linha-labels {
+    align-items: center;
+    display: flex;
+    gap: 0;
+}
+
+.filtro-label {
+    color: var(--texto-secundario);
+    flex-shrink: 0;
+    font-size: 0.75rem;
+    font-weight: 500;
+    width: 304px;
+}
+
+.filtro-label-periodo {
+    color: var(--texto-secundario);
+    font-size: 0.75rem;
+    font-weight: 500;
+    margin-left: 66px;
+}
+
+/* linha dos controles */
+.filtros-linha-controles {
+    align-items: flex-end;
+    display: flex;
+    gap: 6px;
+}
+
+.filtro-divisor {
+    flex-shrink: 0;
+    height: 30px;
+    width: 54px;
+}
+
+.opcoes-filtro {
+    align-items: center;
+    display: flex;
+    flex-wrap: nowrap;
+    gap: 6px;
+}
+
+.periodo-separador {
+    background-color: var(--cinza-borda);
+    flex-shrink: 0;
+    height: 20px;
+    margin: 0 10px 5px 10px;
+    width: 1px;
+}
+
+.input-grupo-datas {
+    align-items: flex-end;
+    display: flex;
+    gap: 10px;
+}
+
+.input-grupo-datas .campo-formulario {
+    display: flex;
+    flex-direction: column;
+    gap: 3px;
+    width: 130px;
+}
+
+.input-grupo-datas .campo-formulario label {
+    color: var(--texto-secundario);
+    font-size: 0.72rem;
+}
+
+.input-grupo-datas .campo-formulario input {
+    background: var(--branco);
+    border: 1px solid var(--cinza-borda);
+    border-radius: 6px;
+    color: var(--texto-escuro);
+    font-size: 0.8rem;
+    height: 30px;
+    padding: 0 8px;
+    width: 130px;
+}
+
+.filtro-btn {
+    background: var(--branco);
+    border: 1px solid var(--cinza-borda);
+    border-radius: 6px;
+    color: var(--texto-secundario);
+    cursor: pointer;
+    font-size: 0.78rem;
+    font-weight: 500;
+    height: 30px;
+    padding: 0 12px;
+    transition: 0.2s;
+}
+
+.filtro-btn:hover {
+    background: #F3F4F6;
+    color: var(--texto-escuro);
+}
+
+.filtro-btn.ativo {
+    background: #F3F4F6;
+    border-color: #9CA3AF;
+    color: var(--texto-escuro);
+    font-weight: 600;
+}
+
+/* títulos de seção da página */
+.titulo-secao-historico {
+    color: var(--texto-escuro);
+    font-size: 1.1rem;
+    font-weight: 700;
+    margin-bottom: 14px;
+    margin-top: 28px;
+}

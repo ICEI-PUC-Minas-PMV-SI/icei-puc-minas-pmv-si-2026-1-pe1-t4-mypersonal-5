@@ -1,0 +1,126 @@
+.coluna-lateral-acoes {
+    display: flex;
+    flex: 1;
+    flex-direction: column;
+    max-width: 300px;
+}
+
+.coluna-lateral-acoes .titulo-secao {
+    margin-bottom: 20px;
+}
+
+/* cards de ação */
+.card-acao {
+    align-items: center;
+    background-color: var(--branco);
+    border: 1px solid var(--cinza-borda);
+    border-radius: 12px;
+    cursor: pointer;
+    display: flex;
+    gap: 16px;
+    margin-bottom: 6px;
+    padding: 8px 12px;
+    transition: all 0.2s;
+    width: 100%;
+}
+
+.card-acao:active {
+    transform: scale(0.97);
+}
+
+.card-acao:hover {
+    background-color: var(--cinza-fundo);
+    border-color: var(--verde-principal);
+    transform: translateY(-2px);
+}
+
+.card-link-acao {
+    color: inherit;
+    display: block;
+    margin-bottom: 12px;
+    text-decoration: none;
+}
+
+.card-link-acao:hover .card-acao {
+    background-color: #F0FDF4;
+    border-color: var(--verde-principal);
+    transform: translateY(-2px);
+}
+
+.icone-circulo {
+    align-items: center;
+    background-color: var(--cinza-fundo);
+    border-radius: 50%;
+    color: var(--texto-secundario);
+    display: flex;
+    font-size: 1rem;
+    height: 28px;
+    justify-content: center;
+    width: 28px;
+}
+
+.texto-acao {
+    display: flex;
+    flex-direction: column;
+    text-align: left;
+}
+
+.texto-acao span {
+    color: var(--texto-secundario);
+    font-size: 0.8rem;
+}
+
+.texto-acao strong {
+    color: var(--texto-escuro);
+}
+
+/* observações */
+.secao-observacoes {
+    display: flex;
+    flex: 1;
+    flex-direction: column;
+    gap: 8px;
+    margin-top: 16px;
+}
+
+.secao-observacoes h3 {
+    font-size: 1rem;
+    margin-bottom: 15px;
+}
+
+.secao-observacoes textarea {
+    background-color: #F3F4F6;
+    border: 1px solid var(--cinza-borda);
+    border-radius: 12px;
+    flex: 1;
+    font-family: inherit;
+    font-size: 0.85rem;
+    height: 200px;
+    margin-bottom: 8px;
+    min-height: 200px;
+    padding: 10px;
+    resize: none;
+    width: 100%;
+}
+
+.secao-observacoes textarea:focus {
+    background-color: var(--branco);
+    border-color: var(--verde-principal);
+    outline: none;
+}
+
+.btn-salvar-obs {
+    background-color: var(--branco);
+    border: 1px solid var(--cinza-borda);
+    border-radius: 8px;
+    cursor: pointer;
+    font-weight: 600;
+    padding: 10px 25px;
+    transition: all 0.2s ease;
+}
+
+.btn-salvar-obs:hover {
+    background-color: var(--verde-principal);
+    box-shadow: 0 2px 4px rgba(16, 185, 129, 0.2);
+    color: var(--branco);
+}

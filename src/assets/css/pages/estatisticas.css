@@ -1,0 +1,112 @@
+/* abas de navegação */
+.abas-navegacao ul {
+    border-bottom: 2px solid var(--cinza-borda);
+    display: flex;
+    gap: 1.5rem;
+    list-style: none;
+    margin-bottom: 30px;
+}
+
+.abas-navegacao li {
+    font-size: 0.9rem;
+    padding: 0.5rem 0;
+}
+
+.abas-navegacao li a {
+    color: var(--texto-secundario);
+    font-weight: 600;
+    text-decoration: none;
+}
+
+.abas-navegacao li a:hover {
+    color: var(--verde-principal);
+}
+
+.abas-navegacao li.ativa {
+    border-bottom: 3px solid var(--verde-principal);
+}
+
+.abas-navegacao li.ativa a {
+    color: var(--verde-escuro);
+}
+
+/* estatísticas */
+.estatisticas-grid {
+    display: grid;
+    gap: 12px;
+    grid-template-columns: repeat(4, 1fr);
+}
+
+.data-ultima-avaliacao {
+    color: var(--texto-secundario);
+    font-size: 0.8rem;
+    margin-bottom: 10px;
+    margin-top: -10px;
+}
+
+/* gráficos */
+.evolucao-container {
+    display: flex;
+    gap: 16px;
+    margin-top: 20px;
+}
+
+.grafico-box {
+    background-color: var(--branco);
+    border: 1px solid var(--cinza-borda);
+    border-radius: 12px;
+    flex: 1;
+    padding: 12px;
+}
+
+.grafico-box h4 {
+    color: var(--texto-secundario);
+    font-size: 0.85rem;
+    margin-bottom: 10px;
+}
+
+/* histórico */
+.historico-container {
+    background-color: var(--branco);
+    border: 1px solid var(--cinza-borda);
+    border-radius: 12px;
+    margin-bottom: 40px;
+    margin-top: 20px;
+    padding: 20px;
+}
+
+.historico-container h4 {
+    color: var(--texto-escuro);
+    font-size: 0.85rem;
+    font-weight: 700;
+    margin-bottom: 10px;
+}
+
+.tabela-avaliacoes {
+    background-color: var(--branco);
+    border: 1px solid var(--cinza-borda);
+    border-collapse: collapse;
+    border-radius: 12px;
+    font-size: 0.85rem;
+    overflow: hidden;
+    width: 100%;
+}
+
+.tabela-avaliacoes td {
+    border-bottom: 1px solid var(--cinza-borda);
+    color: var(--texto-escuro);
+    padding: 10px 15px;
+}
+
+.tabela-avaliacoes th {
+    background-color: var(--cinza-fundo);
+    border-bottom: 1px solid var(--cinza-borda);
+    color: var(--texto-secundario);
+    font-weight: 600;
+    padding: 10px 15px;
+    text-align: left;
+}
+
+.tabela-avaliacoes tr:last-child td {
+    border-bottom: none;
+}
