@@ -1,135 +1,101 @@
 <!DOCTYPE html>
-<html lang="pt-br">
+<html lang="pt-BR">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="../../assets/css/base.css">
-    <link rel="stylesheet" href="../../assets/css/pages/estatisticas.css">
-    <link rel="stylesheet" href="../../assets/css/responsive.css">
-    <title>Estatísticas | My Personal</title>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>MyPersonal — Estatísticas</title>
+  <link rel="stylesheet" href="../../assets/css/reset.css">
+  <link rel="stylesheet" href="../../assets/css/variables.css">
+  <link rel="stylesheet" href="../../assets/css/components.css">
+  <link rel="stylesheet" href="../../assets/css/layout.css">
+  <link rel="stylesheet" href="../../assets/css/sidebar.css">
+  <link rel="stylesheet" href="../../assets/css/pages/estatisticas.css">
+  <link rel="stylesheet" href="../../assets/css/responsive.css">
 </head>
-<body>
-    <button class="btn-hamburguer" onclick="clicouMenu()">
-        <span></span>
-        <span></span>
-        <span></span>
-    </button>
-    <aside>
-        <div class="logo">
-            <h1>My Personal</h1>
+<body data-profile="aluno" data-page-title="Estatísticas">
+  <div class="app-layout">
+    <div id="sidebar-mount"></div>
+    <div id="topbar-mount"></div>
+
+    <main class="main-content">
+      <section>
+        <h2 class="section-title">Avaliações corporais</h2>
+
+        <div class="estatisticas-grid">
+          <div class="metric-card">
+            <span class="metric-label">Peso atual</span>
+            <strong class="metric-value">82 kg</strong>
+          </div>
+          <div class="metric-card">
+            <span class="metric-label">% Gordura</span>
+            <strong class="metric-value">18%</strong>
+          </div>
+          <div class="metric-card">
+            <span class="metric-label">Massa magra</span>
+            <strong class="metric-value">67 kg</strong>
+          </div>
+          <div class="metric-card">
+            <span class="metric-label">Treinos no mês</span>
+            <strong class="metric-value">14</strong>
+          </div>
         </div>
 
-        <div class="perfil-usuario">
-            <div class="foto-usuario">
-                <img src="https://placehold.net/avatar.svg" alt="Foto do Usuário">
-            </div>
-            <span>Eliabe</span>
+        <p class="data-ultima-avaliacao">Última avaliação: 10/05/2026</p>
+      </section>
+
+      <section class="evolucao-container">
+        <div class="grafico-box">
+          <h2 class="section-title">Evolução do peso</h2>
+          <div class="chart-placeholder">[gráfico de linha: peso ao longo do tempo]</div>
         </div>
-
-        <nav class="menu-lateral">
-            <ul>
-                <li><a href="inicio-aluno.html">Início</a></li>
-                <li><a href="meus-treinos.html">Meus Treinos</a></li>
-                <li><a href="minha-dieta.html">Minha Dieta</a></li>
-                <li class="ativo"><a href="estatisticaaluno.html">Estatísticas</a></li>
-                <li><a href="agenda.html">Agenda</a></li>
-                <li><a href="configuracoes.html">Configurações</a></li>
-            </ul>
-        </nav>
-
-        <div class="aside-footer">
-            <a href="index.html">Sair</a>
+        <div class="grafico-box">
+          <h2 class="section-title">Evolução % gordura</h2>
+          <div class="chart-placeholder">[gráfico de linha: % gordura ao longo do tempo]</div>
         </div>
-    </aside>
+      </section>
 
-    <section class="perfil-aluno">
-        <div class="barra-superior-navegacao">
-            <div class="caminho">
-                <span class="titulo-pagina">Estatísticas</span>
-            </div>
+      <section>
+        <h2 class="section-title">Histórico de avaliações</h2>
+        <div class="table-wrapper">
+          <table class="custom-table tabela-avaliacoes">
+            <thead>
+              <tr>
+                <th>Data</th>
+                <th>Peso</th>
+                <th>% Gordura</th>
+                <th>IMC</th>
+                <th>Observação</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td>Jan/2026</td>
+                <td>85 kg</td>
+                <td>21%</td>
+                <td>25.3</td>
+                <td>Início do acompanhamento</td>
+              </tr>
+              <tr>
+                <td>Fev/2026</td>
+                <td>83 kg</td>
+                <td>20%</td>
+                <td>24.9</td>
+                <td>Boa aderência</td>
+              </tr>
+              <tr>
+                <td>Mar/2026</td>
+                <td>82 kg</td>
+                <td>18%</td>
+                <td>24.1</td>
+                <td>Meta parcial atingida</td>
+              </tr>
+            </tbody>
+          </table>
         </div>
+      </section>
+    </main>
+  </div>
 
-        <div class="layout-colunas">
-            <section class="coluna-principal">
-                <h3 class="titulo-secao">Avaliações Corporais</h3>
-                
-                <div class="estatisticas-grid">
-                    <div class="card">
-                        <span class="label">Peso atual</span>
-                        <strong>82 kg</strong>
-                    </div>
-                    <div class="card">
-                        <span class="label">% Gordura</span>
-                        <strong>18%</strong>
-                    </div>
-                    <div class="card">
-                        <span class="label">Massa Magra</span>
-                        <strong>67 kg</strong>
-                    </div>
-                    <div class="card">
-                        <span class="label">Treinos no Mês</span>
-                        <strong>14</strong>
-                    </div>
-                </div>
-
-                <p class="data-ultima-avaliacao">Última avaliação: 10/05/2026</p>
-
-                <div class="evolucao-container">
-                    <div class="grafico-box">
-                        <h4>Evolução do peso</h4>
-                        <div class="placeholder-grafico">[gráfico de linha: peso ao longo do tempo]</div>
-                    </div>
-                    <div class="grafico-box">
-                        <h4>Evolução % gordura</h4>
-                        <div class="placeholder-grafico">[gráfico de linha: % gordura ao longo do tempo]</div>
-                    </div>
-                </div>
-
-                <div class="historico-container">
-                    <h4>Histórico de avaliações</h4>
-                    <table class="tabela-avaliacoes">
-                        <thead>
-                            <tr>
-                                <th>Data</th>
-                                <th>Peso</th>
-                                <th>% Gordura</th>
-                                <th>IMC</th>
-                                <th>Observação</th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            <tr>
-                                <td>Jan/2026</td>
-                                <td>85 kg</td>
-                                <td>21%</td>
-                                <td>25.3</td>
-                                <td>Início do acompanhamento</td>
-                            </tr>
-                            <tr>
-                                <td>Fev/2026</td>
-                                <td>83 kg</td>
-                                <td>20%</td>
-                                <td>24.9</td>
-                                <td>Boa aderência</td>
-                            </tr>
-                            <tr>
-                                <td>Mar/2026</td>
-                                <td>82 kg</td>
-                                <td>18%</td>
-                                <td>24.1</td>
-                                <td>Meta parcial atingida</td>
-                            </tr>
-                        </tbody>
-                    </table>
-                </div>
-            </section>
-        </div> 
-    </section>
-    <script>
-        function clicouMenu() {
-        let menu = document.querySelector('aside')
-        menu.classList.toggle('aberto')
-        }
-    </script>
+  <script src="../../assets/js/sidebar-loader.js"></script>
 </body>
 </html>

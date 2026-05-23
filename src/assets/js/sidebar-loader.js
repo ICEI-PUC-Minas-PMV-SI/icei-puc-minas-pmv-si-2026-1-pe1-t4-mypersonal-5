@@ -42,7 +42,7 @@ const PROFILE_MENUS = {
       { label: "Início",       href: "home.html",            key: "home" },
       { label: "Meu Treino",   href: "meu-treino.html",      key: "meu-treino" },
       { label: "Minha Dieta",  href: "minha-dieta.html",     key: "minha-dieta" },
-      { label: "Estatísticas", href: "estatisticas.html",    key: "estatisticas" },
+      { label: "Estatísticas", href: "estatisticaaluno.html", key: "estatisticas" },
       { label: "Agenda",       href: "agenda.html",          key: "agenda" },
       { label: "Mensagens",    href: "mensagens.html",       key: "mensagens" },
     ],
@@ -76,9 +76,16 @@ function detectProfile() {
  * Detecta a página ativa pelo nome do arquivo
  */
 function detectActivePage() {
+  if (document.body.dataset.activePage) return document.body.dataset.activePage;
+
   const path = window.location.pathname;
   const file = path.split("/").pop().replace(".html", "");
+  if (file === "estatisticaaluno") return "estatisticas";
   return file || "dashboard";
+}
+
+function getSettingsHref() {
+  return "configuracoes.html";
 }
 
 /**
@@ -91,6 +98,7 @@ function renderSidebar() {
   const profile = detectProfile();
   const active  = detectActivePage();
   const menu    = PROFILE_MENUS[profile] || PROFILE_MENUS["personal-trainer"];
+  const settingsHref = getSettingsHref();
 
   const itemsHTML = menu.items.map((item) => {
     const isActive = item.key === active;
@@ -102,7 +110,13 @@ function renderSidebar() {
   }).join("");
 
   mount.innerHTML = `
-    <aside class="sidebar">
+    <button class="sidebar-toggle" type="button" aria-label="Abrir menu" aria-expanded="false" aria-controls="app-sidebar">
+      <span></span>
+      <span></span>
+      <span></span>
+    </button>
+    <div class="sidebar-backdrop" data-sidebar-close></div>
+    <aside class="sidebar" id="app-sidebar">
       <div class="sidebar-header">
         <div class="brand">
           <div class="logo">MP</div>
@@ -114,11 +128,18 @@ function renderSidebar() {
         ${itemsHTML}
       </nav>
 
-      <div class="user-profile-sidebar">
-        <div class="side-avatar">${menu.initial}</div>
-        <div class="side-info">
-          <p class="side-name">Usuário</p>
-          <p class="side-role">${menu.label}</p>
+      <div class="user-profile-sidebar profile-menu" data-profile-menu>
+        <button class="profile-menu-trigger profile-menu-trigger-sidebar" type="button" aria-label="Abrir menu do perfil" aria-haspopup="true" aria-expanded="false">
+          <span class="side-avatar">${menu.initial}</span>
+          <span class="side-info">
+            <span class="side-name">Usuário</span>
+            <span class="side-role">${menu.label}</span>
+          </span>
+        </button>
+
+        <div class="profile-dropdown" role="menu">
+          <a href="${settingsHref}" class="profile-dropdown-item" role="menuitem">Configurações</a>
+          <a href="../../index.html" class="profile-dropdown-item profile-dropdown-logout" role="menuitem">Sair</a>
         </div>
       </div>
     </aside>
@@ -136,6 +157,7 @@ function renderTopbar() {
   const title = document.body.dataset.pageTitle || "MyPersonal";
   const back  = document.body.dataset.back;
   const initial = (PROFILE_MENUS[detectProfile()] || {}).initial || "U";
+  const settingsHref = getSettingsHref();
 
   mount.innerHTML = `
     <header class="topbar">
@@ -144,13 +166,108 @@ function renderTopbar() {
         <h1 class="topbar-title">${title}</h1>
       </div>
       <div class="topbar-actions">
-        <div class="avatar avatar-sm">${initial}</div>
+        <div class="profile-menu profile-menu-topbar" data-profile-menu>
+          <button class="profile-menu-trigger" type="button" aria-label="Abrir menu do perfil" aria-haspopup="true" aria-expanded="false">
+            <span class="avatar avatar-sm">${initial}</span>
+          </button>
+
+          <div class="profile-dropdown" role="menu">
+            <a href="${settingsHref}" class="profile-dropdown-item" role="menuitem">Configurações</a>
+            <a href="../../index.html" class="profile-dropdown-item profile-dropdown-logout" role="menuitem">Sair</a>
+          </div>
+        </div>
       </div>
     </header>
   `;
 }
 
+function setupProfileMenus() {
+  const profileMenus = document.querySelectorAll("[data-profile-menu]");
+  if (!profileMenus.length) return;
+  const mobileQuery = window.matchMedia("(max-width: 768px)");
+
+  function closeProfileMenus(exceptMenu = null) {
+    profileMenus.forEach((menu) => {
+      if (menu === exceptMenu) return;
+
+      menu.classList.remove("is-open");
+      const trigger = menu.querySelector(".profile-menu-trigger");
+      if (trigger) trigger.setAttribute("aria-expanded", "false");
+    });
+  }
+
+  function updateProfileMenuAvailability() {
+    const isMobile = mobileQuery.matches;
+
+    profileMenus.forEach((menu) => {
+      const trigger = menu.querySelector(".profile-menu-trigger");
+      if (!trigger || !menu.classList.contains("user-profile-sidebar")) return;
+
+      trigger.disabled = !isMobile;
+
+      if (!isMobile) {
+        menu.classList.remove("is-open");
+        trigger.setAttribute("aria-expanded", "false");
+      }
+    });
+  }
+
+  profileMenus.forEach((menu) => {
+    const trigger = menu.querySelector(".profile-menu-trigger");
+    if (!trigger) return;
+
+    trigger.addEventListener("click", (event) => {
+      if (trigger.disabled) return;
+
+      event.stopPropagation();
+      const isOpen = menu.classList.toggle("is-open");
+      trigger.setAttribute("aria-expanded", String(isOpen));
+      closeProfileMenus(menu);
+    });
+  });
+
+  document.addEventListener("click", () => closeProfileMenus());
+
+  document.addEventListener("keydown", (event) => {
+    if (event.key === "Escape") closeProfileMenus();
+  });
+
+  updateProfileMenuAvailability();
+  mobileQuery.addEventListener("change", updateProfileMenuAvailability);
+}
+
+function setupSidebarToggle() {
+  const toggle = document.querySelector(".sidebar-toggle");
+  const backdrop = document.querySelector(".sidebar-backdrop");
+  const sidebarLinks = document.querySelectorAll(".sidebar .menu-item");
+  if (!toggle) return;
+
+  function setSidebarOpen(isOpen) {
+    document.body.classList.toggle("sidebar-open", isOpen);
+    toggle.setAttribute("aria-expanded", String(isOpen));
+    toggle.setAttribute("aria-label", isOpen ? "Fechar menu" : "Abrir menu");
+  }
+
+  toggle.addEventListener("click", () => {
+    setSidebarOpen(!document.body.classList.contains("sidebar-open"));
+  });
+
+  if (backdrop) {
+    backdrop.addEventListener("click", () => setSidebarOpen(false));
+  }
+
+  sidebarLinks.forEach((link) => {
+    link.addEventListener("click", () => setSidebarOpen(false));
+  });
+
+  document.addEventListener("keydown", (event) => {
+    if (event.key === "Escape") setSidebarOpen(false);
+  });
+}
+
 document.addEventListener("DOMContentLoaded", () => {
   renderSidebar();
   renderTopbar();
+  setupProfileMenus();
+  setupSidebarToggle();
 });

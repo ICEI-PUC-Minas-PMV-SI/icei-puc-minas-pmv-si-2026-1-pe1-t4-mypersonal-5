@@ -1,192 +1,197 @@
 <!DOCTYPE html>
-<html lang="pt-br">
+<html lang="pt-BR">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="../../assets/css/base.css">
-    <link rel="stylesheet" href="../../assets/css/pages/formulario-avaliacao.css">
-    <link rel="stylesheet" href="../../assets/css/responsive.css">
-    <title>Nova Avaliação | My Personal</title>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>MyPersonal — Nova Avaliação</title>
+  <link rel="stylesheet" href="../../assets/css/reset.css">
+  <link rel="stylesheet" href="../../assets/css/variables.css">
+  <link rel="stylesheet" href="../../assets/css/components.css">
+  <link rel="stylesheet" href="../../assets/css/layout.css">
+  <link rel="stylesheet" href="../../assets/css/sidebar.css">
+  <link rel="stylesheet" href="../../assets/css/pages/dashboard.css">
+  <link rel="stylesheet" href="../../assets/css/pages/formulario-avaliacao.css">
+  <link rel="stylesheet" href="../../assets/css/responsive.css">
 </head>
-<body>
-    <button class="btn-hamburguer" onclick="clicouMenu()">
-        <span></span>
-        <span></span>
-        <span></span>
-    </button>
-    <aside>
-        <div class="logo">
-            <h1>My Personal</h1>
+<body data-page-title="Nova Avaliação — Eliabe Monteiro" data-back="estatisticaprofissional.html|Perfil do Aluno" data-active-page="alunos">
+  <div class="app-layout">
+    <div id="sidebar-mount"></div>
+    <div id="topbar-mount"></div>
+
+    <main class="main-content">
+      <form class="formulario-avaliacao" id="form-avaliacao">
+        <div class="grid grid-sidebar">
+          <section>
+            <section class="bloco-formulario">
+              <h2 class="section-title">Dados gerais</h2>
+
+              <div class="grid-formulario">
+                <div class="input-group">
+                  <label for="data-avaliacao">Data da avaliação</label>
+                  <input class="form-control" type="date" id="data-avaliacao" name="data-avaliacao">
+                </div>
+
+                <div class="input-group">
+                  <label for="tipo-avaliacao">Tipo</label>
+                  <input class="form-control" type="text" id="tipo-avaliacao" name="tipo-avaliacao" placeholder="Avaliação completa / Reavaliação">
+                </div>
+              </div>
+            </section>
+
+            <section class="bloco-formulario">
+              <h2 class="section-title">Medidas corporais</h2>
+
+              <div class="grid-formulario medidas-grid">
+                <div class="input-group">
+                  <label for="peso">Peso (kg)</label>
+                  <input class="form-control" type="number" id="peso" name="peso">
+                </div>
+
+                <div class="input-group">
+                  <label for="altura">Altura (cm)</label>
+                  <input class="form-control" type="number" id="altura" name="altura">
+                </div>
+
+                <div class="input-group">
+                  <label for="gordura">% Gordura</label>
+                  <input class="form-control" type="number" id="gordura" name="gordura">
+                </div>
+
+                <div class="input-group">
+                  <label for="massa-magra">Massa magra (kg)</label>
+                  <input class="form-control" type="number" id="massa-magra" name="massa-magra">
+                </div>
+
+                <div class="input-group">
+                  <label for="cintura">Circ. cintura (cm)</label>
+                  <input class="form-control" type="number" id="cintura" name="cintura">
+                </div>
+
+                <div class="input-group">
+                  <label for="quadril">Circ. quadril (cm)</label>
+                  <input class="form-control" type="number" id="quadril" name="quadril">
+                </div>
+
+                <div class="input-group">
+                  <label for="braco-direito">Circ. braço D. (cm)</label>
+                  <input class="form-control" type="number" id="braco-direito" name="braco-direito">
+                </div>
+
+                <div class="input-group">
+                  <label for="braco-esquerdo">Circ. braço E. (cm)</label>
+                  <input class="form-control" type="number" id="braco-esquerdo" name="braco-esquerdo">
+                </div>
+
+                <div class="input-group">
+                  <label for="coxa-direita">Circ. coxa D. (cm)</label>
+                  <input class="form-control" type="number" id="coxa-direita" name="coxa-direita">
+                </div>
+
+                <div class="input-group">
+                  <label for="coxa-esquerda">Circ. coxa E. (cm)</label>
+                  <input class="form-control" type="number" id="coxa-esquerda" name="coxa-esquerda">
+                </div>
+              </div>
+            </section>
+          </section>
+
+          <aside>
+            <section class="bloco-formulario">
+              <h2 class="section-title">Comparativo com avaliação anterior</h2>
+
+              <div class="comparativo-lista">
+                <div class="item-comparativo">
+                  <span>Peso</span>
+                  <strong>-3 kg</strong>
+                </div>
+
+                <div class="item-comparativo">
+                  <span>% Gordura</span>
+                  <strong>-2%</strong>
+                </div>
+
+                <div class="item-comparativo">
+                  <span>Massa magra</span>
+                  <strong>+1 kg</strong>
+                </div>
+              </div>
+            </section>
+
+            <section class="bloco-formulario">
+              <h2 class="section-title">Observações do profissional</h2>
+              <textarea class="form-control" placeholder="Digite observações sobre a avaliação..." name="observacoes" id="obs-avaliacao"></textarea>
+            </section>
+
+            <section class="bloco-formulario">
+              <h2 class="section-title">Fotos do progresso</h2>
+
+              <div class="fotos-progresso">
+                <div class="foto-placeholder">
+                  <span>Frente</span>
+                </div>
+
+                <div class="foto-placeholder">
+                  <span>Lado</span>
+                </div>
+
+                <div class="foto-placeholder">
+                  <span>Costas</span>
+                </div>
+              </div>
+
+              <button type="button" class="btn btn-secondary">Adicionar fotos</button>
+            </section>
+          </aside>
         </div>
 
-        <div class="perfil-usuario">
-            <div class="foto-usuario">
-                <img src="https://placehold.net/avatar.svg" alt="Foto do Usuário">
-            </div>
-            <span>Pierre</span>
+        <div class="btns-footer">
+          <a href="estatisticaprofissional.html" class="btn btn-secondary">Cancelar</a>
+          <button type="submit" class="btn btn-primary">Salvar avaliação</button>
         </div>
+      </form>
+    </main>
+  </div>
 
-        <nav class="menu-lateral">
-            <ul>
-                <li><a href="inicio-personal.html">Início</a></li>
-                <li class="ativo"><a href="meus-alunos.html">Meus Alunos</a></li>
-                <li><a href="agenda.html">Agenda</a></li>
-                <li><a href="configuracoes.html">Configurações</a></li>
-            </ul>
-        </nav>
+  <div class="success-modal" id="success-modal" aria-hidden="true">
+    <div class="success-modal-card" role="dialog" aria-modal="true" aria-labelledby="success-modal-title">
+      <div class="success-modal-icon">✓</div>
+      <h2 id="success-modal-title">Avaliação salva!</h2>
+      <p>A avaliação foi registrada no histórico do aluno.</p>
+      <div class="success-modal-actions">
+        <a href="historicoprofissional.html" class="btn btn-secondary">Ver histórico</a>
+        <a href="estatisticaprofissional.html" class="btn btn-primary">Voltar ao perfil</a>
+      </div>
+    </div>
+  </div>
 
-        <div class="aside-footer">
-            <a href="index.html">Sair</a>
-        </div>
-    </aside>
+  <script src="../../assets/js/sidebar-loader.js"></script>
+  <script>
+    const formAvaliacao = document.getElementById("form-avaliacao");
+    const successModal = document.getElementById("success-modal");
 
-    <section class="perfil-aluno">
-        <div class="barra-superior-navegacao">
-            <div class="caminho">
-                <a href="estatisticaprofissional.html">← Perfil do Aluno</a>
-                <span class="separador">|</span>
-                <span class="titulo-pagina">Nova Avaliação - Eliabe Monteiro</span>
-            </div>
-        </div>
-        
-        <form class="formulario-avaliacao">
-            <div class="layout-colunas">
-                <section class="coluna-principal">
-                    <section class="bloco-formulario">
-                        <h3 class="titulo-secao">Dados gerais</h3>
+    function openSuccessModal() {
+      successModal.classList.add("is-open");
+      successModal.setAttribute("aria-hidden", "false");
+      successModal.querySelector(".success-modal-actions a").focus();
+    }
 
-                        <div class="grid-formulario">
-                            <div class="campo-formulario">
-                                <label>Data da avaliação</label>
-                                <input type="date" name="data-avaliacao">
-                            </div>
+    function closeSuccessModal() {
+      successModal.classList.remove("is-open");
+      successModal.setAttribute("aria-hidden", "true");
+    }
 
-                            <div class="campo-formulario">
-                                <label>Tipo</label>
-                                <input type="text" placeholder="Avaliação completa / Reavaliação">
-                            </div>
-                        </div>
-                    </section>
-                    <section class="bloco-formulario">
-                        <h3 class="titulo-secao">Medidas corporais</h3>
+    formAvaliacao.addEventListener("submit", (event) => {
+      event.preventDefault();
+      openSuccessModal();
+    });
 
-                        <div class="grid-formulario">
-                            <div class="campo-formulario">
-                                <label for="peso">Peso (kg)</label>
-                                <input type="number" id="peso" name="peso">
-                            </div>
+    successModal.addEventListener("click", (event) => {
+      if (event.target === successModal) closeSuccessModal();
+    });
 
-                            <div class="campo-formulario">
-                                <label for="altura">Altura (cm)</label>
-                                <input type="number" id="altura" name="altura">
-                            </div>
-
-                            <div class="campo-formulario">
-                                <label for="gordura">% Gordura</label>
-                                <input type="number" id="gordura" name="gordura">
-                            </div>
-
-                            <div class="campo-formulario">
-                                <label for="massa-magra">Massa Magra (kg)</label>
-                                <input type="number" id="massa-magra" name="massa-magra">
-                            </div>
-
-                            <div class="campo-formulario">
-                                <label for="cintura">Circ. Cintura (cm)</label>
-                                <input type="number" id="cintura" name="cintura">
-                            </div>
-
-                            <div class="campo-formulario">
-                                <label for="quadril">Circ. Quadril (cm)</label>
-                                <input type="number" id="quadril" name="quadril">
-                            </div>
-
-                            <div class="campo-formulario">
-                                <label for="braco-direito">Circ. Braço D. (cm)</label>
-                                <input type="number" id="braco-direito" name="braco-direito">
-                            </div>
-
-                            <div class="campo-formulario">
-                                <label for="braco-esquerdo">Circ. Braço E. (cm)</label>
-                                <input type="number" id="braco-esquerdo" name="braco-esquerdo">
-                            </div>
-
-                            <div class="campo-formulario">
-                                <label for="coxa-direita">Circ. Coxa D. (cm)</label>
-                                <input type="number" id="coxa-direita" name="coxa-direita">
-                            </div>
-
-                            <div class="campo-formulario">
-                                <label for="coxa-esquerda">Circ. Coxa E. (cm)</label>
-                                <input type="number" id="coxa-esquerda" name="coxa-esquerda">
-                            </div>  
-                        </div>
-                    </section>
-                </section>
-                
-                <section class="coluna-lateral">
-                    <section class="bloco-formulario">
-                        <h3 class="titulo-secao">Comparativo com avaliação anterior</h3>
-
-                        <div class="comparativo-lista">
-                            <div class="item-comparativo">
-                                <span>Peso</span>
-                                <strong>-3 kg</strong>
-                            </div>
-
-                            <div class="item-comparativo">
-                                <span>% Gordura</span>
-                                <strong>-2%</strong>
-                            </div>
-
-                            <div class="item-comparativo">
-                                <span>Massa Magra</span>
-                                <strong>+1 kg</strong>
-                            </div>
-                        </div>
-                    </section>
-                    
-                    <section class="bloco-formulario">
-                        <h3 class="titulo-secao">Observações do profissional</h3>
-
-                        <textarea placeholder="Digite observações sobre a avaliação..." name="observacoes" id="obs-avaliacao"></textarea>
-                    </section>
-
-                    <section class="bloco-formulario">
-                        <h3 class="titulo-secao">Fotos do progresso</h3>
-
-                        <div class="fotos-progresso">
-                            <div class="foto-placeholder">
-                                <span>Frente</span>
-                            </div>
-
-                            <div class="foto-placeholder">
-                                <span>Lado</span>
-                            </div>
-
-                            <div class="foto-placeholder">
-                                <span>Costas</span>
-                            </div>
-                        </div>
-
-                        <button type="button" class="btn-upload">
-                            Adicionar fotos
-                        </button>
-                    </section>
-                </section>
-            </div>
-        
-            <div class="btns-footer">  
-                <a href="estatisticaprofissional.html" class="btn-cancelar">Cancelar</a>
-                <button type="submit" class="btn-salvar">Salvar Avaliação</button>
-            </div>
-        </form>
-    </section>
-    <script>
-        function clicouMenu() {
-        let menu = document.querySelector('aside')
-        menu.classList.toggle('aberto')
-        }
-    </script>
+    document.addEventListener("keydown", (event) => {
+      if (event.key === "Escape") closeSuccessModal();
+    });
+  </script>
 </body>
 </html>

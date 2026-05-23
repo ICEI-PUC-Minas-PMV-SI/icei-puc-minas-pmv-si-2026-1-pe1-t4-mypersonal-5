@@ -1,170 +1,181 @@
 <!DOCTYPE html>
-<html lang="pt-br">
+<html lang="pt-BR">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="../../assets/css/base.css">
-    <link rel="stylesheet" href="../../assets/css/pages/historico.css">
-    <link rel="stylesheet" href="../../assets/css/responsive.css">
-    <title>Histórico | My Personal</title>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>MyPersonal — Histórico</title>
+  <link rel="stylesheet" href="../../assets/css/reset.css">
+  <link rel="stylesheet" href="../../assets/css/variables.css">
+  <link rel="stylesheet" href="../../assets/css/components.css">
+  <link rel="stylesheet" href="../../assets/css/layout.css">
+  <link rel="stylesheet" href="../../assets/css/sidebar.css">
+  <link rel="stylesheet" href="../../assets/css/pages/dashboard.css">
+  <link rel="stylesheet" href="../../assets/css/pages/formulario-avaliacao.css">
+  <link rel="stylesheet" href="../../assets/css/pages/historico.css">
+  <link rel="stylesheet" href="../../assets/css/pages/acoes-profissional.css">
+  <link rel="stylesheet" href="../../assets/css/responsive.css">
 </head>
-<body>
-    <button class="btn-hamburguer" onclick="clicouMenu()">
-        <span></span>
-        <span></span>
-        <span></span>
-    </button>
-    <aside>
-        <div class="logo">
-            <h1>My Personal</h1>
+<body data-page-title="Histórico — Eliabe Monteiro" data-back="estatisticaprofissional.html|Perfil do Aluno" data-active-page="alunos">
+  <div class="app-layout">
+    <div id="sidebar-mount"></div>
+    <div id="topbar-mount"></div>
+
+    <main class="main-content">
+      <header class="student-header dashboard-box">
+        <div class="avatar avatar-lg">EM</div>
+        <div>
+          <h2 class="student-name">Eliabe Monteiro</h2>
+          <p class="page-subtitle">Aluno desde: Jan/2025</p>
         </div>
+      </header>
 
-        <div class="perfil-usuario">
-            <div class="foto-usuario">
-                <img src="https://placehold.net/avatar.svg" alt="Foto do Usuário">
+      <section class="bloco-formulario secao-filtros">
+        <h2 class="section-title">Filtros</h2>
+
+        <div class="grid-filtros-historico">
+          <div class="filter-group">
+            <span class="filter-label">Tipo de registro</span>
+            <div class="opcoes-filtro">
+              <button type="button" class="filtro-btn ativo">Todos</button>
+              <button type="button" class="filtro-btn">Avaliação corporal</button>
+              <button type="button" class="filtro-btn">Estatísticas</button>
             </div>
-            <span>Pierre</span>
+          </div>
+
+          <div class="filter-group">
+            <span class="filter-label">Período</span>
+            <div class="opcoes-filtro">
+              <button type="button" class="filtro-btn">Último mês</button>
+              <button type="button" class="filtro-btn ativo">Últimos 3 meses</button>
+              <button type="button" class="filtro-btn">Últimos 6 meses</button>
+              <button type="button" class="filtro-btn">Personalizado</button>
+            </div>
+          </div>
+
+          <div class="input-grupo-datas">
+            <div class="input-group">
+              <label for="data-inicio">Data início</label>
+              <input class="form-control" type="date" id="data-inicio">
+            </div>
+            <div class="input-group">
+              <label for="data-fim">Data fim</label>
+              <input class="form-control" type="date" id="data-fim">
+            </div>
+          </div>
         </div>
+      </section>
 
-        <nav class="menu-lateral">
-            <ul>
-                <li><a href="inicio-personal.html">Início</a></li>
-                <li class="ativo"><a href="meus-alunos.html">Meus Alunos</a></li>
-                <li><a href="agenda.html">Agenda</a></li>
-                <li><a href="configuracoes.html">Configurações</a></li>
-            </ul>
-        </nav>
-
-        <div class="aside-footer">
-            <a href="index.html">Sair</a>
+      <section>
+        <h2 class="section-title">Resumo do período selecionado</h2>
+        <div class="metrics-grid">
+          <div class="metric-card">
+            <span class="metric-label">Avaliações realizadas</span>
+            <strong class="metric-value">3</strong>
+          </div>
+          <div class="metric-card">
+            <span class="metric-label">Variação de peso</span>
+            <strong class="metric-value negativo">-3 kg</strong>
+          </div>
+          <div class="metric-card">
+            <span class="metric-label">Variação % gordura</span>
+            <strong class="metric-value negativo">-3%</strong>
+          </div>
+          <div class="metric-card">
+            <span class="metric-label">Treinos no período</span>
+            <strong class="metric-value">24</strong>
+          </div>
         </div>
-    </aside>
+      </section>
 
-    <section class="perfil-aluno">
-        <div class="barra-superior-navegacao">
-            <div class="caminho">
-                <a href="estatisticaprofissional.html">← Perfil do Aluno</a>
-                <span class="separador">|</span>
-                <span class="titulo-pagina">Histórico — Eliabe Monteiro</span>
-            </div>
-        </div>
-
-        <header class="perfil-header">
-            <div class="avatar">EM</div>
-            <div class="info">
-                <h2>Eliabe Monteiro</h2>
-                <p>Aluno desde: Jan/2025</p>
-            </div>
-        </header>
-
-        <div class="container-filtros">
-            <section class="bloco-formulario secao-filtros">
-                <h3 class="titulo-secao">Filtros</h3>
-
-                <div class="grid-filtros-historico">
-                    <div class="filtros-linha-labels">
-                        <span class="filtro-label">Tipo de registro</span>
-                        <span class="filtro-label-periodo">Período</span>
-                    </div>
-
-                    <div class="filtros-linha-controles">
-                        <div class="opcoes-filtro">
-                            <button class="filtro-btn ativo">Todos</button>
-                            <button class="filtro-btn">Avaliação Corporal</button>
-                            <button class="filtro-btn">Estatísticas</button>
-                        </div>
-
-                        <div class="filtro-divisor"></div>
-
-                        <div class="opcoes-filtro">
-                            <button class="filtro-btn">Último mês</button>
-                            <button class="filtro-btn ativo">Últimos 3 meses</button>
-                            <button class="filtro-btn">Últimos 6 meses</button>
-                            <button class="filtro-btn">Personalizado</button>
-                        </div>
-
-                        <div class="periodo-separador"></div>
-
-                        <div class="input-grupo-datas">
-                            <div class="campo-formulario">
-                                <label>Data início</label>
-                                <input type="date">
-                            </div>
-                            <div class="campo-formulario">
-                                <label>Data fim</label>
-                                <input type="date">
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </section>
-        </div>
-
-        <h3 class="titulo-secao-historico">Resumo do período selecionado</h3>
-        <div class="estatisticas-grid">
-            <div class="card">
-                <span class="label">Avaliações realizadas</span>
-                <strong>3</strong>
-            </div>
-            <div class="card">
-                <span class="label">Variação de peso</span>
-                <strong class="negativo">-3 kg</strong>
-            </div>
-            <div class="card">
-                <span class="label">Variação % gordura</span>
-                <strong class="negativo">-3%</strong>
-            </div>
-            <div class="card">
-                <span class="label">Treinos no período</span>
-                <strong>24</strong>
-            </div>
-        </div>
-
-        <h3 class="titulo-secao-historico">Evolução no período</h3>
+      <section>
+        <h2 class="section-title">Evolução no período</h2>
         <div class="container-grafico">
-            <div class="placeholder-grafico">
-                <span>[Gráfico de linha: evolução de peso e % gordura]</span>
-            </div>
+          <div class="chart-placeholder">
+            <span>[Gráfico de linha: evolução de peso e % gordura]</span>
+          </div>
         </div>
+      </section>
 
-        <h3 class="titulo-secao-historico">Registros encontrados</h3>
+      <section>
+        <h2 class="section-title">Registros encontrados</h2>
         <div class="tabela-container">
-            <table class="tabela-historico">
-                <thead>
-                    <tr>
-                        <th>Data</th>
-                        <th>Tipo</th>
-                        <th>Peso</th>
-                        <th>% Gordura</th>
-                        <th>IMC</th>
-                        <th>Massa Magra</th>
-                        <th>Ações</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    <tr>
-                        <td>15/03/2026</td>
-                        <td>Avaliação Corporal</td>
-                        <td>82 kg</td>
-                        <td>18%</td>
-                        <td>24.1</td>
-                        <td>67 kg</td>
-                        <td><button class="btn-ver-mais">Ver Mais</button></td>
-                    </tr>
-                </tbody>
-            </table>
+          <table class="custom-table tabela-historico">
+            <thead>
+              <tr>
+                <th>Data</th>
+                <th>Tipo</th>
+                <th>Peso</th>
+                <th>% Gordura</th>
+                <th>IMC</th>
+                <th>Massa magra</th>
+                <th>Ações</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td data-label="Data">15/03/2026</td>
+                <td data-label="Tipo">Avaliação corporal</td>
+                <td data-label="Peso">82 kg</td>
+                <td data-label="% Gordura">18%</td>
+                <td data-label="IMC">24.1</td>
+                <td data-label="Massa magra">67 kg</td>
+                <td data-label="Ações"><button class="btn btn-secondary btn-sm" type="button">Ver mais</button></td>
+              </tr>
+            </tbody>
+          </table>
         </div>
+      </section>
 
-        <div class="btns-footer">
-            <a href="estatisticaprofissional.html" class="btn-cancelar">Voltar ao perfil</a>
-            <button class="btn-salvar">Exportar relatório</button>
-        </div>
-    </section>
-    <script>
-        function clicouMenu() {
-        let menu = document.querySelector('aside')
-        menu.classList.toggle('aberto')
-        }
-    </script>
+      <div class="btns-footer">
+        <a href="estatisticaprofissional.html" class="btn btn-secondary">Voltar ao perfil</a>
+        <button class="btn btn-primary" type="button" id="export-history">Exportar relatório</button>
+      </div>
+    </main>
+  </div>
+
+  <div class="success-modal export-modal" id="export-modal" aria-hidden="true">
+    <div class="success-modal-card export-modal-card" role="dialog" aria-modal="true" aria-labelledby="export-modal-title">
+      <div class="success-modal-icon">✓</div>
+      <h2 id="export-modal-title">Histórico exportado!</h2>
+      <p>O histórico de Eliabe Monteiro foi exportado com sucesso.</p>
+
+      <div class="export-file">
+        <span>PDF</span>
+        <strong>Historico_EliabeMonteiro_Abr2026.pdf</strong>
+      </div>
+
+      <div class="success-modal-actions export-modal-actions">
+        <a href="#" class="btn btn-primary" download>Baixar arquivo</a>
+        <a href="estatisticaprofissional.html" class="btn btn-secondary">Voltar ao perfil</a>
+      </div>
+    </div>
+  </div>
+
+  <script src="../../assets/js/sidebar-loader.js"></script>
+  <script>
+    const exportHistory = document.getElementById("export-history");
+    const exportModal = document.getElementById("export-modal");
+
+    function openExportModal() {
+      exportModal.classList.add("is-open");
+      exportModal.setAttribute("aria-hidden", "false");
+      exportModal.querySelector(".export-modal-actions a").focus();
+    }
+
+    function closeExportModal() {
+      exportModal.classList.remove("is-open");
+      exportModal.setAttribute("aria-hidden", "true");
+    }
+
+    exportHistory.addEventListener("click", openExportModal);
+
+    exportModal.addEventListener("click", (event) => {
+      if (event.target === exportModal) closeExportModal();
+    });
+
+    document.addEventListener("keydown", (event) => {
+      if (event.key === "Escape") closeExportModal();
+    });
+  </script>
 </body>
 </html>
