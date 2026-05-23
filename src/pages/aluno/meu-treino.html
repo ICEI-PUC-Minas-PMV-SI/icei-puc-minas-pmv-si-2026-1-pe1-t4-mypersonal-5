@@ -3,37 +3,21 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Meu Treino </title>
-    <link rel="stylesheet" href="../../../assets/css/global.css">
-    <link rel="stylesheet" href="../../../assets/css/pages/meu-treino.css">
+    <title>MyPersonal - Meu Treino</title>
+    <link rel="stylesheet" href="../../assets/css/reset.css">
+    <link rel="stylesheet" href="../../assets/css/variables.css">
+    <link rel="stylesheet" href="../../assets/css/components.css">
+    <link rel="stylesheet" href="../../assets/css/layout.css">
+    <link rel="stylesheet" href="../../assets/css/sidebar.css">
+    <link rel="stylesheet" href="../../assets/css/pages/meu-treino.css">
 </head>
-<body>
+<body data-profile="aluno" data-page-title="Meu Treino">
 
-    <div class="container-aplicativo">
-        
-        <aside class="menu-lateral">
-            <div class="logotipo-sistema">My Personal</div>
-            <nav>
-                <ul class="lista-navegacao">
-                    <li class="item-navegacao"><a href="inicio.html">Início</a></li>
-                    <li class="item-navegacao item-ativo"><a href="meu-treino.html">Meu Treino</a></li>
-                    <li class="item-navegacao"><a href="dieta.html">Minha Dieta</a></li>
-                    <li class="item-navegacao"><a href="estatisticas.html">Estatísticas</a></li>
-                    <li class="item-navegacao"><a href="agenda.html">Agenda</a></li>
-                    <li class="item-navegacao"><a href="mensagens.html">Mensagens</a></li>
-                </ul>
-            </nav>
-            <div class="botao-sair-menu"><a href="logout.html">Sair</a></div>
-        </aside>
+    <div class="app-layout">
+        <div id="sidebar-mount"></div>
+        <div id="topbar-mount"></div>
 
-        <main class="painel-principal">
-            <header class="barra-superior">
-                <h1 class="titulo-pagina">Meu Treino</h1>
-                <div class="avatar-usuario-logado">E</div>
-            </header>
-
-            <div class="conteudo-aluno">
-                
+        <main class="main-content conteudo-aluno">
                 <div class="grupo-abas-treino">
                     <button type="button" class="aba-treino ativa">Treino A</button>
                     <button type="button" class="aba-treino">Treino B</button>
@@ -132,8 +116,6 @@
                     <button type="button" class="btn-voltar-simples">Cancelar</button>
                     <button type="button" class="botao-principal-verde">Salvar registro de treino</button>
                 </footer>
-
-            </div>
         </main>
     </div>
 
@@ -173,6 +155,7 @@
         </div>
     </div>
 
+    <script src="../../assets/js/sidebar-loader.js"></script>
     <script src="../../assets/js/meu-treino.js"></script>
 </body>
 </html>

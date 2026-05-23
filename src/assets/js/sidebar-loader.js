@@ -76,6 +76,8 @@ function detectProfile() {
  * Detecta a página ativa pelo nome do arquivo
  */
 function detectActivePage() {
+  if (document.body.dataset.activePage) return document.body.dataset.activePage;
+
   const path = window.location.pathname;
   const file = path.split("/").pop().replace(".html", "");
   return file || "dashboard";
@@ -102,7 +104,8 @@ function renderSidebar() {
   }).join("");
 
   mount.innerHTML = `
-    <aside class="sidebar">
+    <div class="sidebar-overlay" data-sidebar-close></div>
+    <aside class="sidebar" id="sidebar-menu">
       <div class="sidebar-header">
         <div class="brand">
           <div class="logo">MP</div>
@@ -139,6 +142,11 @@ function renderTopbar() {
 
   mount.innerHTML = `
     <header class="topbar">
+      <button type="button" class="menu-hamburguer" id="btn-menu-hamburguer" aria-label="Abrir menu" aria-controls="sidebar-menu" aria-expanded="false">
+        <span></span>
+        <span></span>
+        <span></span>
+      </button>
       <div>
         ${back ? `<a href="${back.split("|")[0]}" class="back-link">← ${back.split("|")[1] || "Voltar"}</a>` : ""}
         <h1 class="topbar-title">${title}</h1>
@@ -150,7 +158,49 @@ function renderTopbar() {
   `;
 }
 
+function setupMobileMenu() {
+  const button = document.getElementById("btn-menu-hamburguer");
+  const sidebarMount = document.getElementById("sidebar-mount");
+  if (!button || !sidebarMount) return;
+
+  const closeMenu = () => {
+    document.body.classList.remove("menu-aberto");
+    button.setAttribute("aria-expanded", "false");
+    button.setAttribute("aria-label", "Abrir menu");
+  };
+
+  const openMenu = () => {
+    document.body.classList.add("menu-aberto");
+    button.setAttribute("aria-expanded", "true");
+    button.setAttribute("aria-label", "Fechar menu");
+  };
+
+  button.addEventListener("click", () => {
+    if (document.body.classList.contains("menu-aberto")) {
+      closeMenu();
+      return;
+    }
+
+    openMenu();
+  });
+
+  sidebarMount.addEventListener("click", (event) => {
+    if (event.target.closest("[data-sidebar-close]") || event.target.closest(".menu-item")) {
+      closeMenu();
+    }
+  });
+
+  document.addEventListener("keydown", (event) => {
+    if (event.key === "Escape") closeMenu();
+  });
+
+  window.addEventListener("resize", () => {
+    if (window.innerWidth > 768) closeMenu();
+  });
+}
+
 document.addEventListener("DOMContentLoaded", () => {
   renderSidebar();
   renderTopbar();
+  setupMobileMenu();
 });

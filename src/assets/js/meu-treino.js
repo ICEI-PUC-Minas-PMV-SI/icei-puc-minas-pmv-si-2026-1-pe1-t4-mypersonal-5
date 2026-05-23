@@ -1,5 +1,6 @@
 document.addEventListener('DOMContentLoaded', () => {
 
+    // Dados simulados do treino configurado pelo profissional.
     const dadosDoTreinoConfigurado = {
         "1": {
             nome: "Supino reto com barra",
@@ -12,7 +13,7 @@ document.addEventListener('DOMContentLoaded', () => {
     };
 
  
-    // Elementos do Modal do Player
+    // Referencias dos elementos exibidos dentro do modal de video.
     const modal = document.getElementById('modal-video');
     const modalTitulo = document.getElementById('modal-titulo-exercicio');
     const modalIframe = document.getElementById('modal-iframe-video');
@@ -23,7 +24,7 @@ document.addEventListener('DOMContentLoaded', () => {
     const btnFecharX = document.getElementById('btn-fechar-x');
     const btnFecharMaster = document.getElementById('btn-fechar-master');
 
-    // Elementos de Controle de Estado Globais
+    // Controles principais usados para registrar o estado do treino do aluno.
     const abas = document.querySelectorAll('.aba-treino');
     const botoesStatus = document.querySelectorAll('.btn-status');
     const botoesEmoji = document.querySelectorAll('.btn-emoji-aluno');
@@ -32,10 +33,12 @@ document.addEventListener('DOMContentLoaded', () => {
     const botoesPlay = document.querySelectorAll('.btn-play');
 
    
+    // Guarda as escolhas atuais para compor o payload no momento de salvar.
     let statusAtual = "Em andamento"; 
     let sensacaoSelecionada = "Boa";   
 
 
+    // Alterna a aba ativa e indica qual treino deve ser carregado.
     abas.forEach(aba => {
         aba.addEventListener('click', () => {
             abas.forEach(a => a.classList.remove('ativa'));
@@ -45,6 +48,7 @@ document.addEventListener('DOMContentLoaded', () => {
     });
 
 
+    // Atualiza o status geral do treino selecionado pelo aluno.
     botoesStatus.forEach(botao => {
         botao.addEventListener('click', () => {
             botoesStatus.forEach(b => b.classList.remove('ativo'));
@@ -55,6 +59,7 @@ document.addEventListener('DOMContentLoaded', () => {
     });
 
 
+    // Registra a sensacao do aluno ao final ou durante o treino.
     botoesEmoji.forEach(botao => {
         botao.addEventListener('click', () => {
             botoesEmoji.forEach(b => b.classList.remove('selecionado'));
@@ -65,6 +70,7 @@ document.addEventListener('DOMContentLoaded', () => {
     });
 
 
+    // Abre o modal do exercicio com os dados e o video configurados.
     botoesPlay.forEach(btn => {
         btn.addEventListener('click', (e) => {
             const linha = e.target.closest('.linha-treino');
@@ -73,14 +79,14 @@ document.addEventListener('DOMContentLoaded', () => {
             const dadosConfigurados = dadosDoTreinoConfigurado[idExercicio];
 
             if (dadosConfigurados) {
-                // coloca as informações dos exercícios
+                // Preenche o modal com as informacoes do exercicio escolhido.
                 modalTitulo.textContent = dadosConfigurados.nome;
                 modalSeries.textContent = dadosConfigurados.series;
                 modalReps.textContent = dadosConfigurados.reps;
                 modalDesc.textContent = dadosConfigurados.descanso;
                 modalDica.textContent = dadosConfigurados.dica;
 
-                // Converte link comum do YouTube para formato Embed 
+                // Converte link comum do YouTube para o formato usado pelo iframe.
                 let embedUrl = dadosConfigurados.videoUrl;
                 if (embedUrl.includes("youtube.com/watch?v=")) {
                     const videoId = embedUrl.split("v=")[1].split("&")[0];
@@ -98,20 +104,22 @@ document.addEventListener('DOMContentLoaded', () => {
     });
 
 
+    // Fecha o modal e interrompe o video em reproducao.
     function fecharModalVideo() {
         modal.classList.remove('ativo');
-        modalIframe.setAttribute('src', ''); // Limpa o src para cortar o áudio imediatamente
+        modalIframe.setAttribute('src', ''); // Limpa o src para cortar o audio imediatamente.
     }
 
     btnFecharX.addEventListener('click', fecharModalVideo);
     btnFecharMaster.addEventListener('click', fecharModalVideo);
     
-    // Fecha o modal se clicar fora da área do card branco
+    // Fecha o modal quando o clique acontece fora do card principal.
     modal.addEventListener('click', (e) => {
         if(e.target === modal) fecharModalVideo();
     });
 
 
+    // Coleta os dados preenchidos pelo aluno e monta o registro do treino.
     botaoSalvar.addEventListener('click', () => {
         const linhasTreino = document.querySelectorAll('.linha-treino');
         const registroExercicios = [];
@@ -149,6 +157,7 @@ document.addEventListener('DOMContentLoaded', () => {
     });
 
 
+    // Cancela as alteracoes e retorna para a pagina principal do treino.
     botaoCancelar.addEventListener('click', () => {
         if(confirm("Deseja realmente descartar as alterações do treino de hoje?")) {
             window.location.href = "meu-treino.html"; 

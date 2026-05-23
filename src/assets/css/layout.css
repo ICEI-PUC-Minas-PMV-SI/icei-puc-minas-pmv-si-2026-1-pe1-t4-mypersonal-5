@@ -1,12 +1,13 @@
 /* ============================================================
    layout.css — Estruturas principais de layout
-   Sidebar, topbar, área de conteúdo e responsividade
+   Estrutura geral, área de conteúdo, grids e responsividade
    ============================================================ */
 
 /* ════════════════════════════════════════════════
    LAYOUT GERAL — ÁREA LOGADA
    ════════════════════════════════════════════════ */
 
+/* Grid base para telas logadas com sidebar, topbar e conteudo. */
 .app-layout {
   display: grid;
   grid-template-columns: var(--sidebar-width) 1fr;
@@ -18,139 +19,10 @@
 }
 
 /* ════════════════════════════════════════════════
-   SIDEBAR
-   ════════════════════════════════════════════════ */
-
-.sidebar {
-  grid-area: sidebar;
-  display: flex;
-  flex-direction: column;
-  background-color: var(--white);
-  border-right: 1px solid var(--border-color);
-  padding: var(--space-6) 0;
-  position: sticky;
-  top: 0;
-  height: 100vh;
-  overflow-y: auto;
-}
-
-.sidebar-header {
-  padding: 0 var(--space-6);
-  margin-bottom: var(--space-8);
-}
-
-.sidebar-nav {
-  flex: 1;
-  padding: 0 var(--space-3);
-  display: flex;
-  flex-direction: column;
-  gap: var(--space-1);
-}
-
-.menu-item {
-  display: flex;
-  align-items: center;
-  gap: var(--space-3);
-  padding: var(--space-3) var(--space-4);
-  color: var(--text-secondary);
-  font-size: var(--font-size-sm);
-  font-weight: var(--font-weight-medium);
-  border-radius: var(--radius-md);
-  cursor: pointer;
-  transition: all var(--transition-fast);
-}
-
-.menu-item:hover {
-  background-color: var(--gray-50);
-  color: var(--text-dark);
-}
-
-.menu-item.active {
-  background-color: var(--green-light);
-  color: var(--green-dark);
-}
-
-.menu-item-icon {
-  width: 20px;
-  height: 20px;
-  flex-shrink: 0;
-}
-
-/* Perfil do usuário no rodapé da sidebar */
-.user-profile-sidebar {
-  padding: var(--space-4) var(--space-6);
-  margin-top: auto;
-  border-top: 1px solid var(--border-color);
-  display: flex;
-  align-items: center;
-  gap: var(--space-3);
-}
-
-.side-avatar {
-  width: 40px;
-  height: 40px;
-  background-color: var(--gray-200);
-  color: var(--text-secondary);
-  border-radius: var(--radius-full);
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  font-weight: var(--font-weight-semibold);
-  font-size: var(--font-size-sm);
-}
-
-.side-info {
-  flex: 1;
-  min-width: 0;
-}
-
-.side-name {
-  font-size: var(--font-size-sm);
-  font-weight: var(--font-weight-semibold);
-  color: var(--text-dark);
-  white-space: nowrap;
-  overflow: hidden;
-  text-overflow: ellipsis;
-}
-
-.side-role {
-  font-size: var(--font-size-xs);
-  color: var(--text-muted);
-}
-
-/* ════════════════════════════════════════════════
-   TOPBAR
-   ════════════════════════════════════════════════ */
-
-.topbar {
-  grid-area: topbar;
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  padding: 0 var(--space-8);
-  background-color: var(--white);
-  border-bottom: 1px solid var(--border-color);
-  position: sticky;
-  top: 0;
-  z-index: 10;
-}
-
-.topbar-title {
-  font-size: var(--font-size-lg);
-  font-weight: var(--font-weight-semibold);
-  color: var(--text-dark);
-}
-
-.topbar-actions {
-  display: flex;
-  align-items: center;
-  gap: var(--space-4);
-}
-
-/* ════════════════════════════════════════════════
    MAIN — ÁREA DE CONTEÚDO
    ════════════════════════════════════════════════ */
 
+/* Area principal rolavel das telas internas. */
 .main-content {
   grid-area: main;
   padding: var(--space-8);
@@ -161,6 +33,7 @@
   margin-top: var(--space-6);
 }
 
+/* Cabecalho generico de paginas com titulo e acoes. */
 .page-header {
   display: flex;
   align-items: center;
@@ -181,24 +54,11 @@
   color: var(--text-secondary);
 }
 
-.back-link {
-  display: inline-flex;
-  align-items: center;
-  gap: var(--space-2);
-  color: var(--text-secondary);
-  font-size: var(--font-size-sm);
-  margin-bottom: var(--space-2);
-  transition: color var(--transition-fast);
-}
-
-.back-link:hover {
-  color: var(--text-dark);
-}
-
 /* ════════════════════════════════════════════════
    GRIDS
    ════════════════════════════════════════════════ */
 
+/* Utilitario de grid com espacamento padrao. */
 .grid {
   display: grid;
   gap: var(--space-6);
@@ -217,6 +77,7 @@
    LAYOUT — TELAS PÚBLICAS (login, identificação)
    ════════════════════════════════════════════════ */
 
+/* Layout de duas colunas para telas publicas de autenticacao. */
 .auth-layout {
   min-height: 100vh;
   display: grid;
@@ -341,6 +202,7 @@
    ════════════════════════════════════════════════ */
 
 /* Tablet — < 1024px */
+/* Ajustes para tablets. */
 @media (max-width: 1024px) {
   .grid-4 { grid-template-columns: repeat(2, 1fr); }
   .grid-3 { grid-template-columns: repeat(2, 1fr); }
@@ -349,42 +211,21 @@
     grid-template-columns: 1fr;
   }
 
-  .main-content {
+  /* Area principal rolavel das telas internas. */
+.main-content {
     padding: var(--space-6);
   }
 }
 
 /* Mobile — < 768px */
+/* Ajustes para celulares. */
 @media (max-width: 768px) {
-  .app-layout {
-    grid-template-columns: var(--sidebar-width-mobile) 1fr;
-  }
-
-  .sidebar {
-    padding: var(--space-4) 0;
-  }
-
-  .sidebar-header { padding: 0; text-align: center; }
-  .sidebar-header .brand span { display: none; }
-
-  .menu-item {
-    justify-content: center;
-    padding: var(--space-3);
-  }
-
-  .menu-item span:not(.menu-item-icon) {
-    display: none;
-  }
-
-  .user-profile-sidebar {
-    padding: var(--space-3);
-    justify-content: center;
-  }
-
-  .side-info { display: none; }
-
-  .topbar {
-    padding: 0 var(--space-4);
+  /* Grid base para telas logadas com sidebar, topbar e conteudo. */
+.app-layout {
+    grid-template-columns: 1fr;
+    grid-template-areas:
+      "topbar"
+      "main";
   }
 
   .grid-2,
@@ -393,7 +234,8 @@
     grid-template-columns: 1fr;
   }
 
-  .auth-layout {
+  /* Layout de duas colunas para telas publicas de autenticacao. */
+.auth-layout {
     grid-template-columns: 1fr;
   }
 
@@ -411,8 +253,10 @@
 }
 
 /* Mobile pequeno — < 480px */
+/* Ajustes para telas pequenas. */
 @media (max-width: 480px) {
-  .main-content {
+  /* Area principal rolavel das telas internas. */
+.main-content {
     padding: var(--space-4);
   }
 

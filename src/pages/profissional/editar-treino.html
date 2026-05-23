@@ -3,36 +3,21 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Editar Treino</title>
-    <link rel="stylesheet" href="../../../assets/css/global.css">
-    <link rel="stylesheet" href="../../../assets/css/pages/editar-treino.css">
+    <title>MyPersonal - Editar Treino</title>
+    <link rel="stylesheet" href="../../assets/css/reset.css">
+    <link rel="stylesheet" href="../../assets/css/variables.css">
+    <link rel="stylesheet" href="../../assets/css/components.css">
+    <link rel="stylesheet" href="../../assets/css/layout.css">
+    <link rel="stylesheet" href="../../assets/css/sidebar.css">
+    <link rel="stylesheet" href="../../assets/css/pages/editar-treino.css">
 </head>
-<body>
+<body data-profile="personal-trainer" data-active-page="alunos" data-page-title="Editar Treino - Eliabe Monteiro" data-back="perfilaluno.html|Perfil do Aluno">
 
-    <div class="container-aplicativo">
-        
-        <aside class="menu-lateral">
-            <div class="logotipo-sistema">My Personal</div>
-            <nav>
-                <ul class="lista-navegacao">
-                    <li class="item-navegacao"><a href="dashboard.html">Dashboard</a></li>
-                    <li class="item-navegacao item-ativo"><a href="alunos.html">Meus Alunos</a></li>
-                    <li class="item-navegacao"><a href="agenda.html">Agenda</a></li>
-                    <li class="item-navegacao"><a href="mensagens.html">Mensagens</a></li>
-                    <li class="item-navegacao"><a href="configuracoes.html">Configurações</a></li>
-                </ul>
-            </nav>
-            <div class="botao-sair-menu"><a href="logout.html">Sair</a></div>
-        </aside>
+    <div class="app-layout">
+        <div id="sidebar-mount"></div>
+        <div id="topbar-mount"></div>
 
-        <main class="painel-principal">
-            <header class="barra-superior">
-                <div class="alinhamento-esquerda">
-                    <a href="perfilaluno.html" class="botao-voltar">← Perfil do Aluno</a>
-                    <h1 class="titulo-pagina">Editar Treino — Eliabe Monteiro</h1>
-                </div>
-                <div class="avatar-usuario-logado">P</div>
-            </header>
+        <main class="main-content">
 
             <form id="formTreino" class="conteudo-formulario" onsubmit="event.preventDefault();">
                 
@@ -109,6 +94,7 @@
         </div>
     </div>
 
+    <script src="../../assets/js/sidebar-loader.js"></script>
     <script src="../../assets/js/editar-treino.js"></script>
 </body>
 </html>

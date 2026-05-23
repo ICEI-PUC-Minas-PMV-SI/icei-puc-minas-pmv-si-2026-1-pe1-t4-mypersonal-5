@@ -1,20 +1,21 @@
+// Controla o identificador unico usado nas linhas dinamicas da tabela.
 let contadorLinhas = 0;
 
-// Carrega as 5 linhas estruturais 
+// Cria as 5 linhas iniciais da tabela assim que a pagina termina de carregar.
 document.addEventListener("DOMContentLoaded", function() {
     for (let i = 0; i < 5; i++) {
         adicionarLinha();
     }
 });
 
-// Altera visualmente as abas superiores de grupo
+// Marca a aba recebida como ativa e remove o destaque das demais.
 function selecionarAba(botao) {
     const abas = document.querySelectorAll('.aba-treino');
     abas.forEach(aba => aba.classList.remove('ativa'));
     botao.classList.add('ativa');
 }
 
-// Adiciona um novo grupo customizado 
+// Cria uma nova aba de grupo de treino com o nome informado pelo usuario.
 function criarNovoGrupo() {
     const nome = prompt("Digite o nome do novo grupo de treino:");
     if (nome) {
@@ -31,6 +32,7 @@ function criarNovoGrupo() {
 }
 
 
+// Insere uma nova linha editavel para cadastrar um exercicio no treino.
 function adicionarLinha() {
     contadorLinhas++;
     const corpo = document.getElementById('corpoTabela');
@@ -55,6 +57,7 @@ function adicionarLinha() {
     corpo.appendChild(novaLinha);
 }
 
+// Remove a linha informada e reajusta a numeracao visivel da tabela.
 function removerLinha(idLinha) {
     const linha = document.getElementById(idLinha);
     if (linha) {
@@ -63,7 +66,7 @@ function removerLinha(idLinha) {
     }
 }
 
- // Ajusta a contagem numérica da coluna 
+// Atualiza a numeracao exibida depois que alguma linha e removida.
 function reindexarLinhas() {
     const indices = document.querySelectorAll('.numero-indice');
     indices.forEach((elemento, chave) => {
@@ -71,6 +74,7 @@ function reindexarLinhas() {
     });
 }
 
+// Limpa os campos do formulario apos confirmacao do usuario.
 function limparFormulario() {
     if (confirm("Tem certeza de que deseja limpar todos os dados preenchidos?")) {
         document.getElementById('formTreino').reset();
@@ -78,6 +82,7 @@ function limparFormulario() {
 }
 
 
+// Monta o payload do treino e exibe o modal de confirmacao.
 function salvarDados(notificarAluno) {
     const nomeGrupo = document.getElementById('nomeGrupo').value;
     if (!nomeGrupo) {
@@ -94,6 +99,7 @@ function salvarDados(notificarAluno) {
         exercicios: []
     };
 
+    // Adiciona ao payload apenas as linhas que possuem nome de exercicio preenchido.
     const linhas = document.querySelectorAll('#corpoTabela .linha-corpo');
     linhas.forEach(linha => {
         const ex = linha.querySelector('.input-exercicio').value;

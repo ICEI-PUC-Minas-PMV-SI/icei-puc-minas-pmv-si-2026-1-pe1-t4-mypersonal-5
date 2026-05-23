@@ -1,38 +1,379 @@
 /* ============================================================
-   sidebar.css — Estilos específicos da sidebar (extras)
-   Complementa layout.css com submenu, separadores e tooltips
+   sidebar.css - Sidebar e topbar compartilhadas
+   Usado pelas telas logadas renderizadas pelo sidebar-loader.js.
    ============================================================ */
 
-/* Separador entre grupos no menu */
-.sidebar-divider {
-  height: 1px;
-  background-color: var(--border-color);
-  margin: var(--space-3) var(--space-3);
+#sidebar-mount,
+#topbar-mount {
+  display: contents;
 }
 
-/* Label de seção dentro do menu */
-.sidebar-section-label {
-  padding: var(--space-2) var(--space-4);
-  font-size: var(--font-size-xs);
-  font-weight: var(--font-weight-semibold);
-  color: var(--text-muted);
-  text-transform: uppercase;
-  letter-spacing: 0.05em;
+body.menu-aberto {
+  overflow: hidden;
 }
 
-/* Item com badge à direita */
-.menu-item-badge {
-  margin-left: auto;
-  background-color: var(--green-primary);
-  color: var(--white);
-  font-size: var(--font-size-xs);
+/* Container fixo da navegacao lateral. */
+.sidebar {
+  grid-area: sidebar;
+  display: flex;
+  flex-direction: column;
+  height: 100vh;
+  padding: var(--space-6) 0;
+  overflow-y: auto;
+  position: sticky;
+  top: 0;
+  background-color: var(--cor-superficie);
+  border-right: 1px solid var(--cor-borda);
+}
+
+.sidebar-overlay {
+  display: none;
+}
+
+/* Area da marca no topo da sidebar. */
+.sidebar-header {
+  padding: 0 var(--space-6);
+  margin-bottom: var(--space-8);
+}
+
+.sidebar-header .brand,
+.brand {
+  display: flex;
+  align-items: center;
+  gap: var(--space-2);
+  color: var(--cor-texto);
   font-weight: var(--font-weight-bold);
+}
+
+.sidebar-header .logo,
+.logo {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 40px;
+  height: 40px;
+  border-radius: var(--radius-lg);
+  background-color: var(--cor-primaria);
+  color: var(--cor-superficie);
+  font-size: var(--font-size-base);
+  font-weight: var(--font-weight-bold);
+}
+
+/* Lista vertical de links do menu. */
+.sidebar-nav {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-1);
+  padding: 0 var(--space-3);
+}
+
+/* Link padrao do menu lateral. */
+.menu-item {
+  display: flex;
+  align-items: center;
+  gap: var(--space-3);
+  padding: var(--space-3) var(--space-4);
+  border-radius: var(--radius-md);
+  color: var(--cor-texto-secundario);
+  font-size: var(--font-size-sm);
+  font-weight: var(--font-weight-medium);
+  cursor: pointer;
+  transition: all var(--transition-fast);
+}
+
+.menu-item:hover {
+  background-color: var(--cor-fundo);
+  color: var(--cor-texto);
+}
+
+.menu-item.active {
+  background-color: var(--cor-secundaria);
+  color: var(--cor-primaria-hover);
+}
+
+.menu-item-icon {
+  width: 20px;
+  height: 20px;
+  flex-shrink: 0;
+}
+
+.menu-item-badge {
+  min-width: 20px;
+  margin-left: auto;
   padding: 2px 8px;
   border-radius: var(--radius-full);
-  min-width: 20px;
+  background-color: var(--cor-primaria);
+  color: var(--cor-superficie);
+  font-size: var(--font-size-xs);
+  font-weight: var(--font-weight-bold);
   text-align: center;
 }
 
 .menu-item.active .menu-item-badge {
-  background-color: var(--green-dark);
+  background-color: var(--cor-primaria-hover);
+}
+
+.sidebar-divider {
+  height: 1px;
+  margin: var(--space-3);
+  background-color: var(--cor-borda);
+}
+
+.sidebar-section-label {
+  padding: var(--space-2) var(--space-4);
+  color: var(--cor-texto-suave);
+  font-size: var(--font-size-xs);
+  font-weight: var(--font-weight-semibold);
+  letter-spacing: 0.05em;
+  text-transform: uppercase;
+}
+
+/* Bloco de perfil fixado no rodape da sidebar. */
+.user-profile-sidebar {
+  display: flex;
+  align-items: center;
+  gap: var(--space-3);
+  margin-top: auto;
+  padding: var(--space-4) var(--space-6);
+  border-top: 1px solid var(--cor-borda);
+}
+
+.side-avatar {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+  width: 40px;
+  height: 40px;
+  border-radius: var(--radius-full);
+  background-color: var(--cor-borda);
+  color: var(--cor-texto-secundario);
+  font-size: var(--font-size-sm);
+  font-weight: var(--font-weight-semibold);
+}
+
+.side-info {
+  flex: 1;
+  min-width: 0;
+}
+
+.side-name {
+  overflow: hidden;
+  color: var(--cor-texto);
+  font-size: var(--font-size-sm);
+  font-weight: var(--font-weight-semibold);
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.side-role {
+  color: var(--cor-texto-suave);
+  font-size: var(--font-size-xs);
+}
+
+/* Barra superior compartilhada entre paginas logadas. */
+.topbar {
+  grid-area: topbar;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0 var(--space-8);
+  position: sticky;
+  top: 0;
+  z-index: 10;
+  background-color: var(--cor-superficie);
+  border-bottom: 1px solid var(--cor-borda);
+}
+
+.menu-hamburguer {
+  display: none;
+  align-items: center;
+  justify-content: center;
+  flex: 0 0 auto;
+  width: 40px;
+  height: 40px;
+  border: 1px solid var(--cor-borda);
+  border-radius: var(--radius-lg);
+  background-color: var(--cor-superficie);
+  color: var(--cor-texto);
+  cursor: pointer;
+  transition: var(--transition-fast);
+}
+
+.menu-hamburguer:hover {
+  background-color: var(--cor-fundo-campo);
+}
+
+.menu-hamburguer span {
+  display: block;
+  position: absolute;
+  width: 18px;
+  height: 2px;
+  border-radius: var(--radius-full);
+  background-color: currentColor;
+  transition: transform var(--transition-fast), opacity var(--transition-fast);
+}
+
+.menu-hamburguer span:nth-child(1) {
+  transform: translateY(-6px);
+}
+
+.menu-hamburguer span:nth-child(3) {
+  transform: translateY(6px);
+}
+
+.menu-aberto .menu-hamburguer span:nth-child(1) {
+  transform: rotate(45deg);
+}
+
+.menu-aberto .menu-hamburguer span:nth-child(2) {
+  opacity: 0;
+}
+
+.menu-aberto .menu-hamburguer span:nth-child(3) {
+  transform: rotate(-45deg);
+}
+
+.topbar > div:first-of-type {
+  min-width: 0;
+}
+
+.topbar-title {
+  overflow: hidden;
+  color: var(--cor-texto);
+  font-size: var(--font-size-lg);
+  font-weight: var(--font-weight-semibold);
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+/* Grupo de acoes e avatar no lado direito da topbar. */
+.topbar-actions {
+  display: flex;
+  align-items: center;
+  gap: var(--space-4);
+}
+
+.topbar .avatar,
+.avatar {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+  width: 40px;
+  height: 40px;
+  border-radius: var(--radius-full);
+  background-color: var(--cor-borda);
+  color: var(--cor-texto-secundario);
+  font-size: var(--font-size-sm);
+  font-weight: var(--font-weight-semibold);
+}
+
+.topbar .avatar-sm,
+.avatar-sm {
+  width: 32px;
+  height: 32px;
+  font-size: var(--font-size-xs);
+}
+
+/* Link opcional de retorno exibido na topbar. */
+.back-link {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--space-2);
+  margin-bottom: var(--space-2);
+  color: var(--cor-texto-secundario);
+  font-size: var(--font-size-sm);
+  transition: color var(--transition-fast);
+}
+
+.back-link:hover {
+  color: var(--cor-texto);
+}
+
+/* Transforma a sidebar em menu hamburguer em telas pequenas. */
+@media (max-width: 768px) {
+  .sidebar {
+    position: fixed;
+    inset: 0 auto 0 0;
+    z-index: 30;
+    width: min(82vw, 320px);
+    height: 100vh;
+    padding: var(--space-5) 0;
+    transform: translateX(-100%);
+    transition: transform var(--transition-base);
+    box-shadow: var(--shadow-lg);
+  }
+
+  .menu-aberto .sidebar {
+    transform: translateX(0);
+  }
+
+  .sidebar-overlay {
+    display: block;
+    position: fixed;
+    inset: 0;
+    z-index: 20;
+    background-color: color-mix(in srgb, var(--cor-texto) 45%, transparent);
+    opacity: 0;
+    pointer-events: none;
+    transition: opacity var(--transition-base);
+  }
+
+  .menu-aberto .sidebar-overlay {
+    opacity: 1;
+    pointer-events: auto;
+  }
+
+  .sidebar-header {
+    padding: 0 var(--space-5);
+    text-align: left;
+  }
+
+  .sidebar-header .brand span {
+    display: inline;
+  }
+
+  .menu-item {
+    justify-content: flex-start;
+    padding: var(--space-3) var(--space-4);
+  }
+
+  .menu-item span:not(.menu-item-icon) {
+    display: inline;
+  }
+
+  .user-profile-sidebar {
+    justify-content: flex-start;
+    padding: var(--space-4) var(--space-5);
+  }
+
+  .side-info {
+    display: block;
+  }
+
+  .topbar {
+    gap: var(--space-3);
+    padding: 0 var(--space-4);
+  }
+
+  .topbar > div:first-of-type {
+    flex: 1;
+  }
+
+  .menu-hamburguer {
+    display: inline-flex;
+    position: relative;
+  }
+}
+
+@media (max-width: 420px) {
+  .sidebar {
+    width: min(88vw, 300px);
+  }
+
+  .topbar-title {
+    font-size: var(--font-size-base);
+  }
 }

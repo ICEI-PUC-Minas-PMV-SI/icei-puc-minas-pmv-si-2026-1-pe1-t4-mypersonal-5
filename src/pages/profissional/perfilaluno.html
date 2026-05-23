@@ -3,35 +3,22 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Perfil do Aluno</title>
-    <link rel="stylesheet" href="../../../assets/css/global.css">
-    <link rel="stylesheet" href="../../../assets/css/pages/perfil.css">
+    <title>MyPersonal - Perfil do Aluno</title>
+    <link rel="stylesheet" href="../../assets/css/reset.css">
+    <link rel="stylesheet" href="../../assets/css/variables.css">
+    <link rel="stylesheet" href="../../assets/css/components.css">
+    <link rel="stylesheet" href="../../assets/css/layout.css">
+    <link rel="stylesheet" href="../../assets/css/sidebar.css">
+    <link rel="stylesheet" href="../../assets/css/pages/perfil.css">
 </head>
-<body>
+<body data-profile="personal-trainer" data-active-page="alunos" data-page-title="Perfil do Aluno - Eliabe Monteiro">
 
-    <div class="container-aplicativo">
-        
-        <aside class="menu-lateral">
-            <div class="logotipo-sistema">My Personal</div>
-            <nav>
-                <ul class="lista-navegacao">
-                    <li class="item-navegacao"><a href="dashboard.html">Dashboard</a></li>
-                    <li class="item-navegacao item-ativo"><a href="aluno.html">Meus Alunos</a></li>
-                    <li class="item-navegacao"><a href="agenda.html">Agenda</a></li>
-                    <li class="item-navegacao"><a href="mensagens.html">Mensagens</a></li>
-                    <li class="item-navegacao"><a href="configuracoes.html">Configurações</a></li>
-                </ul>
-            </nav>
-            <div class="botao-sair-menu"><a href="logout.html">Sair</a></div>
-        </aside>
+    <div class="app-layout">
+        <div id="sidebar-mount"></div>
+        <div id="topbar-mount"></div>
 
-        <main class="painel-principal">
-            <header class="barra-superior">
-                <h1 class="titulo-pagina">Perfil do Aluno — Eliabe Monteiro</h1>
-                <div class="avatar-usuario-logado">P</div>
-            </header>
+        <main class="main-content conteudo-perfil">
 
-            <div class="conteudo-perfil">
                 <div class="bloco-cabecalho-aluno">
                     <div class="foto-perfil-grande">EM</div>
                     <div class="informacoes-aluno">
@@ -73,10 +60,10 @@
                         </section>
                     </div>
                 </div>
-            </div>
         </main>
 
     </div>
 
+    <script src="../../assets/js/sidebar-loader.js"></script>
 </body>
 </html>
