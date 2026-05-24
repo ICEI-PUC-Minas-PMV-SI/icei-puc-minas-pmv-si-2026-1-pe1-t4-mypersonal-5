@@ -1,0 +1,545 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>MyPersonal — Meus Alunos</title>
+  <link rel="stylesheet" href="../../assets/css/reset.css">
+  <link rel="stylesheet" href="../../assets/css/variables.css">
+  <link rel="stylesheet" href="../../assets/css/components.css">
+  <link rel="stylesheet" href="../../assets/css/layout.css">
+  <link rel="stylesheet" href="../../assets/css/sidebar.css">
+  <link rel="stylesheet" href="../../assets/css/pages/meus-alunos.css">
+</head>
+<body data-page-title="Meus Alunos">
+  <div class="app-layout">
+    <div id="sidebar-mount"></div>
+    <div id="topbar-mount"></div>
+
+    <main class="main-content">
+
+      <!-- Tela: Lista de Alunos -->
+      <div class="tela ativa" id="telaMeusAlunos">
+        <div class="alunos-toolbar">
+          <input type="text" class="search-input" placeholder="Buscar aluno..." id="searchInput" />
+          <button class="btn btn-primary" onclick="irParaCadastro()">+ Cadastrar aluno</button>
+        </div>
+
+        <div class="tabs">
+          <button class="tab active" id="abaTreino" onclick="trocarAba('treino')">Treino</button>
+          <button class="tab" id="abaConsulta" onclick="trocarAba('consulta')">Consulta</button>
+          <button class="tab" id="abaCompleta" onclick="trocarAba('completa')">Completa</button>
+        </div>
+
+        <div class="versao-tabela ativa tabela-wrapper" id="tabelaTreino">
+          <table class="alunos-table">
+            <thead>
+              <tr>
+                <th>Nome</th>
+                <th>Último Treino</th>
+                <th>Próx. Treino</th>
+                <th>Status</th>
+                <th>Ações</th>
+              </tr>
+            </thead>
+            <tbody class="corpo-tabela" id="corpoTreino">
+              <tr data-nome="Eliabe Monteiro" data-status="ativo" data-email="eliabe@email.com" data-tel="(11) 99999-0001" data-nasc="15/03/1995" data-sexo="Masc" data-cidade="São Paulo" data-peso="82" data-altura="178" data-gordura="18" data-objetivo="Hipertrofia">
+                <td>Eliabe Monteiro</td><td>Seg, 07/04</td><td>10/04 – 09h</td>
+                <td><span class="status ativo">Ativo</span></td>
+                <td><button class="btn-perfil" onclick="verPerfil(this)">Ver perfil</button></td>
+              </tr>
+              <tr data-nome="Lucas Rodrigues" data-status="ativo" data-email="lucas@email.com" data-tel="(11) 99999-0002" data-nasc="22/07/1998" data-sexo="Masc" data-cidade="Campinas" data-peso="75" data-altura="175" data-gordura="15" data-objetivo="Emagrecimento">
+                <td>Lucas Rodrigues</td><td>Qua, 02/04</td><td>15/04 – 14h</td>
+                <td><span class="status ativo">Ativo</span></td>
+                <td><button class="btn-perfil" onclick="verPerfil(this)">Ver perfil</button></td>
+              </tr>
+              <tr data-nome="Ana Paula" data-status="inativo" data-email="ana@email.com" data-tel="(11) 99999-0003" data-nasc="10/11/1992" data-sexo="Fem" data-cidade="Rio de Janeiro" data-peso="60" data-altura="162" data-gordura="22" data-objetivo="Condicionamento">
+                <td>Ana Paula</td><td>Sex, 28/03</td><td>12/04 – 10h</td>
+                <td><span class="status inativo">Inativo</span></td>
+                <td><button class="btn-perfil" onclick="verPerfil(this)">Ver perfil</button></td>
+              </tr>
+              <tr data-nome="Fernanda Santos" data-status="ativo" data-email="fernanda@email.com" data-tel="(11) 99999-0004" data-nasc="05/06/1996" data-sexo="Fem" data-cidade="Belo Horizonte" data-peso="58" data-altura="165" data-gordura="20" data-objetivo="Hipertrofia">
+                <td>Fernanda Santos</td><td>Ter, 08/04</td><td>17/04 – 11h</td>
+                <td><span class="status ativo">Ativo</span></td>
+                <td><button class="btn-perfil" onclick="verPerfil(this)">Ver perfil</button></td>
+              </tr>
+              <tr data-nome="Carlos Melo" data-status="novo" data-email="carlos@email.com" data-tel="(11) 99999-0005" data-nasc="30/01/2000" data-sexo="Masc" data-cidade="Curitiba" data-peso="70" data-altura="172" data-gordura="21" data-objetivo="Saúde geral">
+                <td>Carlos Melo</td><td>—</td><td>22/04 – 08h</td>
+                <td><span class="status novo">Novo</span></td>
+                <td><button class="btn-perfil" onclick="verPerfil(this)">Ver perfil</button></td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+
+        <div class="versao-tabela tabela-wrapper" id="tabelaConsulta">
+          <table class="alunos-table">
+            <thead>
+              <tr>
+                <th>Nome</th>
+                <th>Última Consulta</th>
+                <th>Próx. Consulta</th>
+                <th>Status</th>
+                <th>Ações</th>
+              </tr>
+            </thead>
+            <tbody class="corpo-tabela" id="corpoConsulta">
+              <tr data-nome="Eliabe Monteiro" data-status="ativo" data-email="eliabe@email.com" data-tel="(11) 99999-0001" data-nasc="15/03/1995" data-sexo="Masc" data-cidade="São Paulo" data-peso="82" data-altura="178" data-gordura="18" data-objetivo="Hipertrofia">
+                <td>Eliabe Monteiro</td><td>Seg, 07/04</td><td>10/04 – 09h</td>
+                <td><span class="status ativo">Ativo</span></td>
+                <td><button class="btn-perfil" onclick="verPerfil(this)">Ver perfil</button></td>
+              </tr>
+              <tr data-nome="Lucas Rodrigues" data-status="ativo" data-email="lucas@email.com" data-tel="(11) 99999-0002" data-nasc="22/07/1998" data-sexo="Masc" data-cidade="Campinas" data-peso="75" data-altura="175" data-gordura="15" data-objetivo="Emagrecimento">
+                <td>Lucas Rodrigues</td><td>Qua, 02/04</td><td>15/04 – 14h</td>
+                <td><span class="status ativo">Ativo</span></td>
+                <td><button class="btn-perfil" onclick="verPerfil(this)">Ver perfil</button></td>
+              </tr>
+              <tr data-nome="Ana Paula" data-status="inativo" data-email="ana@email.com" data-tel="(11) 99999-0003" data-nasc="10/11/1992" data-sexo="Fem" data-cidade="Rio de Janeiro" data-peso="60" data-altura="162" data-gordura="22" data-objetivo="Condicionamento">
+                <td>Ana Paula</td><td>Sex, 28/03</td><td>12/04 – 10h</td>
+                <td><span class="status inativo">Inativo</span></td>
+                <td><button class="btn-perfil" onclick="verPerfil(this)">Ver perfil</button></td>
+              </tr>
+              <tr data-nome="Fernanda Santos" data-status="ativo" data-email="fernanda@email.com" data-tel="(11) 99999-0004" data-nasc="05/06/1996" data-sexo="Fem" data-cidade="Belo Horizonte" data-peso="58" data-altura="165" data-gordura="20" data-objetivo="Hipertrofia">
+                <td>Fernanda Santos</td><td>Ter, 08/04</td><td>17/04 – 11h</td>
+                <td><span class="status ativo">Ativo</span></td>
+                <td><button class="btn-perfil" onclick="verPerfil(this)">Ver perfil</button></td>
+              </tr>
+              <tr data-nome="Carlos Melo" data-status="novo" data-email="carlos@email.com" data-tel="(11) 99999-0005" data-nasc="30/01/2000" data-sexo="Masc" data-cidade="Curitiba" data-peso="70" data-altura="172" data-gordura="21" data-objetivo="Saúde geral">
+                <td>Carlos Melo</td><td>—</td><td>22/04 – 08h</td>
+                <td><span class="status novo">Novo</span></td>
+                <td><button class="btn-perfil" onclick="verPerfil(this)">Ver perfil</button></td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+
+        <div class="versao-tabela tabela-wrapper" id="tabelaCompleta">
+          <table class="alunos-table">
+            <thead>
+              <tr>
+                <th>Nome</th>
+                <th>Último Treino</th>
+                <th>Próx. Treino</th>
+                <th>Última Consulta</th>
+                <th>Próx. Consulta</th>
+                <th>Status</th>
+                <th>Ações</th>
+              </tr>
+            </thead>
+            <tbody class="corpo-tabela" id="corpoCompleta">
+              <tr data-nome="Eliabe Monteiro" data-status="ativo" data-email="eliabe@email.com" data-tel="(11) 99999-0001" data-nasc="15/03/1995" data-sexo="Masc" data-cidade="São Paulo" data-peso="82" data-altura="178" data-gordura="18" data-objetivo="Hipertrofia">
+                <td>Eliabe Monteiro</td><td>Seg, 07/04</td><td>10/04 – 09h</td><td>Seg, 07/04</td><td>10/04 – 09h</td>
+                <td><span class="status ativo">Ativo</span></td>
+                <td><button class="btn-perfil" onclick="verPerfil(this)">Ver perfil</button></td>
+              </tr>
+              <tr data-nome="Lucas Rodrigues" data-status="ativo" data-email="lucas@email.com" data-tel="(11) 99999-0002" data-nasc="22/07/1998" data-sexo="Masc" data-cidade="Campinas" data-peso="75" data-altura="175" data-gordura="15" data-objetivo="Emagrecimento">
+                <td>Lucas Rodrigues</td><td>Qua, 02/04</td><td>15/04 – 14h</td><td>Qua, 02/04</td><td>15/04 – 14h</td>
+                <td><span class="status ativo">Ativo</span></td>
+                <td><button class="btn-perfil" onclick="verPerfil(this)">Ver perfil</button></td>
+              </tr>
+              <tr data-nome="Ana Paula" data-status="inativo" data-email="ana@email.com" data-tel="(11) 99999-0003" data-nasc="10/11/1992" data-sexo="Fem" data-cidade="Rio de Janeiro" data-peso="60" data-altura="162" data-gordura="22" data-objetivo="Condicionamento">
+                <td>Ana Paula</td><td>Sex, 28/03</td><td>12/04 – 10h</td><td>Sex, 28/03</td><td>12/04 – 10h</td>
+                <td><span class="status inativo">Inativo</span></td>
+                <td><button class="btn-perfil" onclick="verPerfil(this)">Ver perfil</button></td>
+              </tr>
+              <tr data-nome="Fernanda Santos" data-status="ativo" data-email="fernanda@email.com" data-tel="(11) 99999-0004" data-nasc="05/06/1996" data-sexo="Fem" data-cidade="Belo Horizonte" data-peso="58" data-altura="165" data-gordura="20" data-objetivo="Hipertrofia">
+                <td>Fernanda Santos</td><td>Ter, 08/04</td><td>17/04 – 11h</td><td>Ter, 08/04</td><td>17/04 – 11h</td>
+                <td><span class="status ativo">Ativo</span></td>
+                <td><button class="btn-perfil" onclick="verPerfil(this)">Ver perfil</button></td>
+              </tr>
+              <tr data-nome="Carlos Melo" data-status="novo" data-email="carlos@email.com" data-tel="(11) 99999-0005" data-nasc="30/01/2000" data-sexo="Masc" data-cidade="Curitiba" data-peso="70" data-altura="172" data-gordura="21" data-objetivo="Saúde geral">
+                <td>Carlos Melo</td><td>—</td><td>22/04 – 08h</td><td>—</td><td>22/04 – 08h</td>
+                <td><span class="status novo">Novo</span></td>
+                <td><button class="btn-perfil" onclick="verPerfil(this)">Ver perfil</button></td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+
+      <!-- Tela: Perfil do Aluno -->
+      <div class="tela" id="telaPerfil">
+        <div class="perfil-header">
+          <div class="perfil-foto" id="perfilFoto">E</div>
+          <div class="perfil-nome-bloco">
+            <div class="perfil-nome" id="perfilNome">—</div>
+            <div class="perfil-meta" id="perfilMeta">—</div>
+          </div>
+          <div class="perfil-acoes">
+            <button class="btn btn-secondary" onclick="editarAluno()">✏ Editar</button>
+            <button class="btn-excluir" onclick="abrirModalExcluir()">🗑 Excluir</button>
+          </div>
+        </div>
+        <div class="perfil-grid">
+          <div class="perfil-card">
+            <div class="perfil-card-titulo">Dados pessoais</div>
+            <div class="perfil-linha"><span class="perfil-label">E-mail</span><span class="perfil-valor" id="perfilEmail">—</span></div>
+            <div class="perfil-linha"><span class="perfil-label">Telefone</span><span class="perfil-valor" id="perfilTel">—</span></div>
+            <div class="perfil-linha"><span class="perfil-label">Nascimento</span><span class="perfil-valor" id="perfilNasc">—</span></div>
+            <div class="perfil-linha"><span class="perfil-label">Sexo</span><span class="perfil-valor" id="perfilSexo">—</span></div>
+            <div class="perfil-linha"><span class="perfil-label">Cidade</span><span class="perfil-valor" id="perfilCidade">—</span></div>
+            <div class="perfil-linha"><span class="perfil-label">Status</span><span class="perfil-valor" id="perfilStatusTexto">—</span></div>
+          </div>
+          <div class="perfil-card">
+            <div class="perfil-card-titulo">Dados físicos</div>
+            <div class="perfil-linha"><span class="perfil-label">Peso</span><span class="perfil-valor" id="perfilPeso">—</span></div>
+            <div class="perfil-linha"><span class="perfil-label">Altura</span><span class="perfil-valor" id="perfilAltura">—</span></div>
+            <div class="perfil-linha"><span class="perfil-label">% Gordura</span><span class="perfil-valor" id="perfilGordura">—</span></div>
+            <div class="perfil-linha"><span class="perfil-label">Objetivo</span><span class="perfil-valor" id="perfilObjetivo">—</span></div>
+          </div>
+          <div class="perfil-card largo">
+            <div class="perfil-card-titulo">Histórico de treinos e consultas</div>
+            <div style="overflow-x:auto;">
+              <table class="historico-table">
+                <thead>
+                  <tr>
+                    <th>Data</th>
+                    <th>Tipo</th>
+                    <th>Descrição</th>
+                    <th>Profissional</th>
+                  </tr>
+                </thead>
+                <tbody id="perfilHistorico"></tbody>
+              </table>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Tela: Cadastrar / Editar Aluno -->
+      <div class="tela" id="telaCadastro">
+        <div class="duas-colunas">
+          <div class="coluna-esquerda">
+            <div class="secao-titulo">Dados pessoais</div>
+            <div class="grade-campos">
+              <div class="campo"><label>Nome completo</label><input type="text" id="inputNome" placeholder="Ex: Eliabe Monteiro" /></div>
+              <div class="campo"><label>E-mail</label><input type="email" id="inputEmail" placeholder="Ex: eliabe@email.com" /></div>
+              <div class="campo"><label>Telefone</label><input type="text" id="inputTel" placeholder="(11) 99999-9999" /></div>
+              <div class="campo"><label>Nascimento</label><input type="text" id="inputNasc" placeholder="DD/MM/AAAA" /></div>
+              <div class="campo"><label>Sexo</label><input type="text" id="inputSexo" placeholder="Masc / Fem" /></div>
+              <div class="campo"><label>Cidade</label><input type="text" id="inputCidade" placeholder="Ex: São Paulo" /></div>
+            </div>
+            <div class="secao-titulo">Dados físicos iniciais</div>
+            <div class="grade-campos">
+              <div class="campo"><label>Peso (kg)</label><input type="text" id="inputPeso" placeholder="Ex: 80" /></div>
+              <div class="campo"><label>Altura (cm)</label><input type="text" id="inputAltura" placeholder="Ex: 175" /></div>
+              <div class="campo"><label>% Gordura</label><input type="text" id="inputGordura" placeholder="Ex: 20" /></div>
+              <div class="campo"><label>Objetivo</label><input type="text" id="inputObjetivo" placeholder="Ex: Hipertrofia" /></div>
+            </div>
+            <div class="secao-titulo">Observações iniciais</div>
+            <div class="campo">
+              <label>Observações, restrições ou informações relevantes</label>
+              <textarea placeholder="Observações, restrições ou informações relevantes"></textarea>
+            </div>
+            <button class="btn-salvar" onclick="salvarAluno()">Salvar aluno</button>
+          </div>
+          <div class="coluna-direita">
+            <div class="secao-titulo">Vínculo e acesso</div>
+            <div class="grade-campos">
+              <div class="campo campo-inteiro"><label>Profissional responsável</label><input type="text" placeholder="Pierre" /></div>
+              <div class="campo campo-inteiro"><label>Tipo de acompanhamento</label><input type="text" placeholder="Musculação / Nutrição / Ambos" /></div>
+              <div class="campo campo-inteiro"><label>Data de início</label><input type="text" placeholder="DD/MM/AAAA" /></div>
+            </div>
+            <div class="secao-titulo">Foto do aluno (opcional)</div>
+            <div class="upload-foto" onclick="document.getElementById('inputFoto').click()">[área de upload de foto]</div>
+            <input type="file" id="inputFoto" accept="image/*" style="display:none;" />
+            <hr class="separador" />
+            <div class="secao-titulo">Credenciais de acesso</div>
+            <div class="grade-campos">
+              <div class="campo campo-inteiro"><label>Login / e-mail</label><input type="text" placeholder="Preenchido automaticamente" disabled /></div>
+              <div class="campo campo-inteiro"><label>Senha provisória</label><input type="text" placeholder="Gerada automaticamente" disabled /></div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+    </main>
+  </div>
+
+  <!-- Modal: Sucesso ao cadastrar -->
+  <div class="overlay" id="overlaySuccesso">
+    <div class="modal">
+      <div class="modal-icone">✓</div>
+      <div class="modal-titulo">Aluno cadastrado!</div>
+      <div class="modal-subtitulo" id="modalSubtitulo">foi adicionado com sucesso.</div>
+      <div class="modal-botoes">
+        <button onclick="verPerfilDoNovo()">Ver perfil do aluno</button>
+        <button onclick="voltarDoCadastro()">Voltar para lista</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- Modal: Confirmar exclusão -->
+  <div class="overlay" id="overlayExcluir">
+    <div class="modal modal-excluir">
+      <div class="modal-icone">⚠</div>
+      <div class="modal-titulo">Excluir aluno?</div>
+      <div class="modal-subtitulo" id="modalExcluirNome">Esta ação não pode ser desfeita.</div>
+      <div class="modal-botoes">
+        <button class="btn-confirmar-exclusao" onclick="confirmarExclusao()">Sim, excluir</button>
+        <button onclick="fecharModalExcluir()">Cancelar</button>
+      </div>
+    </div>
+  </div>
+
+  <script src="../../assets/js/sidebar-loader.js"></script>
+  <script>
+    var telaAnterior = 'telaMeusAlunos';
+    var nomeAlunoAtual = '';
+    var dadosNovoAluno = null;
+
+    function setTopbar(titulo, labelVoltar) {
+      var titleEl = document.querySelector('.topbar-title');
+      if (titleEl) titleEl.textContent = titulo;
+
+      var topbarLeft = document.querySelector('.topbar > div');
+      if (!topbarLeft) return;
+
+      var btnExistente = topbarLeft.querySelector('.back-link-btn');
+      if (btnExistente) btnExistente.remove();
+
+      if (labelVoltar) {
+        var btn = document.createElement('button');
+        btn.className = 'back-link back-link-btn';
+        btn.textContent = '← ' + labelVoltar;
+        btn.onclick = voltarDaTela;
+        topbarLeft.insertBefore(btn, titleEl);
+      }
+    }
+
+    function irParaMeusAlunos() {
+      mostrarTela('telaMeusAlunos');
+      setTopbar('Meus Alunos', null);
+    }
+
+    function irParaCadastro() {
+      telaAnterior = 'telaMeusAlunos';
+      mostrarTela('telaCadastro');
+      setTopbar('Cadastrar novo aluno', 'Meus Alunos');
+    }
+
+    function irParaPerfil(dados) {
+      telaAnterior = 'telaMeusAlunos';
+      mostrarTela('telaPerfil');
+      setTopbar('Perfil do aluno', 'Meus Alunos');
+      preencherPerfil(dados);
+    }
+
+    function voltarDaTela() {
+      mostrarTela(telaAnterior);
+      if (telaAnterior === 'telaMeusAlunos') {
+        setTopbar('Meus Alunos', null);
+      } else if (telaAnterior === 'telaPerfil') {
+        setTopbar('Perfil do aluno', 'Meus Alunos');
+      }
+    }
+
+    function mostrarTela(idDaTela) {
+      var telas = document.getElementsByClassName('tela');
+      for (var i = 0; i < telas.length; i++) {
+        telas[i].classList.remove('ativa');
+      }
+      document.getElementById(idDaTela).classList.add('ativa');
+    }
+
+    function trocarAba(qual) {
+      var versoes = document.getElementsByClassName('versao-tabela');
+      for (var i = 0; i < versoes.length; i++) versoes[i].classList.remove('ativa');
+      var abas = document.getElementsByClassName('tab');
+      for (var i = 0; i < abas.length; i++) abas[i].classList.remove('active');
+      if (qual === 'treino') {
+        document.getElementById('tabelaTreino').classList.add('ativa');
+        document.getElementById('abaTreino').classList.add('active');
+      } else if (qual === 'consulta') {
+        document.getElementById('tabelaConsulta').classList.add('ativa');
+        document.getElementById('abaConsulta').classList.add('active');
+      } else if (qual === 'completa') {
+        document.getElementById('tabelaCompleta').classList.add('ativa');
+        document.getElementById('abaCompleta').classList.add('active');
+      }
+    }
+
+    document.getElementById('searchInput').addEventListener('input', function() {
+      var termo = this.value.toLowerCase();
+      var corpos = document.getElementsByClassName('corpo-tabela');
+      for (var t = 0; t < corpos.length; t++) {
+        var linhas = corpos[t].getElementsByTagName('tr');
+        for (var i = 0; i < linhas.length; i++) {
+          var nome = linhas[i].cells[0].textContent.toLowerCase();
+          linhas[i].style.display = nome.indexOf(termo) !== -1 ? '' : 'none';
+        }
+      }
+    });
+
+    var historicos = {
+      'Eliabe Monteiro': [
+        { data: '07/04', tipo: 'Treino',   desc: 'Peito e tríceps',        prof: 'Pierre' },
+        { data: '05/04', tipo: 'Consulta', desc: 'Avaliação nutricional',  prof: 'Dra. Ana' },
+        { data: '03/04', tipo: 'Treino',   desc: 'Costas e bíceps',        prof: 'Pierre' },
+        { data: '01/04', tipo: 'Treino',   desc: 'Pernas',                 prof: 'Pierre' }
+      ],
+      'Lucas Rodrigues': [
+        { data: '02/04', tipo: 'Treino',   desc: 'Ombro e abdômen',        prof: 'Pierre' },
+        { data: '30/03', tipo: 'Consulta', desc: 'Retorno nutricional',    prof: 'Dra. Ana' },
+        { data: '28/03', tipo: 'Treino',   desc: 'Peito e tríceps',        prof: 'Pierre' }
+      ],
+      'Ana Paula': [
+        { data: '28/03', tipo: 'Treino',   desc: 'Funcional',              prof: 'Pierre' },
+        { data: '25/03', tipo: 'Consulta', desc: 'Primeira consulta',      prof: 'Dra. Ana' }
+      ],
+      'Fernanda Santos': [
+        { data: '08/04', tipo: 'Treino',   desc: 'Glúteos e pernas',       prof: 'Pierre' },
+        { data: '06/04', tipo: 'Consulta', desc: 'Avaliação física',       prof: 'Dra. Ana' },
+        { data: '04/04', tipo: 'Treino',   desc: 'Costas e bíceps',        prof: 'Pierre' }
+      ],
+      'Carlos Melo': [
+        { data: '20/04', tipo: 'Consulta', desc: 'Consulta inicial',       prof: 'Dra. Ana' }
+      ]
+    };
+
+    function verPerfil(btn) {
+      var linha = btn.parentElement.parentElement;
+      var dados = {
+        nome:     linha.getAttribute('data-nome'),
+        status:   linha.getAttribute('data-status'),
+        email:    linha.getAttribute('data-email'),
+        tel:      linha.getAttribute('data-tel'),
+        nasc:     linha.getAttribute('data-nasc'),
+        sexo:     linha.getAttribute('data-sexo'),
+        cidade:   linha.getAttribute('data-cidade'),
+        peso:     linha.getAttribute('data-peso'),
+        altura:   linha.getAttribute('data-altura'),
+        gordura:  linha.getAttribute('data-gordura'),
+        objetivo: linha.getAttribute('data-objetivo')
+      };
+      irParaPerfil(dados);
+    }
+
+    function preencherPerfil(dados) {
+      nomeAlunoAtual = dados.nome;
+      document.getElementById('perfilFoto').textContent        = dados.nome.charAt(0);
+      document.getElementById('perfilNome').textContent        = dados.nome;
+      document.getElementById('perfilMeta').textContent        = (dados.objetivo !== '—' ? dados.objetivo : '') + (dados.cidade !== '—' ? ' · ' + dados.cidade : '');
+      document.getElementById('perfilEmail').textContent       = dados.email;
+      document.getElementById('perfilTel').textContent         = dados.tel;
+      document.getElementById('perfilNasc').textContent        = dados.nasc;
+      document.getElementById('perfilSexo').textContent        = dados.sexo;
+      document.getElementById('perfilCidade').textContent      = dados.cidade;
+      document.getElementById('perfilStatusTexto').textContent = dados.status.charAt(0).toUpperCase() + dados.status.slice(1);
+      document.getElementById('perfilPeso').textContent        = dados.peso    !== '—' ? dados.peso    + ' kg' : '—';
+      document.getElementById('perfilAltura').textContent      = dados.altura  !== '—' ? dados.altura  + ' cm' : '—';
+      document.getElementById('perfilGordura').textContent     = dados.gordura !== '—' ? dados.gordura + '%'   : '—';
+      document.getElementById('perfilObjetivo').textContent    = dados.objetivo;
+
+      var tbody = document.getElementById('perfilHistorico');
+      tbody.innerHTML = '';
+      var hist = historicos[dados.nome];
+      if (hist) {
+        hist.forEach(function(h) {
+          var tr = document.createElement('tr');
+          tr.innerHTML = '<td>' + h.data + '</td><td>' + h.tipo + '</td><td>' + h.desc + '</td><td>' + h.prof + '</td>';
+          tbody.appendChild(tr);
+        });
+      } else {
+        tbody.innerHTML = '<tr><td colspan="4" style="color:var(--text-muted);text-align:center;padding:var(--space-4);">Nenhum histórico ainda.</td></tr>';
+      }
+    }
+
+    function editarAluno() {
+      telaAnterior = 'telaPerfil';
+      mostrarTela('telaCadastro');
+      setTopbar('Editar aluno', 'Perfil');
+      document.getElementById('inputNome').value = nomeAlunoAtual;
+    }
+
+    function adicionarAlunoNaTabela(dados) {
+      function criarLinha() {
+        var tr = document.createElement('tr');
+        ['nome','email','tel','nasc','sexo','cidade','peso','altura','gordura','objetivo'].forEach(function(k) {
+          tr.setAttribute('data-' + k, dados[k] || '—');
+        });
+        tr.setAttribute('data-status', 'novo');
+        return tr;
+      }
+
+      var linhaTreino = criarLinha();
+      linhaTreino.innerHTML = '<td>' + dados.nome + '</td><td>—</td><td>—</td>' +
+        '<td><span class="status novo">Novo</span></td>' +
+        '<td><button class="btn-perfil" onclick="verPerfil(this)">Ver perfil</button></td>';
+      document.getElementById('corpoTreino').appendChild(linhaTreino);
+
+      var linhaConsulta = criarLinha();
+      linhaConsulta.innerHTML = '<td>' + dados.nome + '</td><td>—</td><td>—</td>' +
+        '<td><span class="status novo">Novo</span></td>' +
+        '<td><button class="btn-perfil" onclick="verPerfil(this)">Ver perfil</button></td>';
+      document.getElementById('corpoConsulta').appendChild(linhaConsulta);
+
+      var linhaCompleta = criarLinha();
+      linhaCompleta.innerHTML = '<td>' + dados.nome + '</td><td>—</td><td>—</td><td>—</td><td>—</td>' +
+        '<td><span class="status novo">Novo</span></td>' +
+        '<td><button class="btn-perfil" onclick="verPerfil(this)">Ver perfil</button></td>';
+      document.getElementById('corpoCompleta').appendChild(linhaCompleta);
+    }
+
+    function abrirModalExcluir() {
+      document.getElementById('modalExcluirNome').textContent = 'Deseja excluir ' + nomeAlunoAtual + '? Esta ação não pode ser desfeita.';
+      document.getElementById('overlayExcluir').classList.add('visivel');
+    }
+
+    function fecharModalExcluir() {
+      document.getElementById('overlayExcluir').classList.remove('visivel');
+    }
+
+    function confirmarExclusao() {
+      fecharModalExcluir();
+      alert(nomeAlunoAtual + ' foi excluído.\n(Em um sistema real removeria do banco de dados)');
+      irParaMeusAlunos();
+    }
+
+    document.getElementById('overlayExcluir').addEventListener('click', function(e) {
+      if (e.target === this) fecharModalExcluir();
+    });
+
+    function salvarAluno() {
+      var nome = document.getElementById('inputNome').value.trim();
+      if (nome === '') {
+        alert('Por favor, informe o nome do aluno.');
+        return;
+      }
+      dadosNovoAluno = {
+        nome:     nome,
+        email:    document.getElementById('inputEmail').value.trim()   || '—',
+        tel:      document.getElementById('inputTel').value.trim()     || '—',
+        nasc:     document.getElementById('inputNasc').value.trim()    || '—',
+        sexo:     document.getElementById('inputSexo').value.trim()    || '—',
+        cidade:   document.getElementById('inputCidade').value.trim()  || '—',
+        peso:     document.getElementById('inputPeso').value.trim()    || '—',
+        altura:   document.getElementById('inputAltura').value.trim()  || '—',
+        gordura:  document.getElementById('inputGordura').value.trim() || '—',
+        objetivo: document.getElementById('inputObjetivo').value.trim()|| '—'
+      };
+      adicionarAlunoNaTabela(dadosNovoAluno);
+      document.getElementById('modalSubtitulo').textContent = nome + ' foi adicionado com sucesso.';
+      document.getElementById('overlaySuccesso').classList.add('visivel');
+      ['inputNome','inputEmail','inputTel','inputNasc','inputSexo','inputCidade',
+       'inputPeso','inputAltura','inputGordura','inputObjetivo'].forEach(function(id) {
+        document.getElementById(id).value = '';
+      });
+    }
+
+    function verPerfilDoNovo() {
+      document.getElementById('overlaySuccesso').classList.remove('visivel');
+      if (dadosNovoAluno) irParaPerfil(dadosNovoAluno);
+    }
+
+    function voltarDoCadastro() {
+      document.getElementById('overlaySuccesso').classList.remove('visivel');
+      irParaMeusAlunos();
+    }
+
+    document.getElementById('overlaySuccesso').addEventListener('click', function(e) {
+      if (e.target === this) this.classList.remove('visivel');
+    });
+  </script>
+</body>
+</html>
