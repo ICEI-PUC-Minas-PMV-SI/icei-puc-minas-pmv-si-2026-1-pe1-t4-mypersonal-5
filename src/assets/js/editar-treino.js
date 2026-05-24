@@ -47,10 +47,10 @@ function adicionarLinha() {
         <div class="col-dados"><input type="text" class="input-series" placeholder="4"></div>
         <div class="col-dados"><input type="text" class="input-reps" placeholder="12"></div>
         <div class="col-dados"><input type="text" class="input-desc" placeholder="60s"></div>
-        <div class="col-obs"><input type="text" class="input-obs" placeholder="Foco na cadÃªncia"></div>
-        <div class="col-video"><input type="text" class="input-video" placeholder="URL do vÃ­deo"></div>
+        <div class="col-obs"><input type="text" class="input-obs" placeholder="Foco na cadência"></div>
+        <div class="col-video"><input type="text" class="input-video" placeholder="URL do vídeo"></div>
         <div class="col-remover">
-            <button type="button" class="btn-remover" title="Remover exercÃ­cio" onclick="removerLinha('${novaLinha.id}')">Ã—</button>
+            <button type="button" class="btn-remover" title="Remover exercício" onclick="removerLinha('${novaLinha.id}')">×</button>
         </div>
     `;
 

@@ -7,7 +7,7 @@
             series: "4",
             reps: "12",
             descanso: "60s",
-            dica: "Obs: Manter escÃ¡pulas retraÃ­das durante o movimento.",
+            dica: "Obs: Manter escápulas retraídas durante o movimento.",
             videoUrl: "https://www.youtube.com/watch?v=sqOw2Y6Ju9A"
         }
     };
@@ -65,7 +65,7 @@
             botoesEmoji.forEach(b => b.classList.remove('selecionado'));
             botao.classList.add('selecionado');
             sensacaoSelecionada = botao.querySelector('.emoji-txt').textContent;
-            console.log(`SensaÃ§Ã£o selecionada: ${sensacaoSelecionada}`);
+            console.log(`Sensação selecionada: ${sensacaoSelecionada}`);
         });
     });
 
@@ -159,7 +159,7 @@
 
     // Cancela as alteracoes e retorna para a pagina principal do treino.
     botaoCancelar.addEventListener('click', () => {
-        if(confirm("Deseja realmente descartar as alteraÃ§Ãµes do treino de hoje?")) {
+        if(confirm("Deseja realmente descartar as alterações do treino de hoje?")) {
             window.location.href = "meu-treino.html";
         }
     });

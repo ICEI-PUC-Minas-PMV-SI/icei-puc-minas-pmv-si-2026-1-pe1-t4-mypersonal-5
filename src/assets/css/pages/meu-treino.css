@@ -4,8 +4,13 @@
 .conteudo-aluno {
     display: flex;
     flex-direction: column;
-    gap: 32px;
-    padding-bottom: 120px;
+    gap: 24px;
+    min-height: calc(100vh - var(--topbar-height));
+    padding-bottom: 24px;
+}
+
+.conteudo-aluno > * + * {
+    margin-top: 0;
 }
 
 /* Abas de grupos de treino. */
@@ -212,6 +217,7 @@ textarea {
     background-color: var(--cor-fundo-campo);
     outline: none;
     transition: var(--transition-fast);
+    min-height: 112px;
 }
 
 textarea:focus {
@@ -255,17 +261,14 @@ textarea:focus {
 
 /* Acoes finais de cancelamento e salvamento. */
 .rodape-acoes {
-    position: sticky;
-    bottom: 0;
-    height: 80px;
-    background-color: var(--cor-superficie);
+    height: auto;
+    background-color: transparent;
     border-top: 1px solid var(--cor-borda);
-    padding: 0 40px;
+    padding: 20px 0 8px;
     display: flex;
     align-items: center;
     justify-content: space-between;
-    z-index: 5;
-    box-shadow: 0 -4px 12px color-mix(in srgb, var(--cor-texto) 2%, transparent);
+    gap: 16px;
 }
 
 .btn-voltar-simples {
@@ -515,8 +518,8 @@ textarea:focus {
 
     .linha-treino {
         display: grid;
-        grid-template-columns: repeat(2, minmax(0, 1fr));
-        gap: 12px;
+        grid-template-columns: repeat(4, minmax(0, 1fr));
+        gap: 10px;
         min-width: 0;
         padding: 16px;
         margin-bottom: 12px;
@@ -537,10 +540,17 @@ textarea:focus {
     }
 
     .w-num {
+        grid-column: 1 / 2;
+    }
+
+    .w-ex {
         grid-column: 1 / -1;
     }
 
-    .w-ex,
+    .w-reg {
+        grid-column: span 2;
+    }
+
     .w-obs {
         grid-column: 1 / -1;
     }
@@ -591,10 +601,6 @@ textarea:focus {
         align-items: flex-start;
         flex-direction: column;
         gap: 6px;
-    }
-
-    .linha-treino {
-        grid-template-columns: 1fr;
     }
 
     .modal-overlay {
