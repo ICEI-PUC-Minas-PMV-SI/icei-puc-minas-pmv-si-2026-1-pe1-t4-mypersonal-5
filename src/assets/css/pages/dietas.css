@@ -1,6 +1,6 @@
 .days {
   display: flex;
-  gap: var(--space-2);
+  gap: var(--space-1);
   flex-wrap: nowrap;
   overflow-x: auto;
   padding-bottom: var(--space-1);
@@ -18,7 +18,7 @@
 }
 
 .day {
-  min-width: 54px;
+  min-width: 46px;
   padding: var(--space-2) var(--space-3);
   color: var(--text-secondary);
   background-color: var(--white);
@@ -48,6 +48,7 @@
   grid-template-columns: repeat(4, minmax(180px, 1fr));
   gap: var(--space-5);
   margin: var(--space-4) 0 var(--space-6);
+  min-width: 0;
 }
 
 .meal-card h2,
@@ -66,6 +67,7 @@
 }
 
 .muted-box {
+  min-width: 0;
   min-height: 92px;
   display: flex;
   align-items: stretch;
@@ -79,6 +81,7 @@
 .food-list,
 .history-list {
   width: 100%;
+  min-width: 0;
   display: grid;
   gap: var(--space-2);
   margin: 0;
@@ -88,6 +91,7 @@
 
 .food-list li,
 .history-list li {
+  min-width: 0;
   display: flex;
   justify-content: space-between;
   gap: var(--space-3);
@@ -99,8 +103,10 @@
 
 .food-list span,
 .history-list span {
+  min-width: 0;
   color: var(--text-dark);
   font-size: var(--font-size-sm);
+  overflow-wrap: anywhere;
 }
 
 .food-list strong,
@@ -122,9 +128,11 @@
   grid-template-columns: repeat(4, 1fr);
   gap: var(--space-5);
   margin: var(--space-3) 0 var(--space-6);
+  min-width: 0;
 }
 
 .total-card {
+  min-width: 0;
   padding: var(--space-4);
   background-color: var(--white);
   border: 1px solid var(--border-color);
@@ -149,6 +157,7 @@
   display: grid;
   grid-template-columns: 2fr 1fr;
   gap: var(--space-8);
+  min-width: 0;
 }
 
 .profile-head {
@@ -171,6 +180,7 @@
 }
 
 .section-block {
+  min-width: 0;
   margin-bottom: var(--space-6);
 }
 
@@ -184,6 +194,11 @@
   grid-template-columns: minmax(360px, 440px) minmax(460px, 1fr);
   gap: var(--space-10);
   align-items: start;
+  min-width: 0;
+}
+
+.profile-diet-grid > * {
+  min-width: 0;
 }
 
 .summary-list {
@@ -218,12 +233,14 @@
 
 .diet-metric-grid {
   width: 100%;
+  min-width: 0;
   display: grid;
   grid-template-columns: repeat(4, 1fr);
   gap: var(--space-3);
 }
 
 .diet-metric-card {
+  min-width: 0;
   padding: var(--space-3);
   background-color: var(--white);
   border: 1px solid var(--border-color);
@@ -253,6 +270,7 @@
 
 .btn-row {
   display: flex;
+  align-items: center;
   justify-content: space-between;
   gap: var(--space-4);
   margin-top: var(--space-5);
@@ -281,29 +299,30 @@
 }
 
 .editor-card {
-  overflow-x: auto;
+  min-width: 0;
+  overflow-x: visible;
 }
 
 .food-table {
   width: 100%;
-  min-width: 560px;
+  min-width: 0;
   table-layout: fixed;
   border-collapse: separate;
-  border-spacing: 4px 0;
+  border-spacing: 3px 0;
   margin: var(--space-3) 0;
   font-size: var(--font-size-xs);
 }
 
 .food-table .col-alimento {
-  width: 34%;
+  width: 33%;
 }
 
 .food-table .col-qtd {
-  width: 18%;
+  width: 17%;
 }
 
 .food-table .col-numero {
-  width: 12%;
+  width: 12.5%;
 }
 
 .food-table th {
@@ -326,7 +345,7 @@
   width: 100%;
   min-width: 0;
   display: block;
-  padding: var(--space-2);
+  padding: var(--space-2) var(--space-2);
   color: var(--text-dark);
   font: inherit;
   background-color: var(--white);
@@ -346,6 +365,7 @@
 
 .notes-area textarea {
   min-height: 96px;
+  overflow: hidden;
   resize: vertical;
 }
 
@@ -377,23 +397,19 @@
   color: var(--green-dark);
 }
 
-.confirm-page {
-  position: relative;
-  min-height: calc(100vh - var(--topbar-height) - var(--space-16));
-}
-
-.dimmed-preview {
-  opacity: 0.25;
-}
-
 .modal-backdrop {
-  position: absolute;
+  position: fixed;
   inset: 0;
-  display: flex;
+  z-index: 100;
+  display: none;
   align-items: center;
   justify-content: center;
   padding: var(--space-6);
   background-color: rgba(17, 24, 39, 0.55);
+}
+
+.modal-backdrop.is-open {
+  display: flex;
 }
 
 .modal-card {
@@ -434,7 +450,7 @@
   .editor-grid,
   .two-columns,
   .profile-diet-grid {
-    grid-template-columns: 1fr;
+    grid-template-columns: minmax(0, 1fr);
   }
 }
 
@@ -449,9 +465,21 @@
     padding: var(--space-6) var(--space-4);
   }
 
+  .days {
+    gap: var(--space-1);
+    flex-wrap: wrap;
+    overflow-x: visible;
+  }
+
+  .day {
+    min-width: 38px;
+    padding-right: var(--space-2);
+    padding-left: var(--space-2);
+  }
+
   .totals,
   .diet-metric-grid {
-    grid-template-columns: repeat(2, 1fr);
+    grid-template-columns: repeat(2, minmax(0, 1fr));
   }
 
   .food-list li,
@@ -459,11 +487,34 @@
     flex-direction: column;
     gap: var(--space-1);
   }
+
+  .editor-card {
+    overflow-x: auto;
+  }
+
+  .food-table {
+    min-width: 560px;
+  }
+
+  .btn-row {
+    align-items: stretch;
+    flex-direction: column;
+  }
+
+  .btn-row > .btn,
+  .btn-group,
+  .btn-group .btn {
+    width: 100%;
+  }
+
+  .btn-group {
+    gap: var(--space-3);
+  }
 }
 
 @media (max-width: 480px) {
   .totals,
   .diet-metric-grid {
-    grid-template-columns: 1fr;
+    grid-template-columns: minmax(0, 1fr);
   }
 }
