@@ -10,7 +10,7 @@ const PROFILE_MENUS = {
     initial: "P",
     items: [
       { label: "Dashboard",    href: "dashboard.html",      key: "dashboard" },
-      { label: "Meus Alunos",  href: "alunos.html",          key: "alunos" },
+      { label: "Meus Alunos",  href: "meus-alunos.html",     key: "meus-alunos" },
       { label: "Agenda",       href: "agenda.html",          key: "agenda" },
       { label: "Mensagens",    href: "mensagens.html",       key: "mensagens" },
     ],
@@ -20,7 +20,7 @@ const PROFILE_MENUS = {
     initial: "N",
     items: [
       { label: "Dashboard",    href: "dashboard.html",      key: "dashboard" },
-      { label: "Meus Alunos",  href: "alunos.html",          key: "alunos" },
+      { label: "Meus Alunos",  href: "meus-alunos.html",    key: "meus-alunos" },
       { label: "Agenda",       href: "agenda.html",          key: "agenda" },
       { label: "Mensagens",    href: "mensagens.html",       key: "mensagens" },
     ],
@@ -30,7 +30,7 @@ const PROFILE_MENUS = {
     initial: "PN",
     items: [
       { label: "Dashboard",    href: "dashboard.html",      key: "dashboard" },
-      { label: "Meus Alunos",  href: "alunos.html",          key: "alunos" },
+      { label: "Meus Alunos",  href: "meus-alunos.html",    key: "meus-alunos" },
       { label: "Agenda",       href: "agenda.html",          key: "agenda" },
       { label: "Mensagens",    href: "mensagens.html",       key: "mensagens" },
     ],
