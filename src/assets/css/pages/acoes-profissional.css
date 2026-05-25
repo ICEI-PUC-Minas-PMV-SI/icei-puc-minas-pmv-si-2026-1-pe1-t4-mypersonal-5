@@ -9,6 +9,103 @@
   gap: var(--space-4, 1rem);
 }
 
+.perfil-acoes {
+  display: flex;
+  gap: var(--space-3, 0.75rem);
+  flex-wrap: wrap;
+  margin-left: auto;
+}
+
+.btn-excluir {
+  padding: var(--space-2, 0.5rem) var(--space-5, 1.25rem);
+  border: 1px solid var(--red-light);
+  border-radius: var(--radius-md, 6px);
+  background: #fff5f5;
+  color: var(--red-dark);
+  font-size: var(--font-size-sm, 0.875rem);
+  cursor: pointer;
+  transition: background-color var(--transition-fast, 150ms ease);
+}
+
+.btn-excluir:hover {
+  background-color: var(--red-light);
+}
+
+.confirm-delete-modal {
+  position: fixed;
+  inset: 0;
+  z-index: 999;
+  display: none;
+  align-items: center;
+  justify-content: center;
+  padding: var(--space-4, 1rem);
+  background-color: rgba(0, 0, 0, 0.35);
+}
+
+.confirm-delete-modal.is-open {
+  display: flex;
+}
+
+.confirm-delete-card {
+  width: 100%;
+  max-width: 520px;
+  padding: var(--space-8, 2rem);
+  border-radius: var(--radius-xl, 12px);
+  background-color: var(--white, #fff);
+  text-align: center;
+}
+
+.confirm-delete-icon {
+  width: 60px;
+  height: 60px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin: 0 auto var(--space-5, 1.25rem);
+  border-radius: var(--radius-full, 9999px);
+  background-color: var(--red-light);
+  color: var(--red-dark);
+  font-size: var(--font-size-xl, 1.25rem);
+  font-weight: var(--font-weight-bold, 700);
+}
+
+.confirm-delete-card h2 {
+  margin-bottom: var(--space-2, 0.5rem);
+  color: var(--red-dark);
+  font-size: var(--font-size-lg, 1.125rem);
+  font-weight: var(--font-weight-bold, 700);
+}
+
+.confirm-delete-card p {
+  margin-bottom: var(--space-6, 1.5rem);
+  color: var(--text-secondary);
+  font-size: var(--font-size-sm, 0.875rem);
+}
+
+.confirm-delete-actions {
+  display: flex;
+  gap: var(--space-3, 0.75rem);
+  justify-content: center;
+  flex-wrap: wrap;
+}
+
+.btn-confirmar-exclusao {
+  min-width: 120px;
+  padding: var(--space-3, 0.75rem) var(--space-5, 1.25rem);
+  border: 1px solid var(--red-light);
+  border-radius: var(--radius-md, 6px);
+  background-color: #fff5f5;
+  color: var(--red-dark);
+  font-size: var(--font-size-sm, 0.875rem);
+  font-weight: var(--font-weight-semibold, 600);
+  cursor: pointer;
+  transition: background-color var(--transition-fast, 150ms ease);
+}
+
+.btn-confirmar-exclusao:hover {
+  background-color: var(--red-light);
+}
+
 .student-name {
   color: var(--text-dark, var(--texto-escuro));
   font-size: var(--font-size-xl, 1.25rem);
@@ -92,4 +189,11 @@
 
 .secao-observacoes textarea {
   min-height: 200px;
+}
+
+@media (max-width: 768px) {
+  .perfil-acoes {
+    width: 100%;
+    margin-left: 0;
+  }
 }

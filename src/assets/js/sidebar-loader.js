@@ -39,12 +39,12 @@ const PROFILE_MENUS = {
     label: "Aluno",
     initial: "A",
     items: [
-      { label: "Início",       href: "home.html",            key: "home" },
-      { label: "Meu Treino",   href: "meu-treino.html",      key: "meu-treino" },
-      { label: "Minha Dieta",  href: "minha-dieta.html",     key: "minha-dieta" },
-      { label: "Estatísticas", href: "estatisticaaluno.html", key: "estatisticas" },
-      { label: "Agenda",       href: "agenda.html",          key: "agenda" },
-      { label: "Mensagens",    href: "mensagens.html",       key: "mensagens" },
+      { label: "Início",       href: "../aluno/home.html",            key: "home" },
+      { label: "Meu Treino",   href: "../aluno/meu-treino.html",      key: "meu-treino" },
+      { label: "Minha Dieta",  href: "../aluno/minha-dieta.html",     key: "minha-dieta" },
+      { label: "Estatísticas", href: "../aluno/estatisticaaluno.html", key: "estatisticas" },
+      { label: "Agenda",       href: "../profissional/agenda.html?perfil=aluno", key: "agenda" },
+      { label: "Mensagens",    href: "../profissional/mensagens.html?perfil=aluno", key: "mensagens" },
     ],
   },
 };
@@ -76,7 +76,9 @@ function detectProfile() {
  * Detecta a página ativa pelo nome do arquivo
  */
 function detectActivePage() {
-  if (document.body.dataset.activePage) return document.body.dataset.activePage;
+  if (document.body.dataset.activePage) {
+    return document.body.dataset.activePage === "alunos" ? "meus-alunos" : document.body.dataset.activePage;
+  }
 
   const path = window.location.pathname;
   const file = path.split("/").pop().replace(".html", "");
@@ -85,6 +87,7 @@ function detectActivePage() {
 }
 
 function getSettingsHref() {
+  if (detectProfile() === "aluno") return "../aluno/configuracoes.html";
   return "configuracoes.html";
 }
 
