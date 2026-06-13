@@ -10,6 +10,7 @@
     calcularDiferenca,
     calcularImc,
     excluirAvaliacao,
+    formatarNomeAluno,
     formatarData,
     formatarTipoAvaliacao,
     normalizarTexto,
@@ -87,8 +88,9 @@
 
   /* codigo que monta o texto usado no relatorio exportado */
   function montarTextoRelatorio(avaliacoes) {
+    const nomeAluno = formatarNomeAluno ? formatarNomeAluno() : "Eliabe Monteiro";
     const linhas = [
-      "Relatorio de historico - Eliabe Monteiro",
+      `Relatorio de historico - ${nomeAluno}`,
       `Gerado em: ${formatarData(new Date().toISOString().slice(0, 10))}`,
       "",
       `Avaliacoes encontradas: ${avaliacoes.length}`,
@@ -115,6 +117,8 @@
     if (!linkDownload) return;
 
     const filtradas = filtrarAvaliacoesHistorico(buscarAvaliacoes());
+    const nomeAluno = formatarNomeAluno ? formatarNomeAluno() : "Eliabe Monteiro";
+    const nomeArquivoSeguro = nomeAluno.replace(/\s+/g, "");
     const arquivoBlob = new Blob([montarTextoRelatorio(filtradas)], { type: "text/plain;charset=utf-8" });
     const hrefAnterior = linkDownload.getAttribute("href");
 
@@ -123,11 +127,11 @@
     }
 
     linkDownload.href = URL.createObjectURL(arquivoBlob);
-    linkDownload.download = "Historico_EliabeMonteiro.txt";
+    linkDownload.download = `Historico_${nomeArquivoSeguro}.txt`;
 
     const nomeArquivo = document.querySelector(".export-file strong");
     const tipoArquivo = document.querySelector(".export-file span");
-    if (nomeArquivo) nomeArquivo.textContent = "Historico_EliabeMonteiro.txt";
+    if (nomeArquivo) nomeArquivo.textContent = linkDownload.download;
     if (tipoArquivo) tipoArquivo.textContent = "TXT";
   }
 

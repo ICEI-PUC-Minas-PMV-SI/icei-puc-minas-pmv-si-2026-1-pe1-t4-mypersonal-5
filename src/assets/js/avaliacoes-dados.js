@@ -7,6 +7,7 @@
   const CHAVES = {
     avaliacoes: "mypersonal:avaliacoes",
     configuracoesAluno: "mypersonal:configuracoesAluno",
+    configuracoesProfissional: "mypersonal:configuracoesProfissional",
   };
 
   /* dados iniciais do aluno usados quando o localStorage ainda esta vazio */
@@ -16,6 +17,21 @@
     sobrenome: "Monteiro",
     email: "eliabe@email.com",
     telefone: "(31) 98888-8888",
+    cidade: "Belo Horizonte",
+    preferencias: {
+      email: true,
+      agenda: true,
+      mensagens: false,
+    },
+  };
+
+  /* dados iniciais do profissional usados quando o localStorage ainda esta vazio */
+  const profissionalPadrao = {
+    id: "pierre",
+    nome: "Pierre",
+    sobrenome: "Silva",
+    email: "pierre@email.com",
+    telefone: "(31) 99999-9999",
     cidade: "Belo Horizonte",
     preferencias: {
       email: true,
@@ -103,18 +119,96 @@
     if (!localStorage.getItem(CHAVES.configuracoesAluno)) {
       salvarJson(CHAVES.configuracoesAluno, alunoPadrao);
     }
+
+    if (!localStorage.getItem(CHAVES.configuracoesProfissional)) {
+      salvarJson(CHAVES.configuracoesProfissional, profissionalPadrao);
+    }
   }
 
+  /* codigo para gerar um id estavel para integracoes futuras */
+  function gerarIdAluno(valor) {
+    const normalizado = normalizarTexto(valor).replace(/[^a-z0-9]+/g, "-").replace(/^-|-$/g, "");
+    if (normalizado.includes("eliabe")) return alunoPadrao.id;
+    return normalizado || alunoPadrao.id;
+  }
+
+  /* codigo para ler o aluno selecionado por outras telas, com fallback no modelo */
+  function buscarAlunoAtual() {
+    try {
+      const selecionado = sessionStorage.getItem("alunoSelecionado");
+      if (selecionado) {
+        const dados = JSON.parse(selecionado);
+        const nomeCompleto = `${dados.nome || ""} ${dados.sobrenome || ""}`.trim() || `${alunoPadrao.nome} ${alunoPadrao.sobrenome}`;
+        const [nomeFallback, ...sobrenomePartes] = String(nomeCompleto).trim().split(/\s+/);
+
+        return {
+          ...alunoPadrao,
+          ...dados,
+          id: dados.id || dados.alunoId || gerarIdAluno(nomeCompleto),
+          nome: nomeFallback || alunoPadrao.nome,
+          sobrenome: sobrenomePartes.join(" ") || alunoPadrao.sobrenome,
+          telefone: dados.telefone || dados.tel || alunoPadrao.telefone,
+        };
+      }
+    } catch (erro) {
+      return alunoPadrao;
+    }
+
+    return alunoPadrao;
+  }
+
+  function buscarAlunoIdAtual() {
+    return buscarAlunoAtual().id || alunoPadrao.id;
+  }
+
+  function formatarNomeAluno(aluno = buscarAlunoAtual()) {
+    return `${aluno.nome || ""} ${aluno.sobrenome || ""}`.trim() || `${alunoPadrao.nome} ${alunoPadrao.sobrenome}`;
+  }
+
+  /* codigo para refletir o aluno atual em textos das telas de profissional */
+  function atualizarContextoAlunoNaTela() {
+    const aluno = buscarAlunoAtual();
+    const nomeAluno = formatarNomeAluno(aluno);
+    const tituloAnterior = "Eliabe Monteiro";
+
+    document.querySelectorAll(".student-name").forEach((elemento) => {
+      elemento.textContent = nomeAluno;
+    });
+
+    document.querySelectorAll(".student-header .avatar-lg").forEach((elemento) => {
+      const partes = nomeAluno.split(/\s+/).filter(Boolean);
+      elemento.textContent = `${partes[0]?.[0] || "A"}${partes[1]?.[0] || ""}`.toUpperCase();
+    });
+
+    if (document.body.dataset.pageTitle?.includes(tituloAnterior)) {
+      document.body.dataset.pageTitle = document.body.dataset.pageTitle.replace(tituloAnterior, nomeAluno);
+    }
+
+    const topbarTitle = document.querySelector(".topbar-title");
+    if (topbarTitle?.textContent.includes(tituloAnterior)) {
+      topbarTitle.textContent = topbarTitle.textContent.replace(tituloAnterior, nomeAluno);
+    }
+  }
+
+
   /* codigo para buscar todas as avaliacoes em ordem de data */
-  function buscarAvaliacoes() {
+  function buscarTodasAvaliacoes() {
     garantirDadosIniciais();
     return lerJson(CHAVES.avaliacoes, []).sort((a, b) => a.data.localeCompare(b.data));
   }
 
+  /* codigo para buscar avaliacoes do aluno atual em ordem de data */
+  function buscarAvaliacoes(alunoId = buscarAlunoIdAtual()) {
+    return buscarTodasAvaliacoes().filter((avaliacao) => (avaliacao.alunoId || alunoPadrao.id) === alunoId);
+  }
+
   /* codigo para salvar uma nova avaliacao no localStorage */
   function salvarAvaliacao(avaliacao) {
-    const avaliacoes = buscarAvaliacoes();
-    avaliacoes.push(avaliacao);
+    const avaliacoes = buscarTodasAvaliacoes();
+    avaliacoes.push({
+      ...avaliacao,
+      alunoId: avaliacao.alunoId || buscarAlunoIdAtual(),
+    });
 
     try {
       salvarJson(CHAVES.avaliacoes, avaliacoes);
@@ -127,7 +221,7 @@
 
   /* codigo para excluir uma avaliacao pelo id */
   function excluirAvaliacao(idAvaliacao) {
-    const avaliacoesAtualizadas = buscarAvaliacoes().filter((avaliacao) => avaliacao.id !== idAvaliacao);
+    const avaliacoesAtualizadas = buscarTodasAvaliacoes().filter((avaliacao) => avaliacao.id !== idAvaliacao);
     salvarJson(CHAVES.avaliacoes, avaliacoesAtualizadas);
   }
 
@@ -140,6 +234,17 @@
   /* codigo para salvar as configuracoes do aluno */
   function salvarConfigAluno(configuracao) {
     salvarJson(CHAVES.configuracoesAluno, configuracao);
+  }
+
+  /* codigo para buscar as configuracoes salvas do profissional */
+  function buscarConfigProfissional() {
+    garantirDadosIniciais();
+    return lerJson(CHAVES.configuracoesProfissional, profissionalPadrao);
+  }
+
+  /* codigo para salvar as configuracoes do profissional */
+  function salvarConfigProfissional(configuracao) {
+    salvarJson(CHAVES.configuracoesProfissional, configuracao);
   }
 
   /* codigo para formatar data no padrao brasileiro */
@@ -242,11 +347,18 @@
 
   Object.assign(app, {
     garantirDadosIniciais,
+    buscarAlunoAtual,
+    buscarAlunoIdAtual,
+    formatarNomeAluno,
+    atualizarContextoAlunoNaTela,
+    buscarTodasAvaliacoes,
     buscarAvaliacoes,
     salvarAvaliacao,
     excluirAvaliacao,
     buscarConfigAluno,
     salvarConfigAluno,
+    buscarConfigProfissional,
+    salvarConfigProfissional,
     formatarData,
     formatarMesAno,
     converterDecimal,
