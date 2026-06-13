@@ -178,12 +178,31 @@ document.addEventListener('DOMContentLoaded', function() {
         const container = document.getElementById('perfilUltimaAvaliacao');
         if (!container) return;
 
+        const app = window.MyPersonal || {};
+        const ultimaAvaliacao = typeof app.buscarUltimaAvaliacao === 'function'
+            ? app.buscarUltimaAvaliacao()
+            : null;
+
+        const dadosAvaliacao = ultimaAvaliacao || alunoBase;
+        const formatarNumero = typeof app.formatarValorMetrica === 'function'
+            ? app.formatarValorMetrica
+            : function(valor) {
+                if (valor === '' || valor === null || valor === undefined) return '-';
+                const numero = Number(String(valor).replace(',', '.'));
+                return Number.isNaN(numero) ? String(valor) : numero.toLocaleString('pt-BR');
+            };
+
+        const dataAvaliacao = ultimaAvaliacao && typeof app.formatarData === 'function'
+            ? `<p>Última avaliação: ${app.formatarData(ultimaAvaliacao.data)}</p>`
+            : '';
+
         container.innerHTML = `
             <div class="perfil-metricas">
-                <span><strong>${alunoBase.peso || '-'}</strong> kg</span>
-                <span><strong>${alunoBase.altura || '-'}</strong> cm</span>
-                <span><strong>${alunoBase.gordura || '-'}</strong> % gordura</span>
+                <span><strong>${formatarNumero(dadosAvaliacao.peso)}</strong> kg</span>
+                <span><strong>${formatarNumero(dadosAvaliacao.altura)}</strong> cm</span>
+                <span><strong>${formatarNumero(dadosAvaliacao.gordura)}</strong> % gordura</span>
             </div>
+            ${dataAvaliacao}
             <p>Objetivo: ${alunoBase.objetivo || 'Nao informado'}</p>
         `;
     }
@@ -216,7 +235,7 @@ document.addEventListener('DOMContentLoaded', function() {
         const ultimo = registros[0];
         container.insertAdjacentHTML('beforeend', `
             <div class="perfil-ultimo-registro">
-                <strong>Ultimo treino registrado</strong>
+                <strong>Último treino registrado</strong>
                 <span>${ultimo.treinoSelecionado} - ${ultimo.statusTreino} - ${ultimo.sensacaoFinal}</span>
             </div>
         `);

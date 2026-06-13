@@ -80,8 +80,8 @@
 /* Layout de colunas do conteudo do perfil. */
 .grade-conteudo {
     display: grid;
-    grid-template-columns: minmax(0, 1.85fr) minmax(280px, 1fr);
-    gap: 32px;
+    grid-template-columns: 2fr 1fr;
+    gap: var(--space-8);
     width: 100%;
 }
 
@@ -120,7 +120,11 @@
 }
 
 .caixa-treino-atual { max-height: 420px; min-height: 340px; overflow: auto; position: relative; }
-.caixa-ultima-avaliacao { height: 150px; }
+.caixa-ultima-avaliacao {
+    min-height: 178px;
+    height: auto;
+    overflow: visible;
+}
 .caixa-observacoes { height: 100px; resize: vertical; }
 
 .texto-interno-placeholder {
@@ -183,8 +187,8 @@
 .perfil-metricas {
     display: grid;
     grid-template-columns: repeat(3, 1fr);
-    gap: 8px;
-    margin-bottom: 12px;
+    gap: 16px;
+    margin-bottom: 14px;
 }
 
 .perfil-metricas span {
@@ -202,9 +206,9 @@
     border-top: 1px solid var(--cor-borda);
     display: flex;
     flex-direction: column;
-    gap: 4px;
-    margin-top: 12px;
-    padding-top: 12px;
+    gap: 6px;
+    margin-top: 14px;
+    padding-top: 14px;
 }
 
 /* Botao principal usado nas acoes do perfil. */
