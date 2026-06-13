@@ -43,32 +43,41 @@ const PROFILE_MENUS = {
       { label: "Meu Treino",   href: "../aluno/meu-treino.html",      key: "meu-treino" },
       { label: "Minha Dieta",  href: "../aluno/minha-dieta.html",     key: "minha-dieta" },
       { label: "Estatísticas", href: "../aluno/estatisticaaluno.html", key: "estatisticas" },
-      { label: "Agenda",       href: "../profissional/agenda.html?perfil=aluno", key: "agenda" },
-      { label: "Mensagens",    href: "../profissional/mensagens.html?perfil=aluno", key: "mensagens" },
+      { label: "Agenda",       href: "../aluno/agenda.html",          key: "agenda" },
+      { label: "Mensagens",    href: "../aluno/mensagens.html",       key: "mensagens" },
     ],
   },
 };
 
 /**
  * Detecta o perfil ativo. Ordem:
- *   1. data-profile no <body>
- *   2. ?perfil= na URL
- *   3. localStorage 'mypersonal:perfil'
- *   4. fallback: personal-trainer
+ *   1. ?perfil= na URL
+ *   2. data-profile no <body>
+ *   3. localStorage 'mypersonal:perfil', respeitando a pasta atual
+ *   4. fallback pela pasta atual
  */
 function detectProfile() {
   const body = document.body;
-  if (body.dataset.profile) return body.dataset.profile;
-
   const url = new URLSearchParams(window.location.search);
+  const path = window.location.pathname;
+  const isAlunoPage = path.includes("/aluno/");
+  const isProfissionalPage = path.includes("/profissional/");
+
   if (url.get("perfil")) {
     localStorage.setItem("mypersonal:perfil", url.get("perfil"));
     return url.get("perfil");
   }
 
-  const stored = localStorage.getItem("mypersonal:perfil");
-  if (stored) return stored;
+  if (body.dataset.profile) return body.dataset.profile;
 
+  const stored = localStorage.getItem("mypersonal:perfil");
+  if (stored) {
+    if (isAlunoPage) return "aluno";
+    if (isProfissionalPage && stored === "aluno") return "personal-trainer";
+    return stored;
+  }
+
+  if (isAlunoPage) return "aluno";
   return "personal-trainer";
 }
 
