@@ -6,8 +6,9 @@
   /* codigo que inicia todas as funcoes quando a pagina termina de carregar */
   document.addEventListener("DOMContentLoaded", () => {
     app.garantirDadosIniciais?.();
+    app.atualizarContextoAlunoNaTela?.();
     app.configurarNovaAvaliacao?.();
-    app.configurarConfiguracoesAluno?.();
+    app.configurarConfiguracoesPerfil?.();
     app.renderizarEstatisticaAluno?.();
     app.renderizarEstatisticaProfissional?.();
     app.renderizarHistoricoProfissional?.();

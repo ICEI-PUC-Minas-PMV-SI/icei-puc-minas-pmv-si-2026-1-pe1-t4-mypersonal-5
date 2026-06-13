@@ -287,7 +287,6 @@
 
       const avaliacaoSalva = salvarAvaliacao({
         id: `avaliacao-${Date.now()}`,
-        alunoId: "eliabe",
         data,
         tipo: document.getElementById("tipo-avaliacao")?.value || "Avaliação corporal",
         peso: document.getElementById("peso")?.value || "",
