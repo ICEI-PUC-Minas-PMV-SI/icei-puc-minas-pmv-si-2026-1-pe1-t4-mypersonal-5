@@ -89,12 +89,172 @@
     };
   }
 
+  function lerJsonSeguroConfig(chave, fallback) {
+    try {
+      const valor = localStorage.getItem(chave);
+      return valor ? JSON.parse(valor) : fallback;
+    } catch (erro) {
+      return fallback;
+    }
+  }
+
+  function salvarJsonSeguroConfig(chave, valor) {
+    try {
+      localStorage.setItem(chave, JSON.stringify(valor));
+    } catch (erro) {}
+  }
+
+  function dividirNomeCompletoConfig(nomeCompleto) {
+    const partes = String(nomeCompleto || "").trim().split(/\s+/).filter(Boolean);
+    return {
+      nome: partes[0] || "",
+      sobrenome: partes.slice(1).join(" "),
+    };
+  }
+
+  function paginaConfigAluno(configPerfil) {
+    return configPerfil === CONFIGURACOES_POR_PERFIL.aluno;
+  }
+
+  function usuarioCombinaComPagina(usuario, configPerfil) {
+    if (!usuario) return false;
+    const isAluno = usuario.tipo === "aluno" || usuario.perfil === "aluno";
+    const isProfissional = usuario.tipo === "profissional" || (usuario.perfil && usuario.perfil !== "aluno");
+    return paginaConfigAluno(configPerfil) ? isAluno : isProfissional;
+  }
+
+  function buscarUsuarioLogadoConfig(configPerfil) {
+    const usuario = lerJsonSeguroConfig("mypersonal:usuarioLogado", null);
+    return usuarioCombinaComPagina(usuario, configPerfil) ? usuario : null;
+  }
+
+  function montarConfiguracaoInicial(configPerfil) {
+    const configuracao = configPerfil.buscar();
+    const usuario = buscarUsuarioLogadoConfig(configPerfil);
+    if (!usuario) return configuracao;
+
+    const nomeCompleto = usuario.nome || `${configuracao.nome || ""} ${configuracao.sobrenome || ""}`.trim();
+    const partes = dividirNomeCompletoConfig(nomeCompleto);
+
+    return {
+      ...configuracao,
+      id: usuario.id || configuracao.id,
+      nome: partes.nome || configuracao.nome || "",
+      sobrenome: partes.sobrenome || configuracao.sobrenome || "",
+      email: usuario.email || configuracao.email || "",
+      telefone: usuario.telefone || usuario.tel || configuracao.telefone || "",
+      cidade: usuario.cidade || configuracao.cidade || "",
+    };
+  }
+
+
+  function limparErrosSenha() {
+    ["senha-atual", "nova-senha", "confirmar-senha"].forEach((id) => {
+      const campo = document.getElementById(id);
+      if (!campo) return;
+      campo.classList.remove("is-invalid");
+      const grupo = campo.closest(".input-group");
+      if (grupo) grupo.classList.remove("has-error");
+    });
+  }
+
+  function marcarErroSenha(id, mensagem) {
+    const campo = document.getElementById(id);
+    if (!campo) return;
+    campo.classList.add("is-invalid");
+    const grupo = campo.closest(".input-group");
+    if (grupo) grupo.classList.add("has-error");
+    alert(mensagem);
+    campo.focus();
+  }
+
+  function salvarNovaSenhaLocalStorage(configPerfil) {
+    limparErrosSenha();
+
+    const senhaAtual = document.getElementById("senha-atual")?.value || "";
+    const novaSenha = document.getElementById("nova-senha")?.value || "";
+    const confirmarSenha = document.getElementById("confirmar-senha")?.value || "";
+    const usuarioLogado = buscarUsuarioLogadoConfig(configPerfil);
+    const usuarios = lerJsonSeguroConfig("mypersonal:usuarios", {});
+    const id = usuarioLogado?.id;
+    const usuario = id && usuarios && typeof usuarios === "object" ? usuarios[id] : null;
+
+    if (!usuario) {
+      marcarErroSenha("senha-atual", "Nao foi possivel identificar o usuario logado.");
+      return false;
+    }
+
+    if (!senhaAtual) {
+      marcarErroSenha("senha-atual", "Informe a senha atual.");
+      return false;
+    }
+
+    if (usuario.senha && usuario.senha !== senhaAtual) {
+      marcarErroSenha("senha-atual", "A senha atual esta incorreta.");
+      return false;
+    }
+
+    if (novaSenha.length < 4) {
+      marcarErroSenha("nova-senha", "A nova senha deve ter pelo menos 4 caracteres.");
+      return false;
+    }
+
+    if (novaSenha !== confirmarSenha) {
+      marcarErroSenha("confirmar-senha", "A confirmacao da senha nao confere.");
+      return false;
+    }
+
+    usuarios[id] = {
+      ...usuario,
+      senha: novaSenha,
+    };
+
+    salvarJsonSeguroConfig("mypersonal:usuarios", usuarios);
+
+    ["senha-atual", "nova-senha", "confirmar-senha"].forEach((idCampo) => {
+      const campo = document.getElementById(idCampo);
+      if (campo) campo.value = "";
+    });
+
+    return true;
+  }
+
+  function sincronizarConfiguracaoComUsuario(configuracao, configPerfil) {
+    const usuarioLogado = buscarUsuarioLogadoConfig(configPerfil);
+    const usuarios = lerJsonSeguroConfig("mypersonal:usuarios", {});
+    const id = usuarioLogado?.id || configuracao.id;
+    const nomeCompleto = `${configuracao.nome || ""} ${configuracao.sobrenome || ""}`.trim();
+
+    if (id && usuarios && typeof usuarios === "object" && !Array.isArray(usuarios) && usuarios[id]) {
+      usuarios[id] = {
+        ...usuarios[id],
+        nome: nomeCompleto || usuarios[id].nome || "",
+        email: configuracao.email || usuarios[id].email || "",
+        telefone: configuracao.telefone || usuarios[id].telefone || "",
+        tel: configuracao.telefone || usuarios[id].tel || "",
+        cidade: configuracao.cidade || usuarios[id].cidade || "",
+      };
+      salvarJsonSeguroConfig("mypersonal:usuarios", usuarios);
+    }
+
+    if (usuarioLogado) {
+      salvarJsonSeguroConfig("mypersonal:usuarioLogado", {
+        ...usuarioLogado,
+        nome: nomeCompleto || usuarioLogado.nome || "",
+        email: configuracao.email || usuarioLogado.email || "",
+        telefone: configuracao.telefone || usuarioLogado.telefone || "",
+        tel: configuracao.telefone || usuarioLogado.tel || "",
+        cidade: configuracao.cidade || usuarioLogado.cidade || "",
+      });
+    }
+  }
+
   /* codigo para carregar e salvar configuracoes conforme o perfil */
   function configurarConfiguracoesPerfil() {
     const configPerfil = detectarConfigPerfil();
     if (!configPerfil || !configPerfil.buscar || !configPerfil.salvar) return;
 
-    const configuracao = configPerfil.buscar();
+    const configuracao = montarConfiguracaoInicial(configPerfil);
     const preferencias = document.querySelectorAll(".preferencia-item input[type='checkbox']");
     preencherCampos(configuracao);
     aplicarPreferencias(configuracao, preferencias);
@@ -111,7 +271,21 @@
           return;
         }
 
-        configPerfil.salvar(montarConfiguracao(configPerfil.idPadrao, preferencias));
+        const novaConfiguracao = montarConfiguracao(configuracao.id || configPerfil.idPadrao, preferencias);
+        configPerfil.salvar(novaConfiguracao);
+        sincronizarConfiguracaoComUsuario(novaConfiguracao, configPerfil);
+      }, true);
+    }
+
+    const botaoSenha = botoesConfiguracoes.find((botao) => {
+      return (botao.dataset.modalTitle || "").toLowerCase().includes("senha");
+    });
+
+    if (botaoSenha) {
+      botaoSenha.addEventListener("click", (evento) => {
+        if (!salvarNovaSenhaLocalStorage(configPerfil)) {
+          evento.stopImmediatePropagation();
+        }
       }, true);
     }
   }

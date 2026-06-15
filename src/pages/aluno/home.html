@@ -64,38 +64,7 @@
         <section>
           <h2 class="section-title">Treino de hoje</h2>
           <div class="training-summary">
-            <div class="training-summary-list">
-              <div class="training-row">
-                <span class="training-row-name">Supino reto com barra</span>
-                <span class="training-row-meta">4 séries</span>
-                <span class="training-row-meta">12 reps</span>
-                <a href="#" class="training-row-video">▶ ver vídeo</a>
-              </div>
-              <div class="training-row">
-                <span class="training-row-name">Crucifixo com halteres</span>
-                <span class="training-row-meta">3 séries</span>
-                <span class="training-row-meta">15 reps</span>
-                <a href="#" class="training-row-video">▶ ver vídeo</a>
-              </div>
-              <div class="training-row">
-                <span class="training-row-name">Tríceps na polia</span>
-                <span class="training-row-meta">4 séries</span>
-                <span class="training-row-meta">12 reps</span>
-                <a href="#" class="training-row-video">▶ ver vídeo</a>
-              </div>
-              <div class="training-row">
-                <span class="training-row-name">Desenvolvimento com barra</span>
-                <span class="training-row-meta">3 séries</span>
-                <span class="training-row-meta">10 reps</span>
-                <a href="#" class="training-row-video">▶ ver vídeo</a>
-              </div>
-              <div class="training-row">
-                <span class="training-row-name">Elevação lateral</span>
-                <span class="training-row-meta">3 séries</span>
-                <span class="training-row-meta">15 reps</span>
-                <a href="#" class="training-row-video">▶ ver vídeo</a>
-              </div>
-            </div>
+            <div class="training-summary-list" id="training-list"></div>
             <a href="meu-treino.html" class="btn btn-secondary">Registrar observação</a>
           </div>
         </section>
@@ -103,20 +72,7 @@
         <!-- Coluna dir: próximos compromissos -->
         <section>
           <h2 class="section-title">Próximos compromissos</h2>
-          <div class="next-appointments">
-            <div class="next-appointment-card">
-              <p class="date-time">10/04 · 09:00</p>
-              <p class="title">Consulta com Pierre</p>
-            </div>
-            <div class="next-appointment-card">
-              <p class="date-time">15/04 · 14:00</p>
-              <p class="title">Renovação de treino</p>
-            </div>
-            <div class="next-appointment-card">
-              <p class="date-time">22/04 · 08:00</p>
-              <p class="title">Avaliação corporal</p>
-            </div>
-          </div>
+          <div class="next-appointments" id="appointments-list"></div>
         </section>
       </div>
 
@@ -132,5 +88,164 @@
   </div>
 
   <script src="../../assets/js/sidebar-loader.js"></script>
+  <script src="../../assets/js/aluno-contexto.js"></script>
+  <script src="../../assets/js/compromissos-store.js"></script>
+  <script>
+    // ======================================================
+    // Home do aluno integrada ao localStorage
+    // ======================================================
+
+    const TREINOS_STORAGE_KEY_HOME = "mypersonal_treinos_alunos";
+
+    function lerJsonHome(chave, fallback) {
+      try {
+        const valor = localStorage.getItem(chave);
+        return valor ? JSON.parse(valor) : fallback;
+      } catch (err) {
+        return fallback;
+      }
+    }
+
+    function alunoAtualHome() {
+      if (window.AlunoContexto && typeof window.AlunoContexto.buscarAlunoAtual === "function") {
+        return window.AlunoContexto.buscarAlunoAtual({ preferirUsuarioLogado: true });
+      }
+
+      try {
+        const usuario = JSON.parse(localStorage.getItem("mypersonal:usuarioLogado"));
+        if (usuario && (usuario.tipo === "aluno" || usuario.perfil === "aluno")) return usuario;
+      } catch (err) {}
+
+      return { id: "aluno-eliabe-monteiro", nome: "Eliabe Monteiro" };
+    }
+
+    function aliasesAlunoHome(aluno) {
+      if (window.AlunoContexto && typeof window.AlunoContexto.gerarAliasesAluno === "function") {
+        return window.AlunoContexto.gerarAliasesAluno(aluno);
+      }
+      return [aluno.id, aluno.alunoId].filter(Boolean);
+    }
+
+    function formatarDataHoraCompromisso(dataIso, hora) {
+      if (!dataIso) return hora || "—";
+      const partes = dataIso.split("-");
+      const data = partes.length === 3 ? `${partes[2]}/${partes[1]}` : dataIso;
+      return hora ? `${data} · ${hora}` : data;
+    }
+
+    function buscarTreinoDoAluno(aluno) {
+      const treinos = lerJsonHome(TREINOS_STORAGE_KEY_HOME, {});
+      const aliases = aliasesAlunoHome(aluno);
+      const chave = aliases.find((alias) => treinos[alias]);
+      return chave ? treinos[chave] : null;
+    }
+
+    function buscarGrupoTreinoDeHoje(treino) {
+      const grupos = treino?.grupos || [];
+      if (!grupos.length) return null;
+
+      const comExercicios = grupos.filter((grupo) => (grupo.exercicios || []).length);
+      if (!comExercicios.length) return grupos[0];
+
+      const indice = new Date().getDay() % comExercicios.length;
+      return comExercicios[indice];
+    }
+
+    function renderizarTreinoHome(aluno) {
+      const lista = document.getElementById("training-list");
+      lista.innerHTML = "";
+
+      const treino = buscarTreinoDoAluno(aluno);
+      const grupo = buscarGrupoTreinoDeHoje(treino);
+      const exercicios = (grupo?.exercicios || []).slice(0, 5);
+
+      if (!exercicios.length) {
+        const vazio = document.createElement("div");
+        vazio.className = "training-row";
+        vazio.textContent = "Nenhum treino cadastrado para hoje.";
+        lista.appendChild(vazio);
+        return;
+      }
+
+      exercicios.forEach((ex) => {
+        const row = document.createElement("div");
+        row.className = "training-row";
+
+        const nome = document.createElement("span");
+        nome.className = "training-row-name";
+        nome.textContent = ex.nome || "Exercício";
+
+        const series = document.createElement("span");
+        series.className = "training-row-meta";
+        series.textContent = `${ex.series || "—"} séries`;
+
+        const reps = document.createElement("span");
+        reps.className = "training-row-meta";
+        reps.textContent = `${ex.reps || "—"} reps`;
+
+        const video = document.createElement("a");
+        video.className = "training-row-video";
+        video.textContent = "▶ ver vídeo";
+        video.href = ex.video || "#";
+        if (ex.video) {
+          video.target = "_blank";
+          video.rel = "noreferrer";
+        }
+
+        row.append(nome, series, reps, video);
+        lista.appendChild(row);
+      });
+    }
+
+    function renderizarCompromissosHome(aluno) {
+      const lista = document.getElementById("appointments-list");
+      lista.innerHTML = "";
+
+      const aliases = aliasesAlunoHome(aluno);
+      const hoje = new Date();
+      hoje.setHours(0, 0, 0, 0);
+
+      const compromissos = (typeof getCompromissos === "function" ? getCompromissos() : [])
+        .filter((c) => aliases.includes(c.alunoId))
+        .filter((c) => c.status !== "Cancelado" && c.status !== "Cancelada")
+        .filter((c) => {
+          const data = new Date(`${c.data}T00:00:00`);
+          return !Number.isNaN(data.getTime()) && data >= hoje;
+        })
+        .sort((a, b) => `${a.data} ${a.horaInicio}`.localeCompare(`${b.data} ${b.horaInicio}`))
+        .slice(0, 5);
+
+      if (!compromissos.length) {
+        const vazio = document.createElement("div");
+        vazio.className = "next-appointment-card";
+        vazio.textContent = "Nenhum compromisso futuro cadastrado.";
+        lista.appendChild(vazio);
+        return;
+      }
+
+      compromissos.forEach((c) => {
+        const card = document.createElement("div");
+        card.className = "next-appointment-card";
+
+        const dataHora = document.createElement("p");
+        dataHora.className = "date-time";
+        dataHora.textContent = formatarDataHoraCompromisso(c.data, c.horaInicio);
+
+        const titulo = document.createElement("p");
+        titulo.className = "title";
+        titulo.textContent = `${(window.TIPO_LABEL && window.TIPO_LABEL[c.tipo]) || "Compromisso"}${c.local ? " · " + c.local : ""}`;
+
+        card.append(dataHora, titulo);
+        lista.appendChild(card);
+      });
+    }
+
+    const aluno = alunoAtualHome();
+    const primeiroNome = String(aluno.nome || "Aluno").split(" ")[0] || "Aluno";
+    document.body.dataset.pageTitle = `Olá, ${primeiroNome}!`;
+
+    renderizarTreinoHome(aluno);
+    renderizarCompromissosHome(aluno);
+  </script>
 </body>
 </html>

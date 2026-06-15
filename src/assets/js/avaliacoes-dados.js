@@ -12,7 +12,7 @@
 
   /* dados iniciais do aluno usados quando o localStorage ainda esta vazio */
   const alunoPadrao = {
-    id: "eliabe",
+    id: "aluno-eliabe-monteiro",
     nome: "Eliabe",
     sobrenome: "Monteiro",
     email: "eliabe@email.com",
@@ -129,26 +129,46 @@
   function gerarIdAluno(valor) {
     const normalizado = normalizarTexto(valor).replace(/[^a-z0-9]+/g, "-").replace(/^-|-$/g, "");
     if (normalizado.includes("eliabe")) return alunoPadrao.id;
-    return normalizado || alunoPadrao.id;
+    return normalizado ? `aluno-${normalizado.replace(/^aluno-/, "")}` : alunoPadrao.id;
   }
 
-  /* codigo para ler o aluno selecionado por outras telas, com fallback no modelo */
+  function paginaAtualEAluno() {
+    return window.location.pathname.includes("/aluno/") || document.body.dataset.profile === "aluno";
+  }
+
+  function formatarAlunoParaEstatistica(dados) {
+    const nomeCompleto = `${dados.nome || ""} ${dados.sobrenome || ""}`.trim() || `${alunoPadrao.nome} ${alunoPadrao.sobrenome}`;
+    const [nomeFallback, ...sobrenomePartes] = String(nomeCompleto).trim().split(/\s+/);
+
+    return {
+      ...alunoPadrao,
+      ...dados,
+      id: dados.id || dados.alunoId || gerarIdAluno(nomeCompleto),
+      alunoId: dados.id || dados.alunoId || gerarIdAluno(nomeCompleto),
+      nome: nomeFallback || alunoPadrao.nome,
+      sobrenome: sobrenomePartes.join(" ") || alunoPadrao.sobrenome,
+      telefone: dados.telefone || dados.tel || alunoPadrao.telefone,
+    };
+  }
+
+  /* codigo para ler o aluno selecionado ou o aluno logado, usando ID unico */
   function buscarAlunoAtual() {
+    if (window.AlunoContexto && typeof window.AlunoContexto.buscarAlunoAtual === "function") {
+      const aluno = window.AlunoContexto.buscarAlunoAtual({ preferirUsuarioLogado: paginaAtualEAluno() });
+      return formatarAlunoParaEstatistica(aluno);
+    }
+
     try {
+      if (paginaAtualEAluno()) {
+        const logado = JSON.parse(localStorage.getItem("mypersonal:usuarioLogado"));
+        if (logado && (logado.tipo === "aluno" || logado.perfil === "aluno")) {
+          return formatarAlunoParaEstatistica(logado);
+        }
+      }
+
       const selecionado = sessionStorage.getItem("alunoSelecionado");
       if (selecionado) {
-        const dados = JSON.parse(selecionado);
-        const nomeCompleto = `${dados.nome || ""} ${dados.sobrenome || ""}`.trim() || `${alunoPadrao.nome} ${alunoPadrao.sobrenome}`;
-        const [nomeFallback, ...sobrenomePartes] = String(nomeCompleto).trim().split(/\s+/);
-
-        return {
-          ...alunoPadrao,
-          ...dados,
-          id: dados.id || dados.alunoId || gerarIdAluno(nomeCompleto),
-          nome: nomeFallback || alunoPadrao.nome,
-          sobrenome: sobrenomePartes.join(" ") || alunoPadrao.sobrenome,
-          telefone: dados.telefone || dados.tel || alunoPadrao.telefone,
-        };
+        return formatarAlunoParaEstatistica(JSON.parse(selecionado));
       }
     } catch (erro) {
       return alunoPadrao;
@@ -159,6 +179,18 @@
 
   function buscarAlunoIdAtual() {
     return buscarAlunoAtual().id || alunoPadrao.id;
+  }
+
+  function gerarAliasesAlunoAtual(aluno = buscarAlunoAtual()) {
+    if (window.AlunoContexto && typeof window.AlunoContexto.gerarAliasesAluno === "function") {
+      return window.AlunoContexto.gerarAliasesAluno(aluno);
+    }
+
+    const nomeCompleto = formatarNomeAluno(aluno);
+    const slug = normalizarTexto(nomeCompleto).replace(/[^a-z0-9]+/g, "-").replace(/^-|-$/g, "");
+    const aliases = new Set([aluno.id, aluno.alunoId, slug, `aluno-${slug}`].filter(Boolean));
+    if (slug.includes("eliabe")) aliases.add("eliabe");
+    return Array.from(aliases);
   }
 
   function formatarNomeAluno(aluno = buscarAlunoAtual()) {
@@ -199,15 +231,25 @@
 
   /* codigo para buscar avaliacoes do aluno atual em ordem de data */
   function buscarAvaliacoes(alunoId = buscarAlunoIdAtual()) {
-    return buscarTodasAvaliacoes().filter((avaliacao) => (avaliacao.alunoId || alunoPadrao.id) === alunoId);
+    const aliases = alunoId === buscarAlunoIdAtual()
+      ? gerarAliasesAlunoAtual()
+      : [alunoId];
+
+    return buscarTodasAvaliacoes().filter((avaliacao) => {
+      return aliases.includes(avaliacao.alunoId || alunoPadrao.id);
+    });
   }
 
   /* codigo para salvar uma nova avaliacao no localStorage */
   function salvarAvaliacao(avaliacao) {
     const avaliacoes = buscarTodasAvaliacoes();
+    const aluno = buscarAlunoAtual();
+
     avaliacoes.push({
       ...avaliacao,
-      alunoId: avaliacao.alunoId || buscarAlunoIdAtual(),
+      alunoId: avaliacao.alunoId || aluno.id || buscarAlunoIdAtual(),
+      alunoNome: avaliacao.alunoNome || formatarNomeAluno(aluno),
+      profissionalId: avaliacao.profissionalId || aluno.profissionalId || "",
     });
 
     try {
@@ -349,6 +391,7 @@
     garantirDadosIniciais,
     buscarAlunoAtual,
     buscarAlunoIdAtual,
+    gerarAliasesAlunoAtual,
     formatarNomeAluno,
     atualizarContextoAlunoNaTela,
     buscarTodasAvaliacoes,

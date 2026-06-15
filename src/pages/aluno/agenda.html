@@ -19,7 +19,7 @@
 
     <main class="main-content">
       <div class="agenda-header">
-        <h2 class="agenda-month" id="month-label">Abril 2026</h2>
+        <h2 class="agenda-month" id="month-label">Mês atual</h2>
         <div class="agenda-nav">
           <button class="btn-icon" id="prev-month" aria-label="Mês anterior">‹</button>
           <button class="btn-icon" id="next-month" aria-label="Próximo mês">›</button>
@@ -41,50 +41,150 @@
         <div class="legend-item"><span class="legend-dot" style="background:var(--blue-info-dark)"></span> Consulta</div>
         <div class="legend-item"><span class="legend-dot" style="background:var(--orange-warning)"></span> Avaliação</div>
         <div class="legend-item"><span class="legend-dot" style="background:var(--gray-500)"></span> Outro</div>
+        <div class="legend-item"><span class="legend-dot" style="background:var(--cor-erro-texto)"></span> Feriado</div>
       </div>
     </main>
   </div>
 
   <script src="../../assets/js/sidebar-loader.js"></script>
+  <script src="../../assets/js/aluno-contexto.js"></script>
+  <script src="../../assets/js/compromissos-store.js"></script>
   <script>
-    const eventos = {
-      10: [{ label: "Consulta 09h - Pierre", tipo: "consulta" }],
-      15: [{ label: "Renovação de treino", tipo: "treino" }],
-      22: [{ label: "Avaliação corporal", tipo: "avaliacao" }],
-      28: [{ label: "Retorno nutricional", tipo: "consulta" }],
-    };
+    // ======================================================
+    // Calendário dinâmico com navegação de mês + feriados (BrasilAPI)
+    // Eventos reais vêm do localStorage: mypersonal:compromissos
+    // ======================================================
 
-    const startOffset = 3;
-    const daysInMonth = 30;
+    const NOMES_MES = [
+      "Janeiro", "Fevereiro", "Março", "Abril", "Maio", "Junho",
+      "Julho", "Agosto", "Setembro", "Outubro", "Novembro", "Dezembro"
+    ];
+
+    const feriadosPorAno = {};           // cache por ano (evita refetch ao navegar)
     const calendar = document.getElementById("calendar");
+    const monthLabel = document.getElementById("month-label");
 
-    for (let i = 0; i < startOffset; i++) {
-      const empty = document.createElement("div");
-      empty.className = "calendar-cell is-empty";
-      calendar.appendChild(empty);
-    }
+    const dataInicialAgenda = new Date();
+    let viewYear = dataInicialAgenda.getFullYear();
+    let viewMonth = dataInicialAgenda.getMonth();
 
-    for (let day = 1; day <= daysInMonth; day++) {
-      const cell = document.createElement("div");
-      cell.className = "calendar-cell";
+    const pad2 = (n) => String(n).padStart(2, "0");
+    const isoDate = (y, m, d) => `${y}-${pad2(m + 1)}-${pad2(d)}`;
 
-      const num = document.createElement("div");
-      num.className = "calendar-day-number";
-      num.textContent = day;
-      cell.appendChild(num);
-
-      if (eventos[day]) {
-        eventos[day].forEach((ev) => {
-          const evEl = document.createElement("div");
-          evEl.className = `calendar-event event-${ev.tipo}`;
-          evEl.textContent = ev.label;
-          evEl.title = ev.label;
-          cell.appendChild(evEl);
-        });
+    function buscarAlunoAtualAgenda() {
+      if (window.AlunoContexto && typeof window.AlunoContexto.buscarAlunoAtual === "function") {
+        return window.AlunoContexto.buscarAlunoAtual({ preferirUsuarioLogado: true });
       }
 
-      calendar.appendChild(cell);
+      try {
+        const usuario = JSON.parse(localStorage.getItem("mypersonal:usuarioLogado"));
+        if (usuario && (usuario.tipo === "aluno" || usuario.perfil === "aluno")) return usuario;
+      } catch (err) {}
+
+      return null;
     }
+
+    function pertenceAoAlunoAtual(compromisso) {
+      const aluno = buscarAlunoAtualAgenda();
+      if (!aluno) return false;
+
+      const aliases = window.AlunoContexto && typeof window.AlunoContexto.gerarAliasesAluno === "function"
+        ? window.AlunoContexto.gerarAliasesAluno(aluno)
+        : [aluno.id, aluno.alunoId].filter(Boolean);
+
+      return aliases.includes(compromisso.alunoId);
+    }
+
+    function renderCalendar(year, month) {
+      // Remove apenas as células, preservando os 7 cabeçalhos da semana
+      calendar.querySelectorAll(".calendar-cell").forEach((c) => c.remove());
+
+      monthLabel.textContent = `${NOMES_MES[month]} ${year}`;
+
+      const offset = new Date(year, month, 1).getDay();
+      const daysInMonth = new Date(year, month + 1, 0).getDate();
+      const hoje = new Date();
+
+      for (let i = 0; i < offset; i++) {
+        const empty = document.createElement("div");
+        empty.className = "calendar-cell is-empty";
+        calendar.appendChild(empty);
+      }
+
+      for (let day = 1; day <= daysInMonth; day++) {
+        const cell = document.createElement("div");
+        cell.className = "calendar-cell";
+        const dateKey = isoDate(year, month, day);
+        cell.dataset.date = dateKey;
+
+        if (year === hoje.getFullYear() && month === hoje.getMonth() && day === hoje.getDate()) {
+          cell.classList.add("is-today");
+        }
+
+        const num = document.createElement("div");
+        num.className = "calendar-day-number";
+        num.textContent = day;
+        cell.appendChild(num);
+
+        // Compromissos do store — mostra somente compromissos do aluno logado
+        compromissosDoDia(dateKey)
+          .filter(pertenceAoAlunoAtual)
+          .forEach((c) => cell.appendChild(criarEventoCompromisso(c, true)));
+
+        calendar.appendChild(cell);
+      }
+
+      decorarFeriados(year, month);
+    }
+
+    async function decorarFeriados(year, month) {
+      try {
+        if (!feriadosPorAno[year]) {
+          const resp = await fetch(`https://brasilapi.com.br/api/feriados/v1/${year}`);
+          if (!resp.ok) return;
+          feriadosPorAno[year] = await resp.json();
+        }
+
+        const prefixo = `${year}-${pad2(month + 1)}`;
+        feriadosPorAno[year]
+          .filter((f) => f.date.startsWith(prefixo))
+          .forEach((f) => {
+            const cell = calendar.querySelector(`[data-date="${f.date}"]`);
+            if (!cell) return;
+            const evEl = document.createElement("div");
+            evEl.className = "calendar-event event-feriado";
+            evEl.textContent = f.name;
+            evEl.title = f.name;
+            cell.appendChild(evEl);
+          });
+      } catch (err) {
+        // Sem rede / API indisponível: o calendário segue funcionando sem feriados
+      }
+    }
+
+    document.getElementById("prev-month").addEventListener("click", () => {
+      viewMonth--;
+      if (viewMonth < 0) { viewMonth = 11; viewYear--; }
+      renderCalendar(viewYear, viewMonth);
+    });
+
+    document.getElementById("next-month").addEventListener("click", () => {
+      viewMonth++;
+      if (viewMonth > 11) { viewMonth = 0; viewYear++; }
+      renderCalendar(viewYear, viewMonth);
+    });
+
+    // Cancelamento: o aluno clica no compromisso para marcar como cancelado
+    calendar.addEventListener("click", (e) => {
+      const ev = e.target.closest(".is-cancelavel");
+      if (!ev) return;
+      if (confirm("Deseja cancelar este compromisso? Ele continuará visível para o profissional como Cancelado.")) {
+        cancelarCompromisso(ev.dataset.compromissoId);
+        renderCalendar(viewYear, viewMonth);
+      }
+    });
+
+    renderCalendar(viewYear, viewMonth);
   </script>
 </body>
 </html>

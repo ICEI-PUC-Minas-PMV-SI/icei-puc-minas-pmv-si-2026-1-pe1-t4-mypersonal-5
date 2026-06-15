@@ -13,6 +13,10 @@ function slugify(valor) {
 }
 
 function getAlunoSelecionado() {
+    if (window.AlunoContexto && typeof window.AlunoContexto.buscarAlunoAtual === 'function') {
+        return window.AlunoContexto.buscarAlunoAtual({ preferirUsuarioLogado: false });
+    }
+
     try {
         const aluno = JSON.parse(sessionStorage.getItem('alunoSelecionado'));
         if (aluno && aluno.nome) return aluno;
@@ -21,6 +25,7 @@ function getAlunoSelecionado() {
     }
 
     return {
+        id: 'aluno-eliabe-monteiro',
         nome: 'Eliabe Monteiro',
         objetivo: 'Hipertrofia',
         peso: '82',
@@ -29,9 +34,21 @@ function getAlunoSelecionado() {
     };
 }
 
+
 function getAlunoId() {
-    return slugify(getAlunoSelecionado().nome);
+    const aluno = getAlunoSelecionado();
+    return aluno.id || aluno.alunoId || slugify(aluno.nome);
 }
+
+function getAliasesAluno() {
+    const aluno = getAlunoSelecionado();
+    if (window.AlunoContexto && typeof window.AlunoContexto.gerarAliasesAluno === 'function') {
+        return window.AlunoContexto.gerarAliasesAluno(aluno);
+    }
+
+    return [getAlunoId(), slugify(aluno.nome), 'aluno-' + slugify(aluno.nome)].filter(Boolean);
+}
+
 
 function lerTreinos() {
     try {
@@ -96,13 +113,17 @@ function carregarTreinoAluno() {
     const todosTreinos = lerTreinos();
     const alunoId = getAlunoId();
     const treinoPadrao = criarTreinoPadrao();
+    const aliases = getAliasesAluno();
+    const chaveExistente = aliases.find(chave => todosTreinos[chave] && todosTreinos[chave].grupos && todosTreinos[chave].grupos.length);
 
     if (!todosTreinos[alunoId]) {
-        todosTreinos[alunoId] = treinoPadrao;
+        todosTreinos[alunoId] = chaveExistente ? { ...todosTreinos[chaveExistente], alunoId } : treinoPadrao;
         salvarTreinos(todosTreinos);
     }
 
     treinoAtual = todosTreinos[alunoId];
+    treinoAtual.alunoId = alunoId;
+    treinoAtual.alunoNome = getAlunoSelecionado().nome;
     treinoAtual.grupos = treinoAtual.grupos && treinoAtual.grupos.length
         ? treinoAtual.grupos
         : treinoPadrao.grupos;
@@ -112,7 +133,11 @@ function carregarTreinoAluno() {
             treinoAtual.grupos.push(grupoPadrao);
         }
     });
+
+    todosTreinos[alunoId] = treinoAtual;
+    salvarTreinos(todosTreinos);
 }
+
 
 function atualizarCabecalhoAluno() {
     const aluno = getAlunoSelecionado();
@@ -180,6 +205,7 @@ function coletarGrupoDoFormulario() {
 
 function persistirTreino() {
     treinoAtual.atualizadoEm = new Date().toISOString();
+    treinoAtual.alunoId = getAlunoId();
     treinoAtual.alunoNome = getAlunoSelecionado().nome;
 
     const todosTreinos = lerTreinos();

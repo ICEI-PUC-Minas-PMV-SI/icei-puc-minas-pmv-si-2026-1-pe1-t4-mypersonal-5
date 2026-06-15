@@ -2,7 +2,7 @@ document.addEventListener('DOMContentLoaded', () => {
     const TREINOS_STORAGE_KEY = 'mypersonal_treinos_alunos';
     const REGISTROS_STORAGE_KEY = 'mypersonal_registros_treino';
     const ALUNO_PADRAO = {
-        id: 'eliabe-monteiro',
+        id: 'aluno-eliabe-monteiro',
         nome: 'Eliabe Monteiro'
     };
 
@@ -57,21 +57,47 @@ document.addEventListener('DOMContentLoaded', () => {
         localStorage.setItem(chave, JSON.stringify(valor));
     }
 
-    function getAlunoId() {
-        try {
-            const alunoSessao = JSON.parse(sessionStorage.getItem('alunoSelecionado'));
-            if (alunoSessao && alunoSessao.nome) return slugify(alunoSessao.nome);
-        } catch (erro) {
-            console.warn('Nao foi possivel ler o aluno selecionado.', erro);
+    function getAlunoAtual() {
+        if (window.AlunoContexto && typeof window.AlunoContexto.buscarAlunoAtual === 'function') {
+            return window.AlunoContexto.buscarAlunoAtual({ preferirUsuarioLogado: true });
         }
 
-        return ALUNO_PADRAO.id;
+        try {
+            const usuarioLogado = JSON.parse(localStorage.getItem('mypersonal:usuarioLogado'));
+            if (usuarioLogado && (usuarioLogado.tipo === 'aluno' || usuarioLogado.perfil === 'aluno')) {
+                return usuarioLogado;
+            }
+
+            const alunoSessao = JSON.parse(sessionStorage.getItem('alunoSelecionado'));
+            if (alunoSessao && alunoSessao.nome) return alunoSessao;
+        } catch (erro) {
+            console.warn('Nao foi possivel ler o aluno atual.', erro);
+        }
+
+        return ALUNO_PADRAO;
     }
 
+    function getAlunoId() {
+        const aluno = getAlunoAtual();
+        return aluno.id || aluno.alunoId || slugify(aluno.nome) || ALUNO_PADRAO.id;
+    }
+
+    function getAliasesAluno() {
+        const aluno = getAlunoAtual();
+        if (window.AlunoContexto && typeof window.AlunoContexto.gerarAliasesAluno === 'function') {
+            return window.AlunoContexto.gerarAliasesAluno(aluno);
+        }
+
+        return [getAlunoId(), slugify(aluno.nome), 'aluno-' + slugify(aluno.nome), ALUNO_PADRAO.id, 'eliabe-monteiro'].filter(Boolean);
+    }
+
+
     function criarTreinoPadrao() {
+        const aluno = getAlunoAtual();
+
         return {
-            alunoId: ALUNO_PADRAO.id,
-            alunoNome: ALUNO_PADRAO.nome,
+            alunoId: getAlunoId(),
+            alunoNome: aluno.nome || ALUNO_PADRAO.nome,
             atualizadoEm: new Date().toISOString(),
             grupos: [
                 {
@@ -111,23 +137,27 @@ document.addEventListener('DOMContentLoaded', () => {
         };
     }
 
+
     function carregarTreinoAluno() {
         const alunoId = getAlunoId();
+        const aluno = getAlunoAtual();
         const treinos = lerJson(TREINOS_STORAGE_KEY, {});
+        const aliases = getAliasesAluno();
+        const chaveExistente = aliases.find(chave => treinos[chave] && treinos[chave].grupos && treinos[chave].grupos.length);
 
-        if (treinos[alunoId] && treinos[alunoId].grupos && treinos[alunoId].grupos.length) {
-            return treinos[alunoId];
-        }
-
-        if (treinos[ALUNO_PADRAO.id] && treinos[ALUNO_PADRAO.id].grupos && treinos[ALUNO_PADRAO.id].grupos.length) {
-            return treinos[ALUNO_PADRAO.id];
+        if (chaveExistente) {
+            const treinoEncontrado = { ...treinos[chaveExistente], alunoId, alunoNome: aluno.nome || treinos[chaveExistente].alunoNome };
+            treinos[alunoId] = treinoEncontrado;
+            salvarJson(TREINOS_STORAGE_KEY, treinos);
+            return treinoEncontrado;
         }
 
         const treinoPadrao = criarTreinoPadrao();
-        treinos[ALUNO_PADRAO.id] = treinoPadrao;
+        treinos[alunoId] = treinoPadrao;
         salvarJson(TREINOS_STORAGE_KEY, treinos);
         return treinoPadrao;
     }
+
 
     function getGrupoAtivo() {
         return treinoAtual.grupos.find(grupo => grupo.id === grupoAtivoId) || treinoAtual.grupos[0];
@@ -303,7 +333,7 @@ document.addEventListener('DOMContentLoaded', () => {
         const registros = lerRegistros();
         registros[getChaveRegistro()] = {
             alunoId: getAlunoId(),
-            alunoNome: treinoAtual.alunoNome || ALUNO_PADRAO.nome,
+            alunoNome: getAlunoAtual().nome || treinoAtual.alunoNome || ALUNO_PADRAO.nome,
             treinoSelecionado: grupo.aba || grupo.nome,
             grupoId: grupo.id,
             statusTreino: statusAtual,

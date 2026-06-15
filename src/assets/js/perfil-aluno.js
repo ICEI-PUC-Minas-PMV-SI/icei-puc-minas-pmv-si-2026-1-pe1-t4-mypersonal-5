@@ -3,7 +3,7 @@ document.addEventListener('DOMContentLoaded', function() {
     const REGISTROS_STORAGE_KEY = 'mypersonal_registros_treino';
 
     const aluno = getAlunoSelecionado();
-    const alunoId = slugify(aluno.nome);
+    const alunoId = getAlunoId(aluno);
     const treino = getTreinoAluno(alunoId, aluno);
 
     atualizarCabecalho(aluno);
@@ -35,6 +35,10 @@ document.addEventListener('DOMContentLoaded', function() {
     }
 
     function getAlunoSelecionado() {
+        if (window.AlunoContexto && typeof window.AlunoContexto.buscarAlunoAtual === 'function') {
+            return window.AlunoContexto.buscarAlunoAtual({ preferirUsuarioLogado: false });
+        }
+
         try {
             const alunoSessao = JSON.parse(sessionStorage.getItem('alunoSelecionado'));
             if (alunoSessao && alunoSessao.nome) return alunoSessao;
@@ -43,6 +47,7 @@ document.addEventListener('DOMContentLoaded', function() {
         }
 
         return {
+            id: 'aluno-eliabe-monteiro',
             nome: 'Eliabe Monteiro',
             status: 'ativo',
             peso: '82',
@@ -52,9 +57,22 @@ document.addEventListener('DOMContentLoaded', function() {
         };
     }
 
+    function getAlunoId(alunoBase) {
+        return alunoBase.id || alunoBase.alunoId || slugify(alunoBase.nome);
+    }
+
+    function getAliasesAluno(alunoBase) {
+        if (window.AlunoContexto && typeof window.AlunoContexto.gerarAliasesAluno === 'function') {
+            return window.AlunoContexto.gerarAliasesAluno(alunoBase);
+        }
+
+        return [getAlunoId(alunoBase), slugify(alunoBase.nome), 'aluno-' + slugify(alunoBase.nome)].filter(Boolean);
+    }
+
+
     function criarTreinoPadrao(alunoBase) {
         return {
-            alunoId: slugify(alunoBase.nome),
+            alunoId: getAlunoId(alunoBase),
             alunoNome: alunoBase.nome,
             atualizadoEm: new Date().toISOString(),
             observacoesProfissional: '',
@@ -98,9 +116,13 @@ document.addEventListener('DOMContentLoaded', function() {
 
     function getTreinoAluno(id, alunoBase) {
         const treinos = lerJson(TREINOS_STORAGE_KEY, {});
+        const aliases = getAliasesAluno(alunoBase);
+        const chaveExistente = aliases.find(chave => treinos[chave] && treinos[chave].grupos && treinos[chave].grupos.length);
 
         if (!treinos[id]) {
-            treinos[id] = criarTreinoPadrao(alunoBase);
+            treinos[id] = chaveExistente
+                ? { ...treinos[chaveExistente], alunoId: id, alunoNome: alunoBase.nome }
+                : criarTreinoPadrao(alunoBase);
             salvarJson(TREINOS_STORAGE_KEY, treinos);
         }
 

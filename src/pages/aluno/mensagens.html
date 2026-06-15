@@ -24,58 +24,16 @@
             <input type="search" class="form-control" placeholder="Buscar conversa...">
           </div>
 
-          <div class="chat-conversations">
-            <div class="chat-conversation is-active" data-conv="pierre">
-              <div class="avatar avatar-sm">P</div>
-              <div class="chat-conv-info">
-                <p class="chat-conv-name">Pierre Oliveira</p>
-                <p class="chat-conv-preview">Treino atualizado!</p>
-              </div>
-              <span class="chat-conv-time">Agora</span>
-            </div>
-
-            <div class="chat-conversation" data-conv="marina">
-              <div class="avatar avatar-sm">M</div>
-              <div class="chat-conv-info">
-                <p class="chat-conv-name">Marina Costa</p>
-                <p class="chat-conv-preview">Plano alimentar revisado</p>
-              </div>
-              <span class="chat-conv-time">Ontem</span>
-            </div>
-
-            <div class="chat-conversation" data-conv="suporte">
-              <div class="avatar avatar-sm">S</div>
-              <div class="chat-conv-info">
-                <p class="chat-conv-name">Suporte MyPersonal</p>
-                <p class="chat-conv-preview">Bem-vindo!</p>
-              </div>
-              <span class="chat-conv-time">3d</span>
-            </div>
-          </div>
+          <div class="chat-conversations" id="chat-conversations"></div>
         </aside>
 
         <section class="chat-thread">
           <header class="chat-thread-header">
-            <p class="name" id="thread-name">Pierre Oliveira</p>
+            <p class="name" id="thread-name">Conversa</p>
             <p class="status">● Online</p>
           </header>
 
-          <div class="chat-messages" id="chat-messages">
-            <div class="message message-received">
-              <span class="message-author">Pierre Oliveira</span>
-              <div class="message-bubble">Atualizei seu treino para esta semana.</div>
-            </div>
-
-            <div class="message message-sent">
-              <span class="message-author">Você</span>
-              <div class="message-bubble">Perfeito! Vou começar hoje.</div>
-            </div>
-
-            <div class="message message-received">
-              <span class="message-author">Pierre Oliveira</span>
-              <div class="message-bubble">Qualquer desconforto me avisa por aqui.</div>
-            </div>
-          </div>
+          <div class="chat-messages" id="chat-messages"></div>
 
           <form class="chat-input" id="chat-form">
             <input type="text" id="message-input" class="form-control" placeholder="Digite uma mensagem..." autocomplete="off">
@@ -88,39 +46,150 @@
 
   <script src="../../assets/js/sidebar-loader.js"></script>
   <script>
+    const STORAGE_KEY_ALUNO = "mypersonal:conversasAluno";
+
+    function carregarConversasAluno() {
+      try {
+        const salvo = JSON.parse(localStorage.getItem(STORAGE_KEY_ALUNO));
+        return salvo && typeof salvo === "object" ? salvo : {};
+      } catch (err) {
+        return {};
+      }
+    }
+
+    function salvarConversasAluno() {
+      try {
+        localStorage.setItem(STORAGE_KEY_ALUNO, JSON.stringify(conversasAluno));
+      } catch (err) {}
+    }
+
+    function iniciaisChat(nome) {
+      return String(nome || "C")
+        .split(/\s+/)
+        .filter(Boolean)
+        .slice(0, 2)
+        .map((parte) => parte[0]?.toUpperCase() || "")
+        .join("") || "C";
+    }
+
+    function criarItemConversa(convId, conv) {
+      const item = document.createElement("div");
+      item.className = "chat-conversation";
+      item.dataset.conv = convId;
+
+      const avatar = document.createElement("div");
+      avatar.className = "avatar avatar-sm";
+      avatar.textContent = iniciaisChat(conv.nome);
+
+      const info = document.createElement("div");
+      info.className = "chat-conv-info";
+
+      const nome = document.createElement("p");
+      nome.className = "chat-conv-name";
+      nome.textContent = conv.nome || "Conversa";
+
+      const preview = document.createElement("p");
+      preview.className = "chat-conv-preview";
+      const ultima = conv.mensagens?.[conv.mensagens.length - 1];
+      preview.textContent = ultima?.texto || "Sem mensagens";
+
+      const time = document.createElement("span");
+      time.className = "chat-conv-time";
+      time.textContent = ultima?.tipo === "sent" ? "Agora" : "";
+
+      info.append(nome, preview);
+      item.append(avatar, info, time);
+      item.addEventListener("click", () => selecionarConversa(convId));
+      return item;
+    }
+
     const form = document.getElementById("chat-form");
     const input = document.getElementById("message-input");
     const messages = document.getElementById("chat-messages");
+    const conversasEl = document.getElementById("chat-conversations");
+    const threadName = document.getElementById("thread-name");
+    const statusEl = document.querySelector(".chat-thread-header .status");
+
+    const conversasAluno = carregarConversasAluno();
+    let conversaAtiva = Object.keys(conversasAluno)[0] || "";
+
+    function renderizarListaConversas() {
+      conversasEl.innerHTML = "";
+      const ids = Object.keys(conversasAluno);
+
+      if (!ids.length) {
+        const vazio = document.createElement("div");
+        vazio.className = "chat-conversation is-active";
+        vazio.textContent = "Nenhuma conversa encontrada.";
+        conversasEl.appendChild(vazio);
+        return;
+      }
+
+      ids.forEach((id) => {
+        const item = criarItemConversa(id, conversasAluno[id]);
+        if (id === conversaAtiva) item.classList.add("is-active");
+        conversasEl.appendChild(item);
+      });
+    }
+
+    function selecionarConversa(convId) {
+      conversaAtiva = convId;
+      renderizarListaConversas();
+      renderThread(convId);
+    }
+
+    function renderThread(convId) {
+      const conv = conversasAluno[convId];
+      messages.innerHTML = "";
+
+      if (!conv) {
+        threadName.textContent = "Conversa";
+        if (statusEl) statusEl.textContent = "";
+        return;
+      }
+
+      threadName.textContent = conv.nome || "Conversa";
+      if (statusEl) statusEl.textContent = conv.status || "● Online";
+
+      (conv.mensagens || []).forEach((m) => {
+        const msg = document.createElement("div");
+        msg.className = `message message-${m.tipo}`;
+
+        const autor = document.createElement("span");
+        autor.className = "message-author";
+        autor.textContent = m.autor;
+
+        const bubble = document.createElement("div");
+        bubble.className = "message-bubble";
+        bubble.textContent = m.texto;
+
+        msg.append(autor, bubble);
+        messages.appendChild(msg);
+      });
+
+      messages.scrollTop = messages.scrollHeight;
+    }
 
     form.addEventListener("submit", (e) => {
       e.preventDefault();
       const text = input.value.trim();
-      if (!text) return;
+      if (!text || !conversaAtiva || !conversasAluno[conversaAtiva]) return;
 
-      const msg = document.createElement("div");
-      msg.className = "message message-sent";
-      msg.innerHTML = `
-        <span class="message-author">Você</span>
-        <div class="message-bubble">${text}</div>
-      `;
-      messages.appendChild(msg);
-
-      input.value = "";
-      messages.scrollTop = messages.scrollHeight;
-    });
-
-    const convs = document.querySelectorAll(".chat-conversation");
-    const threadName = document.getElementById("thread-name");
-
-    convs.forEach((conv) => {
-      conv.addEventListener("click", () => {
-        convs.forEach((c) => c.classList.remove("is-active"));
-        conv.classList.add("is-active");
-        threadName.textContent = conv.querySelector(".chat-conv-name").textContent;
+      conversasAluno[conversaAtiva].mensagens ||= [];
+      conversasAluno[conversaAtiva].mensagens.push({
+        autor: "Você",
+        texto: text,
+        tipo: "sent",
       });
+
+      salvarConversasAluno();
+      renderizarListaConversas();
+      renderThread(conversaAtiva);
+      input.value = "";
     });
 
-    messages.scrollTop = messages.scrollHeight;
+    renderizarListaConversas();
+    renderThread(conversaAtiva);
   </script>
 </body>
 </html>

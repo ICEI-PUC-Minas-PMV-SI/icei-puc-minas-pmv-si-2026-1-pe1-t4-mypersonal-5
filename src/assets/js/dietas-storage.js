@@ -46,6 +46,32 @@ function slugify(value) {
     .replace(/^-|-$/g, "")
 }
 
+function getAlunoContextoDiet(preferirUsuarioLogado = false) {
+  if (window.AlunoContexto && typeof window.AlunoContexto.buscarAlunoAtual === "function") {
+    return window.AlunoContexto.buscarAlunoAtual({ preferirUsuarioLogado })
+  }
+
+  return null
+}
+
+function getAliasesAlunoDiet(studentId) {
+  const student = getStudentById(studentId) || { id: studentId }
+
+  if (window.AlunoContexto && typeof window.AlunoContexto.gerarAliasesAluno === "function") {
+    return window.AlunoContexto.gerarAliasesAluno(student)
+  }
+
+  const aliases = new Set([studentId, student?.alunoId].filter(Boolean))
+  if (student?.nome) {
+    const slug = slugify(student.nome)
+    aliases.add(slug)
+    aliases.add(`aluno-${slug}`)
+    if (slug.includes("eliabe")) aliases.add("eliabe")
+  }
+
+  return Array.from(aliases).filter(Boolean)
+}
+
 function ensureMockAccounts(requiredRole) {
   const users = readStorageObject(DIET_STORAGE_KEYS.users)
 
@@ -75,28 +101,58 @@ function ensureMockAccounts(requiredRole) {
 }
 
 function getStudentsForProfessional(professionalId) {
-  const users = readStorageObject(DIET_STORAGE_KEYS.users)
+  if (window.AlunoContexto && typeof window.AlunoContexto.listarAlunosDoProfissional === "function") {
+    return window.AlunoContexto.listarAlunosDoProfissional(professionalId)
+  }
 
-  return Object.values(users).filter((user) => {
-    return user.tipo === "aluno" && user.profissionalId === professionalId
+  const users = readStorageObject(DIET_STORAGE_KEYS.users)
+  let changed = false
+
+  const students = Object.values(users).filter((user) => {
+    if (!(user.tipo === "aluno" || user.perfil === "aluno")) return false
+    if (user.profissionalId === professionalId) return true
+
+    if (!user.profissionalId && professionalId && users[user.id]) {
+      users[user.id] = { ...users[user.id], profissionalId: professionalId }
+      changed = true
+      return true
+    }
+
+    return false
   })
+
+  if (changed) writeStorageObject(DIET_STORAGE_KEYS.users, users)
+  return students
 }
 
 function syncSelectedStudentFromProfile(professionalId) {
   try {
     const selectedProfileStudent = JSON.parse(sessionStorage.getItem("alunoSelecionado"))
-    if (!selectedProfileStudent?.nome) return null
+    if (!selectedProfileStudent?.nome && !selectedProfileStudent?.id && !selectedProfileStudent?.email) return null
+
+    if (window.AlunoContexto && typeof window.AlunoContexto.setAlunoSelecionado === "function") {
+      const student = window.AlunoContexto.setAlunoSelecionado({
+        ...selectedProfileStudent,
+        profissionalId: selectedProfileStudent.profissionalId || professionalId,
+      })
+
+      localStorage.setItem(DIET_STORAGE_KEYS.selectedStudent, student.id)
+      return student.id
+    }
 
     const users = readStorageObject(DIET_STORAGE_KEYS.users)
-    const studentId = `aluno-${slugify(selectedProfileStudent.nome)}`
+    const studentId = selectedProfileStudent.id || selectedProfileStudent.alunoId || `aluno-${slugify(selectedProfileStudent.nome)}`
 
     users[studentId] = {
+      ...users[studentId],
       id: studentId,
+      alunoId: studentId,
       tipo: "aluno",
+      perfil: "aluno",
       nome: selectedProfileStudent.nome,
-      email: selectedProfileStudent.email || "",
-      telefone: selectedProfileStudent.tel || "",
-      nascimento: selectedProfileStudent.nasc || "",
+      email: selectedProfileStudent.email || users[studentId]?.email || "",
+      telefone: selectedProfileStudent.tel || selectedProfileStudent.telefone || "",
+      nascimento: selectedProfileStudent.nasc || selectedProfileStudent.nascimento || "",
       sexo: selectedProfileStudent.sexo || "",
       cidade: selectedProfileStudent.cidade || "",
       peso: selectedProfileStudent.peso || "",
@@ -115,9 +171,16 @@ function syncSelectedStudentFromProfile(professionalId) {
   }
 }
 
+
 function getStudentById(studentId) {
   const users = readStorageObject(DIET_STORAGE_KEYS.users)
-  return users[studentId] || null
+  if (users[studentId]) return users[studentId]
+
+  if (window.AlunoContexto && typeof window.AlunoContexto.buscarAlunoPorId === "function") {
+    return window.AlunoContexto.buscarAlunoPorId(studentId)
+  }
+
+  return null
 }
 
 function getSelectedStudentId(professionalId) {
@@ -161,7 +224,16 @@ function createEmptyDays() {
 
 function findCurrentDiet(studentId) {
   const diets = readStorageObject(DIET_STORAGE_KEYS.diets)
-  return Object.values(diets).find((diet) => diet.alunoId === studentId && diet.atual) || null
+  const aliases = getAliasesAlunoDiet(studentId)
+  const diet = Object.values(diets).find((item) => aliases.includes(item.alunoId) && item.atual) || null
+
+  if (diet && diet.alunoId !== studentId) {
+    diet.alunoId = studentId
+    diets[diet.id] = diet
+    writeStorageObject(DIET_STORAGE_KEYS.diets, diets)
+  }
+
+  return diet
 }
 
 function createEmptyDiet(studentId, professionalId) {
@@ -277,8 +349,8 @@ function renderMealCards(meals, container) {
 }
 
 function renderStudentDiet() {
-  const loggedUser = ensureMockAccounts("aluno")
-  const diet = findCurrentDiet(loggedUser.id)
+  const currentStudent = getAlunoContextoDiet(true) || ensureMockAccounts("aluno")
+  const diet = findCurrentDiet(currentStudent.id)
   const mealsContainer = document.querySelector("[data-diet-meals]")
   const totalsContainer = document.querySelector("[data-diet-totals]")
   const notesContainer = document.querySelector("[data-diet-notes]")
