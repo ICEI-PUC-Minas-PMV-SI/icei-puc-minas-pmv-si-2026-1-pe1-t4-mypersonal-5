@@ -136,8 +136,27 @@
     return window.location.pathname.includes("/aluno/") || document.body.dataset.profile === "aluno";
   }
 
+  function montarNomeCompletoEstatistica(dados = {}) {
+    if (window.AlunoContexto && typeof window.AlunoContexto.montarNomeCompleto === "function") {
+      return window.AlunoContexto.montarNomeCompleto(dados);
+    }
+
+    const nome = String(dados.nome || "").trim();
+    const sobrenome = String(dados.sobrenome || "").trim();
+    if (!nome) return sobrenome;
+    if (!sobrenome) return nome;
+
+    const nomeLower = nome.toLowerCase();
+    const sobrenomeLower = sobrenome.toLowerCase();
+    if (nome.split(/\s+/).length > 1 || nomeLower.endsWith(` ${sobrenomeLower}`) || nomeLower === sobrenomeLower) {
+      return nome;
+    }
+
+    return `${nome} ${sobrenome}`.trim();
+  }
+
   function formatarAlunoParaEstatistica(dados) {
-    const nomeCompleto = `${dados.nome || ""} ${dados.sobrenome || ""}`.trim() || `${alunoPadrao.nome} ${alunoPadrao.sobrenome}`;
+    const nomeCompleto = montarNomeCompletoEstatistica(dados) || `${alunoPadrao.nome} ${alunoPadrao.sobrenome}`;
     const [nomeFallback, ...sobrenomePartes] = String(nomeCompleto).trim().split(/\s+/);
 
     return {
@@ -194,14 +213,13 @@
   }
 
   function formatarNomeAluno(aluno = buscarAlunoAtual()) {
-    return `${aluno.nome || ""} ${aluno.sobrenome || ""}`.trim() || `${alunoPadrao.nome} ${alunoPadrao.sobrenome}`;
+    return montarNomeCompletoEstatistica(aluno) || `${alunoPadrao.nome} ${alunoPadrao.sobrenome}`;
   }
 
   /* codigo para refletir o aluno atual em textos das telas de profissional */
   function atualizarContextoAlunoNaTela() {
     const aluno = buscarAlunoAtual();
     const nomeAluno = formatarNomeAluno(aluno);
-    const tituloAnterior = "Eliabe Monteiro";
 
     document.querySelectorAll(".student-name").forEach((elemento) => {
       elemento.textContent = nomeAluno;
@@ -212,14 +230,10 @@
       elemento.textContent = `${partes[0]?.[0] || "A"}${partes[1]?.[0] || ""}`.toUpperCase();
     });
 
-    if (document.body.dataset.pageTitle?.includes(tituloAnterior)) {
-      document.body.dataset.pageTitle = document.body.dataset.pageTitle.replace(tituloAnterior, nomeAluno);
-    }
+    document.body.dataset.pageTitle = `Perfil do Aluno - ${nomeAluno}`;
 
     const topbarTitle = document.querySelector(".topbar-title");
-    if (topbarTitle?.textContent.includes(tituloAnterior)) {
-      topbarTitle.textContent = topbarTitle.textContent.replace(tituloAnterior, nomeAluno);
-    }
+    if (topbarTitle) topbarTitle.textContent = document.body.dataset.pageTitle;
   }
 
 
