@@ -377,7 +377,11 @@
       salvarJson(CHAVES.avaliacoes, avaliacoes);
       return true;
     } catch (erro) {
-      alert("Nao foi possivel salvar a avaliacao. Tente usar fotos menores ou remover alguma foto.");
+      const cotaExcedida = erro?.name === "QuotaExceededError"
+        || erro?.name === "NS_ERROR_DOM_QUOTA_REACHED";
+      alert(cotaExcedida
+        ? "O armazenamento do navegador esta cheio. Remova fotos de avaliacoes antigas ou tente salvar menos fotos."
+        : "Nao foi possivel salvar a avaliacao. Tente novamente.");
       return false;
     }
   }

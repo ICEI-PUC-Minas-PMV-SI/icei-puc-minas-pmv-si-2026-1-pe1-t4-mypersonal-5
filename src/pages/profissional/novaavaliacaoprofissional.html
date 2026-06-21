@@ -189,10 +189,7 @@
       successModal.setAttribute("aria-hidden", "true");
     }
 
-    formAvaliacao.addEventListener("submit", (event) => {
-      event.preventDefault();
-      openSuccessModal();
-    });
+    formAvaliacao.addEventListener("avaliacao-salva", openSuccessModal);
 
     successModal.addEventListener("click", (event) => {
       if (event.target === successModal) closeSuccessModal();

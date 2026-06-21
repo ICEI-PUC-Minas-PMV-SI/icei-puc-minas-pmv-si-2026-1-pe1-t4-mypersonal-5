@@ -78,35 +78,50 @@
 
   /* codigo para diminuir a foto antes de salvar no localStorage */
   function compactarFoto(arquivo) {
-    return new Promise((resolve) => {
+    return new Promise((resolve, reject) => {
       const imagem = new Image();
       const leitor = new FileReader();
 
       leitor.onload = () => {
         imagem.onload = () => {
-          const limite = 900;
-          const escala = Math.min(1, limite / Math.max(imagem.width, imagem.height));
-          const largura = Math.round(imagem.width * escala);
-          const altura = Math.round(imagem.height * escala);
           const canvas = document.createElement("canvas");
           const contexto = canvas.getContext("2d");
 
           if (!contexto) {
-            resolve(leitor.result);
+            reject(new Error("Seu navegador nao conseguiu processar a imagem."));
             return;
           }
 
-          canvas.width = largura;
-          canvas.height = altura;
-          contexto.drawImage(imagem, 0, 0, largura, altura);
-          resolve(canvas.toDataURL("image/jpeg", 0.76));
+          const tamanhoMaximo = 220 * 1024;
+          let limite = 800;
+          let qualidade = 0.72;
+          let fotoCompactada = "";
+
+          for (let tentativa = 0; tentativa < 6; tentativa += 1) {
+            const escala = Math.min(1, limite / Math.max(imagem.width, imagem.height));
+            const largura = Math.max(1, Math.round(imagem.width * escala));
+            const altura = Math.max(1, Math.round(imagem.height * escala));
+
+            canvas.width = largura;
+            canvas.height = altura;
+            contexto.fillStyle = "#ffffff";
+            contexto.fillRect(0, 0, largura, altura);
+            contexto.drawImage(imagem, 0, 0, largura, altura);
+            fotoCompactada = canvas.toDataURL("image/jpeg", qualidade);
+
+            if (fotoCompactada.length <= tamanhoMaximo) break;
+            limite = Math.round(limite * 0.82);
+            qualidade = Math.max(0.46, qualidade - 0.06);
+          }
+
+          resolve(fotoCompactada);
         };
 
-        imagem.onerror = async () => resolve(await lerFotoComoDataUrl(arquivo));
+        imagem.onerror = () => reject(new Error("Formato de imagem nao suportado. Use JPG, PNG ou WEBP."));
         imagem.src = leitor.result;
       };
 
-      leitor.onerror = async () => resolve(await lerFotoComoDataUrl(arquivo));
+      leitor.onerror = () => reject(new Error("Nao foi possivel ler a imagem selecionada."));
       leitor.readAsDataURL(arquivo);
     });
   }
@@ -129,6 +144,7 @@
       costas: null,
     };
     let tipoAtual = "frente";
+    let processamentoFotos = Promise.resolve();
 
     function renderizarFoto(tipo) {
       const botaoFoto = botoesFoto.find((botao) => botao.dataset.fotoTipo === tipo);
@@ -173,29 +189,39 @@
       });
     });
 
-    entradaFotos.addEventListener("change", async () => {
+    entradaFotos.addEventListener("change", () => {
       const arquivos = Array.from(entradaFotos.files || []).filter((arquivo) => arquivo.type.startsWith("image/"));
       if (!arquivos.length) return;
 
-      const tipos = entradaFotos.multiple
-        ? Object.keys(fotosSelecionadas).filter((tipo) => !fotosSelecionadas[tipo])
-        : [tipoAtual];
-      const tiposDestino = tipos.length ? tipos : Object.keys(fotosSelecionadas);
+      processamentoFotos = (async () => {
+        const tipos = entradaFotos.multiple
+          ? Object.keys(fotosSelecionadas).filter((tipo) => !fotosSelecionadas[tipo])
+          : [tipoAtual];
+        const tiposDestino = tipos.length ? tipos : Object.keys(fotosSelecionadas);
 
-      for (const [indice, arquivo] of arquivos.slice(0, tiposDestino.length).entries()) {
-        const tipo = tiposDestino[indice];
-        fotosSelecionadas[tipo] = {
-          tipo,
-          nome: arquivo.name,
-          dados: await compactarFoto(arquivo),
-        };
-        renderizarFoto(tipo);
-      }
+        for (const [indice, arquivo] of arquivos.slice(0, tiposDestino.length).entries()) {
+          const tipo = tiposDestino[indice];
 
-      entradaFotos.value = "";
+          try {
+            fotosSelecionadas[tipo] = {
+              tipo,
+              nome: arquivo.name,
+              dados: await compactarFoto(arquivo),
+            };
+            renderizarFoto(tipo);
+          } catch (erro) {
+            alert(erro.message || "Nao foi possivel adicionar uma das fotos.");
+          }
+        }
+
+        entradaFotos.value = "";
+      })();
     });
 
-    return () => Object.values(fotosSelecionadas).filter(Boolean);
+    return {
+      aguardarProcessamento: () => processamentoFotos,
+      buscarFotos: () => Object.values(fotosSelecionadas).filter(Boolean),
+    };
   }
 
   /* codigo do comparativo em tempo real da nova avaliacao */
@@ -274,15 +300,23 @@
     if (!formulario) return;
 
     configurarComparativoNovaAvaliacao();
-    const buscarFotosSelecionadas = configurarFotosNovaAvaliacao();
+    const controleFotos = configurarFotosNovaAvaliacao();
 
-    formulario.addEventListener("submit", (evento) => {
-      if (!validarNovaAvaliacao()) {
-        evento.preventDefault();
-        evento.stopImmediatePropagation();
-        return;
+    formulario.addEventListener("submit", async (evento) => {
+      evento.preventDefault();
+      evento.stopImmediatePropagation();
+
+      if (!validarNovaAvaliacao()) return;
+
+      const botaoSalvar = formulario.querySelector('[type="submit"]');
+      const textoOriginal = botaoSalvar?.textContent;
+
+      if (botaoSalvar) {
+        botaoSalvar.disabled = true;
+        botaoSalvar.textContent = "Salvando...";
       }
 
+      await controleFotos.aguardarProcessamento();
       const data = document.getElementById("data-avaliacao")?.value || new Date().toISOString().slice(0, 10);
 
       const avaliacaoSalva = salvarAvaliacao({
@@ -300,13 +334,15 @@
         coxaDireita: document.getElementById("coxa-direita")?.value || "",
         coxaEsquerda: document.getElementById("coxa-esquerda")?.value || "",
         observacoes: document.getElementById("obs-avaliacao")?.value || "",
-        fotos: buscarFotosSelecionadas(),
+        fotos: controleFotos.buscarFotos(),
       });
 
-      if (!avaliacaoSalva) {
-        evento.preventDefault();
-        evento.stopImmediatePropagation();
+      if (botaoSalvar) {
+        botaoSalvar.disabled = false;
+        botaoSalvar.textContent = textoOriginal;
       }
+
+      if (avaliacaoSalva) formulario.dispatchEvent(new CustomEvent("avaliacao-salva"));
     }, true);
   }
 
